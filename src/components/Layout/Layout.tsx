@@ -12,24 +12,20 @@ function Layout() {
     const [score, setScore] = useState(0);
     const [numCircles, setNumCircles] = useState(0);
     const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>([]);
-    const canvasRef = useCanvas(draw)
-    const canvas = canvasRef.current;
-    const width = canvas?.width;
-    const height = canvas?.height;
-    console.log(width, height) //undefined
+    // const canvasRef = useCanvas(draw)
+    // const canvas = canvasRef.current;
+    // const width = canvas?.width;
+    // const height = canvas?.height;
+    // console.log(width, height) //undefined
     function getRandomCoordinate(max: number) {
         return Math.random() * max;
     }
 
-    function generateRandomPosition() {
-        const randomX = getRandomCoordinate(dimensions.width);
-        const randomY = getRandomCoordinate(dimensions.height);
-        return { x: randomX, y: randomY };
-    }
+    
 
-    function addCircle() {
-        setCirclePosition((prevPositions) => [...prevPositions, generateRandomPosition()]);
-    }
+    // function addCircle() {
+    //     setCirclePosition((prevPositions) => [...prevPositions, generateRandomPosition()]);
+    // }
 
     function draw(ctx: CanvasRenderingContext2D, frameCount: number) {
     // const sizes = resizeCanvas(ctx.canvas);
@@ -49,7 +45,11 @@ function Layout() {
       rectHeight
     );
 
-    
+    function generateRandomPosition() {
+        const randomX = getRandomCoordinate(canvas.width);
+        const randomY = getRandomCoordinate(canvas.height);
+        return { x: randomX, y: randomY };
+    }
 
     circlePosition.map((position) => {
         drawCircle(position.x, position.y);
@@ -68,7 +68,7 @@ function Layout() {
     }
 
     const handleCircle = () => {
-        addCircle()
+        // addCircle()
         setNumCircles(prev => prev + 1)
     }
 

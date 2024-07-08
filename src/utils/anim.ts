@@ -22,8 +22,8 @@ function animateCircle(circleX: number, circleY: number, centerX: number, center
       ctx.arc(circleX, circleY, circleRadius, 0, 2 * Math.PI);
       ctx.fill();
 
-      requestAnimationFrame(() => animateCircle(circleCoords.x, circleCoords.y, centerX, centerY, ctx));
+    //   requestAnimationFrame(() => animateCircle(circleCoords.x, circleCoords.y, centerX, centerY, ctx));
     } else {
-      setScore((prevScore) => prevScore + 1);
+    //   setScore((prevScore) => prevScore + 1);
     }
   }
