@@ -1,0 +1,80 @@
+html {
+    box-sizing: border-box;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+    // outline: 1px red solid;
+  }
+  
+  body {
+    font-family: 'OpenSans', Arial, sans-serif;
+    margin: 0;
+    font-weight: 400;
+    min-width: 320px;
+  }
+  
+  :root {
+    //z-index
+    --modal-z-index: 10;
+    
+    // // Цвета из Фигмы
+    --overlay-color: rgba(217 217 217 / 80%);
+    --sorporate-yellow: #fbbc05;
+    --light-corporate-yellow: #face4d;
+    --dark-grey: #555;
+    --grey: #bdbbbe;
+    --light-grey: #f1f1f1;
+    --white: #fff;
+    --error: #d51a52;
+    --black: #000;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  p,
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    padding: 0;
+  }
+  
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+//   .app,
+//   .app_modal{
+//     background: var(--bg-color);
+//     color: var(--primary-color);
+    
+//   }
+//   .svgColors path {
+//     stroke: var(--stroke-color);
+//   }
+  
+//   .svgColor path {
+//     fill: var(--fill-color)
+//   }
+  
+  .container {
+    max-width: 370px;
+    padding: 0 5px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100vh;
+  }
