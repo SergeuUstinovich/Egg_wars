@@ -1,87 +1,64 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Canvas from "../Canvas/Canvas";
 import style from "./Layout.module.scss";
+import { generateRandomPosition } from "../../utils/getRandomCoordinate";
+import { drawCircle, drawSquare, isCircleReachedSquare } from "../../utils/drawCanvas";
 
 interface circlePositionProps {
-  x: number,
-  y: number,
-  dx: number,
-  dy: number
+  x: number;
+  y: number;
+  dx: number;
+  dy: number;
 }
 
 function Layout() {
-    const [score, setScore] = useState(0);
-    const [numCircles, setNumCircles] = useState(50);
-    const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>([]);
-    function getRandomCoordinate(max: number) {
-        return Math.random() * max;
-    }
-    const speedRun = 100
-    
-    function generateRandomPosition() {
-      const minX = 50; // Начало области по X
-      const maxX = 320; // Конец области по X
-      const minY = 300;  // Начало области по Y
-      const maxY = 400; // Конец области по Y
+  const [score, setScore] = useState(0);
+  const [numCircles, setNumCircles] = useState(50);
+  const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
+    []
+  );
 
-    const randomX = getRandomCoordinate(maxX - minX) + minX;
-    const randomY = getRandomCoordinate(maxY - minY) + minY;
-      return { x: randomX, y: randomY };
-    }
+  const addCircle = useCallback((speedRun: number) => {
+    const position = generateRandomPosition(50, 320, 300, 400);
+    const dx = (360 / 2 - position.x) / speedRun;
+    const dy = (480 / 2.5 - position.y) / speedRun;
+    setCirclePosition((prevPositions) => [
+      ...prevPositions,
+      { ...position, dx, dy },
+    ]);
+  }, []);
 
-    function addCircle() {
-      const position = generateRandomPosition();
-      const dx = (360 / 2 - position.x) / speedRun;
-      const dy = (480 / 2.5 - position.y) / speedRun;
-      setCirclePosition((prevPositions) => [...prevPositions, { ...position, dx, dy }]);
-    }
-
-    function draw(ctx: CanvasRenderingContext2D, frameCount: number) {
-    const canvas = ctx.canvas;
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const rectWidth = 100;
-    const rectHeight = 100;
-
-    ctx.fillStyle = "blue";
-
-    ctx.fillRect(
-      centerX / 2 - rectWidth / 2,
-      centerY / 2.5 - rectHeight,
-      rectWidth,
-      rectHeight
-    );
+  function draw(ctx: CanvasRenderingContext2D, frameCount: number) {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    const centerX = ctx.canvas.width / 2;
+    const centerY = ctx.canvas.height / 2.5;
+    const size = 100;
+    const squareX = ctx.canvas.width / 3.9 - size / 2;
+    const squareY = ctx.canvas.height / 5 - size;
+    drawSquare(ctx, squareX, squareY, size, "blue");//создаём квадрат
 
     circlePosition.map((position, index) => {
       position.x += position.dx;
       position.y += position.dy;
 
       // Проверяем, достиг ли круг квадрата
-      if (position.x >= centerX / 2 - rectWidth / 2 && position.x <= centerX / 2 + rectWidth / 2 &&
-          position.y >= centerY / 2.5 - rectHeight && position.y <= centerY / 2.5) {
-          setScore(prevScore => prevScore + 1);
-          setCirclePosition(prevPositions => prevPositions.filter((_, i) => i !== index));
+      if (isCircleReachedSquare(position, centerX, centerY, size)) {
+        setScore((prevScore) => prevScore + 1);
+        setCirclePosition((prevPositions) =>
+          prevPositions.filter((_, i) => i !== index)
+        );
       } else {
-          drawCircle(position.x, position.y);
+        drawCircle(ctx, position.x, position.y, 10, "red");//создаём круг
       }
-  });
+    });
+  }
 
-    // Генерируем случайные координаты для кружков
-    function drawCircle(x: number, y: number) {
-        const circleRadius = 10;
-        ctx.fillStyle = "red";
-        ctx.beginPath();
-        ctx.arc(x, y, circleRadius, 0, 2 * Math.PI);
-        ctx.fill();
+  const handleCircle = useCallback(() => {
+    if (numCircles > 0) {
+      addCircle(100);
+      setNumCircles((prev) => prev - 1);
     }
-    }
-
-    const handleCircle = () => {
-      if (numCircles > 0) {
-        addCircle();
-        setNumCircles(prev => prev - 1);
-    }
-    }
+  }, [numCircles, addCircle]);
 
   return (
     <>
@@ -89,7 +66,9 @@ function Layout() {
       <main className={style.main}>
         <div>{score} Монеты</div>
         <Canvas draw={draw} />
-        <button className={style.btnUnit} onClick={handleCircle}>Клик {numCircles}</button>
+        <button className={style.btnUnit} onClick={handleCircle}>
+          Клик {numCircles}
+        </button>
       </main>
       <footer></footer>
     </>
