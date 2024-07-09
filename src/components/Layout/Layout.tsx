@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Canvas from "../Canvas/Canvas";
 import style from "./Layout.module.scss";
-import { addCircle, drawCircle, drawProgressBar, isCircleReachedSquare } from "../../utils/drawCanvas";
+import { addCircle, drawCircle, drawProgressBar, drawText, isCircleReachedSquare } from "../../utils/drawCanvas";
 import imageCasltes from "../../assets/img/casle-lvl-1.png";
 import imageBtns from "../../assets/img/btn-tap.png";
 import useImage from "../../utils/useImage";
@@ -15,7 +15,7 @@ export interface circlePositionProps {
 
 function Layout() {
   const [score, setScore] = useState(0);
-  const [numCircles, setNumCircles] = useState(50);
+  const [numCircles, setNumCircles] = useState(150);
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
@@ -33,13 +33,13 @@ function Layout() {
     const squareX = ctx.canvas.width / 4 - sizeCastle / 2;
     const squareY = ctx.canvas.height / 3.6 - sizeCastle;
 
-    const sizeBtn = ctx.canvas.width * 0.23;
+    const sizeBtn = ctx.canvas.width * 0.25;
     const buttonX = ctx.canvas.width / 4 - sizeBtn / 2;
     const buttonY = ctx.canvas.height / 2.26 - sizeBtn;
 
     const sizeText = ctx.canvas.width * 0.02;
-    const textX = ctx.canvas.width / 2.7 - sizeBtn / 2;
-    const textY = ctx.canvas.height / 2.087 - sizeBtn;
+    const textX = ctx.canvas.width / 2.67 - sizeBtn / 2;
+    const textY = ctx.canvas.height / 2.08 - sizeBtn;
 
     circlePosition.map((position, index) => {
       position.x += position.dx;
@@ -73,11 +73,9 @@ function Layout() {
       drawProgressBar(ctx, 0, 0, sizeBtn / 2.33, progress);
       ctx.restore();
     }
+    drawText(ctx, sizeText, textX, textY, numCircles, '50') //макссЭнерегнию пока текст
     
-    ctx.textAlign = "center";
-    ctx.font = `${sizeText}px Arial`;
-    ctx.fillStyle = "black";
-    ctx.fillText(`${numCircles} / 50`, textX, textY);
+  
   }
 
   useEffect(() => {
@@ -121,7 +119,7 @@ function Layout() {
     <>
       <header></header>
       <main className={style.main}>
-        <div>{score} Монеты</div>
+        <div className={style.divs}>{score} Монеты</div>
         <Canvas draw={draw} />
       </main>
       <footer></footer>

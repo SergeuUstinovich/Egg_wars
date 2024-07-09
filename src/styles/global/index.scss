@@ -1,3 +1,5 @@
+@import url('./font.scss');
+
 html {
     box-sizing: border-box;
   }
@@ -10,7 +12,7 @@ html {
   }
   
   body {
-    font-family: 'OpenSans', Arial, sans-serif;
+    font-family: 'PassionOne', Arial, sans-serif;
     margin: 0;
     font-weight: 400;
     min-width: 320px;
@@ -19,7 +21,7 @@ html {
   :root {
     //z-index
     --modal-z-index: 10;
-    
+    color: #1fbcff;
     // // Цвета из Фигмы
     --overlay-color: rgba(217 217 217 / 80%);
     --sorporate-yellow: #fbbc05;
