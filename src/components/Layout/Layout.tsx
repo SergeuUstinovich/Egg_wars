@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Canvas from "../Canvas/Canvas";
 import style from "./Layout.module.scss";
-import { generateRandomPosition } from "../../utils/getRandomCoordinate";
-import { drawCircle, drawCastle, isCircleReachedSquare } from "../../utils/drawCanvas";
-import imageUrl1 from '../../assets/img/casle-lvl-1.png'
-import imageUrl2 from '../../assets/img/btn-tap.png'
-interface circlePositionProps {
+import { addCircle, drawCircle, drawProgressBar, isCircleReachedSquare } from "../../utils/drawCanvas";
+import imageCasltes from "../../assets/img/casle-lvl-1.png";
+import imageBtns from "../../assets/img/btn-tap.png";
+import useImage from "../../utils/useImage";
+
+export interface circlePositionProps {
   x: number;
   y: number;
   dx: number;
@@ -18,71 +19,101 @@ function Layout() {
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
-
-  const [imageCastle, setImageCastle] = useState<HTMLImageElement | null>(null);
-  const [imageBtn, setImageBtn] = useState<HTMLImageElement | null>(null);
-
-  useEffect(() => {
-    const imgCastle = new Image();
-    const imgBtn = new Image();
-    imgCastle.src = imageUrl1;
-    imgBtn.src = imageUrl2;
-    imgCastle.onload = () => {
-      setImageCastle(imgCastle);
-    };
-    imgBtn.onload = () => {
-      setImageBtn(imageBtn);
-    };
-  }, []);
-
-  const addCircle = useCallback((speedRun: number) => {
-    const position = generateRandomPosition(100, 420, 600, 750);
-    const dx = (513 / 2 - position.x) / speedRun;
-    const dy = (963 / 2.5 - position.y) / speedRun;
-    setCirclePosition((prevPositions) => [
-      ...prevPositions,
-      { ...position, dx, dy },
-    ]);
-  }, []);
+  const [btnScale, setBtnScale] = useState(1);
+  const imageCastle = useImage(imageCasltes);
+  const imageBtn = useImage(imageBtns);
+  
 
   function draw(ctx: CanvasRenderingContext2D, frameCount: number) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     const centerX = ctx.canvas.width / 2;
-    const centerY = ctx.canvas.height / 2.5;
-    const size = ctx.canvas.width * 0.2;
-    const squareX = ctx.canvas.width / 3.9 - size / 2;
-    const squareY = ctx.canvas.height / 5 - size;
+    const centerY = ctx.canvas.height / 2;
 
-    const buttonX = ctx.canvas.width / 2 - size;;
-    const buttonY = ctx.canvas.height / 3 - size;
-    if (imageCastle) {
-      ctx.drawImage(imageCastle, squareX, squareY, size, size);
-      
-    }
-    if(imageBtn) {
-      ctx.drawImage(imageBtn, buttonX, buttonY, size, size);
-    }
+    const sizeCastle = ctx.canvas.width * 0.3;
+    const squareX = ctx.canvas.width / 4 - sizeCastle / 2;
+    const squareY = ctx.canvas.height / 3.6 - sizeCastle;
+
+    const sizeBtn = ctx.canvas.width * 0.23;
+    const buttonX = ctx.canvas.width / 4 - sizeBtn / 2;
+    const buttonY = ctx.canvas.height / 2.26 - sizeBtn;
+
+    const sizeText = ctx.canvas.width * 0.02;
+    const textX = ctx.canvas.width / 2.7 - sizeBtn / 2;
+    const textY = ctx.canvas.height / 2.087 - sizeBtn;
 
     circlePosition.map((position, index) => {
       position.x += position.dx;
       position.y += position.dy;
 
       // Проверяем, достиг ли круг квадрата
-      if (isCircleReachedSquare(position, centerX, centerY, size)) {
+      if (isCircleReachedSquare(position, centerX, centerY, sizeCastle)) {
         setScore((prevScore) => prevScore + 1);
         setCirclePosition((prevPositions) =>
           prevPositions.filter((_, i) => i !== index)
         );
       } else {
-        drawCircle(ctx, position.x, position.y, 10, "red");//создаём круг
+      drawCircle(ctx, position.x, position.y, 10, "red");
       }
     });
+
+    if (imageCastle) {
+      ctx.drawImage(imageCastle, squareX, squareY, sizeCastle, sizeCastle);
+    }
+    
+    if (imageBtn) {
+      const progress = numCircles / 50; //сюда передавать максс энергию
+      ctx.save();
+      ctx.translate(buttonX + sizeBtn / 2, buttonY + sizeBtn / 2);
+      ctx.scale(btnScale, btnScale);
+      ctx.drawImage(imageBtn, -sizeBtn / 2, -sizeBtn / 2, sizeBtn, sizeBtn);
+      ctx.restore();
+      ctx.save();
+      ctx.translate(buttonX + sizeBtn / 2, buttonY + sizeBtn / 2);
+      ctx.scale(btnScale, btnScale);
+      drawProgressBar(ctx, 0, 0, sizeBtn / 2.33, progress);
+      ctx.restore();
+    }
+    
+    ctx.textAlign = "center";
+    ctx.font = `${sizeText}px Arial`;
+    ctx.fillStyle = "black";
+    ctx.fillText(`${numCircles} / 50`, textX, textY);
   }
 
-  const handleCircle = useCallback(() => {
-    if (numCircles > 0) {
-      addCircle(100);
-      setNumCircles((prev) => prev - 1);
+  useEffect(() => {
+    const canvas = document.querySelector("canvas");
+    if (canvas) {
+      const handleClick = (e: MouseEvent) => {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const sizeBtn = canvas.width * 0.23;
+        const buttonX = canvas.width / 4 - sizeBtn / 2;
+        const buttonY = canvas.height / 2.26 - sizeBtn;
+        if (
+          x >= buttonX &&
+          x <= buttonX + sizeBtn &&
+          y >= buttonY &&
+          y <= buttonY + sizeBtn
+        ) {
+          
+          if (numCircles > 0) {
+            const newCircle = addCircle(100, centerX, centerY);
+            setCirclePosition((prevPositions) => [...prevPositions, newCircle]);
+            setNumCircles((prev) => prev - 1);
+            setBtnScale(0.9);
+            const timerId = setTimeout(() => setBtnScale(1), 100);
+            return () => clearTimeout(timerId)
+          }
+           
+        }
+      };
+      canvas.addEventListener("click", handleClick);
+      return () => {
+        canvas.removeEventListener("click", handleClick);
+      };
     }
   }, [numCircles, addCircle]);
 
@@ -92,9 +123,6 @@ function Layout() {
       <main className={style.main}>
         <div>{score} Монеты</div>
         <Canvas draw={draw} />
-        <button className={style.btnUnit} onClick={handleCircle}>
-          Клик {numCircles}
-        </button>
       </main>
       <footer></footer>
     </>
