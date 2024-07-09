@@ -12,9 +12,12 @@ export function drawCircle(context: CanvasRenderingContext2D, x: number, y: numb
 }
 
 // Функция для рисования квадрата
-export function drawSquare(context: CanvasRenderingContext2D, x: number, y: number, size: number, color: string): void {
-    context.fillStyle = color;
-    context.fillRect(x, y, size, size);
+export function drawCastle(context: CanvasRenderingContext2D, x: number, y: number, size: number, imageUrl1: string): void {
+    const img = new Image()
+    img.src = imageUrl1;
+    img.onload = () => {
+        context.drawImage(img, x, y, size, size)
+    }
 }
 
 interface Position {
