@@ -5,6 +5,7 @@ import { addCircle, drawCircle, drawProgressBar, drawText, isCircleReachedSquare
 import imageCasltes from "../../assets/img/casle-lvl-1.png";
 import imageBtns from "../../assets/img/btn-tap.png";
 import useImage from "../../utils/useImage";
+import { resizeCanvas } from "../../utils/resizeCanvas";
 
 export interface circlePositionProps {
   x: number;
@@ -27,9 +28,9 @@ function Layout() {
 
   function draw(ctx: CanvasRenderingContext2D, frameCount: number) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    const centerX = ctx.canvas.width / 2;
-    const centerY = ctx.canvas.height / 2;
-
+    const centerX = ctx.canvas.width;
+    const centerY = ctx.canvas.height;
+    resizeCanvas(ctx.canvas);
     const sizeCastle = ctx.canvas.width * 0.3;
     const squareX = ctx.canvas.width / 4 - sizeCastle / 2;
     const squareY = ctx.canvas.height / 3.6 - sizeCastle;
