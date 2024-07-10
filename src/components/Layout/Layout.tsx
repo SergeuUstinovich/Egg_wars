@@ -31,33 +31,33 @@ function Layout() {
     const centerX = ctx.canvas.width;
     const centerY = ctx.canvas.height;
     resizeCanvas(ctx.canvas);
-    const sizeCastle = ctx.canvas.width * 0.3;
-    const squareX = ctx.canvas.width / 4 - sizeCastle / 2;
-    const squareY = ctx.canvas.height / 3.6 - sizeCastle;
+    const sizeCastle = ctx.canvas.width * 0.6;
+    const squareX = ctx.canvas.width / 2 - sizeCastle / 2;
+    const squareY = ctx.canvas.height / 1.8 - sizeCastle;
 
-    const sizeBtn = ctx.canvas.width * 0.25;
-    const buttonX = ctx.canvas.width / 4 - sizeBtn / 2;
-    const buttonY = ctx.canvas.height / 2.26 - sizeBtn;
+    const sizeBtn = ctx.canvas.width * 0.5;
+    const buttonX = ctx.canvas.width / 2 - sizeBtn / 2;
+    const buttonY = ctx.canvas.height / 1.18 - sizeBtn;
 
-    const sizeText = ctx.canvas.width * 0.02;
-    const textX = ctx.canvas.width / 2.67 - sizeBtn / 2;
-    const textY = ctx.canvas.height / 2.08 - sizeBtn;
+    const sizeText = ctx.canvas.width * 0.04;
+    const textX = ctx.canvas.width / 1.35 - sizeBtn / 2;
+    const textY = ctx.canvas.height / 1.04 - sizeBtn;
     circlePosition.map((position, index) => {
   
-      position.x += position.dx 
-      position.y += position.dy;
+      // position.x += position.dx 
+      // position.y += position.dy;
 
-      // Проверяем, достиг ли круг квадрата
-      if (isCircleReachedSquare(position, centerX, centerY, sizeCastle)) {
-        setScore((prevScore) => prevScore + 1);
-        setCirclePosition((prevPositions) =>
-          prevPositions.filter((_, i) => i !== index)
-        );
+      // // Проверяем, достиг ли круг квадрата
+      // if (isCircleReachedSquare(position, centerX, centerY, sizeCastle)) {
+      //   setScore((prevScore) => prevScore + 1);
+      //   setCirclePosition((prevPositions) =>
+      //     prevPositions.filter((_, i) => i !== index)
+      //   );
          
-      } else {
+      // } else {
       drawCircle(ctx, position.x, position.y, 10, "red");
       
-      }
+      // }
     });
 
     if (imageCastle) {

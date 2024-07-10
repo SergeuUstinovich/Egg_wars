@@ -29,12 +29,12 @@ export function addCircle(speedRun: number, canvasW: number, canvasH: number) {
   // первый варик
   const position =
     randomSide < 0.5
-      ? generateRandomPosition(30, 90, canvasH / 1.8, canvasH / 2.5 + 300)
+      ? generateRandomPosition(30, 90, canvasH / 0.9, canvasH / 1.25 + 300)
       : generateRandomPosition(
           canvasW - 30,
           canvasW - 90,
-          canvasH / 1.8,
-          canvasH / 2.5 + 300
+          canvasH / 0.9,
+          canvasH / 1.25 + 300
         );
   // второй варик с высотой
   // const position =
@@ -54,8 +54,8 @@ export function addCircle(speedRun: number, canvasW: number, canvasH: number) {
   // третий варик
   // const position = generateRandomPosition(30, canvasW - 30, canvasH / 1.6, canvasH - 100);
 
-  const dx = (canvasW / 2 - position.x) / speedRun;
-  const dy = (canvasH / 2.5 - position.y) / speedRun;
+  const dx = (canvasW / 1 - position.x) / speedRun;
+  const dy = (canvasH / 1.25 - position.y) / speedRun;
 
   return { ...position, dx, dy };
 }
