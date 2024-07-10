@@ -85,37 +85,36 @@ function Layout() {
   useEffect(() => {
     const canvas = document.querySelector("canvas");
     if (canvas) {
-      const handleClick = (e: MouseEvent) => {
+      const handleTouchStart = (e: TouchEvent) => {
         const centerX = canvas.width;
         const centerY = canvas.height;
         const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const sizeBtn = canvas.width * 0.5;
-        const buttonX = canvas.width / 1.9 - sizeBtn / 2;
-        const buttonY = canvas.height / 1.14 - sizeBtn;
-        if (
-          x >= buttonX &&
-          x <= buttonX + sizeBtn &&
-          y >= buttonY &&
-          y <= buttonY + sizeBtn
-        ) {
-          
-          if (energyMax > 0) {
-            const newCircle = addCircle(speedRun, centerX, centerY);
-            // setSpeedRun(prev=> prev - (prev * 0.1)) //скорость будет изменяться в зависимости от прокачки пересмотреть
-            setCirclePosition((prevPositions) => [...prevPositions, newCircle]);
-            setEnergyMax((prev) => prev - 1);
-            setBtnScale(0.9);
-            const timerId = setTimeout(() => setBtnScale(1), 50);
-            return () => clearTimeout(timerId)
+        for (let i = 0; i < e.touches.length; i++) {
+          const x = e.touches[i].clientX - rect.left;
+          const y = e.touches[i].clientY - rect.top;
+          const sizeBtn = canvas.width * 0.5;
+          const buttonX = canvas.width / 1.9 - sizeBtn / 2;
+          const buttonY = canvas.height / 1.14 - sizeBtn;
+          if (
+            x >= buttonX &&
+            x <= buttonX + sizeBtn &&
+            y >= buttonY &&
+            y <= buttonY + sizeBtn
+          ) {
+            if (energyMax > 0) {
+              const newCircle = addCircle(speedRun, centerX, centerY);
+              setCirclePosition((prevPositions) => [...prevPositions, newCircle]);
+              setEnergyMax((prev) => prev - 1);
+              setBtnScale(0.9);
+              const timerId = setTimeout(() => setBtnScale(1), 50);
+              return () => clearTimeout(timerId)
+            }
           }
-           
         }
       };
-      canvas.addEventListener("mousedown", handleClick);
+      canvas.addEventListener("touchstart", handleTouchStart);
       return () => {
-        canvas.removeEventListener("mousedown", handleClick);
+        canvas.removeEventListener("touchstart", handleTouchStart);
       };
     }
   }, [energyMax, addCircle]);
