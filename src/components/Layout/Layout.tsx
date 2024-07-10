@@ -93,7 +93,7 @@ function Layout() {
         const y = e.clientY - rect.top;
         const sizeBtn = canvas.width * 0.5;
         const buttonX = canvas.width / 1.9 - sizeBtn / 2;
-        const buttonY = canvas.height / 1.05 - sizeBtn;
+        const buttonY = canvas.height / 1.14 - sizeBtn;
         if (
           x >= buttonX &&
           x <= buttonX + sizeBtn &&
