@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ElementRef, useEffect, useRef, useState } from "react";
 import Canvas from "../Canvas/Canvas";
 import style from "./Layout.module.scss";
 import { addCircle, drawCircle, drawProgressBar, drawText, isCircleReachedSquare } from "../../utils/drawCanvas";
@@ -6,6 +6,7 @@ import imageCasltes from "../../assets/img/casle-lvl-1.png";
 import imageBtns from "../../assets/img/btn-tap.png";
 import useImage from "../../utils/useImage";
 import { resizeCanvas } from "../../utils/resizeCanvas";
+import useCanvas from "../../utils/useCanvas";
 
 export interface circlePositionProps {
   x: number;
@@ -24,9 +25,21 @@ function Layout() {
   const [btnScale, setBtnScale] = useState(1);
   const imageCastle = useImage(imageCasltes);
   const imageBtn = useImage(imageBtns);
+
+  const canvasRef = useRef<ElementRef<"canvas">>(null);
+  let ctx = canvasRef.current?.getContext("2d");
+  
+  useCanvas(draw, canvasRef.current)
+ 
+  if (imageCastle && ctx) {
+    const sizeCastle = ctx.canvas.width * 0.6;
+    const squareX = ctx.canvas.width / 1.9 - sizeCastle / 2;
+    const squareY = ctx.canvas.height / 2.1 - sizeCastle;
+    ctx.drawImage(imageCastle, squareX, squareY, sizeCastle, sizeCastle);
+  }
   
 
-  function draw(ctx: CanvasRenderingContext2D, frameCount: number) {
+  function draw(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     const centerX = ctx.canvas.width;
     const centerY = ctx.canvas.height;
@@ -56,7 +69,6 @@ function Layout() {
          
       } else {
       drawCircle(ctx, position.x, position.y, 10, "red");
-      
       }
     });
 
@@ -79,9 +91,11 @@ function Layout() {
     }
     drawText(ctx, sizeText, textX, textY, energyMax, '50') //макссЭнерегнию пока текст
     
-  
   }
-
+  if(ctx) {
+    draw(ctx)
+  }
+  
   useEffect(() => {
     const canvas = document.querySelector("canvas");
     if (canvas) {
@@ -124,7 +138,7 @@ function Layout() {
       <header></header>
       <main className={style.main}>
         <div className={style.divs}>{score} Монеты</div>
-        <Canvas draw={draw} />
+        <Canvas draw={draw} ref={canvasRef} />
       </main>
       <footer></footer>
     </>

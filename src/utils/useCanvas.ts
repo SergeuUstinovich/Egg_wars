@@ -1,12 +1,12 @@
-import { RefObject, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { resizeCanvas } from "./resizeCanvas";
 
 
-function useCanvas(draw: (context: CanvasRenderingContext2D, frameCount: number) => void): RefObject<HTMLCanvasElement> {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+function useCanvas(draw: (context: CanvasRenderingContext2D, frameCount: number) => void, canvasCur: HTMLCanvasElement | null) {
+  
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = canvasCur;
     const context = canvas?.getContext("2d");
     let frameCount = 0;
     let animationFrameId: number;
@@ -27,7 +27,7 @@ function useCanvas(draw: (context: CanvasRenderingContext2D, frameCount: number)
       };
     }
   }, [draw]);
-  return canvasRef
+
 }
 
 export default useCanvas;
