@@ -44,20 +44,20 @@ function Layout() {
     const textY = ctx.canvas.height / 0.96 - sizeBtn;
     circlePosition.map((position, index) => {
   
-      position.x += position.dx 
-      position.y += position.dy;
+      // position.x += position.dx 
+      // position.y += position.dy;
 
       // Проверяем, достиг ли круг квадрата
-      if (isCircleReachedSquare(position, centerX, centerY, sizeCastle)) {
-        setScore((prevScore) => prevScore + 1);
-        setCirclePosition((prevPositions) =>
-          prevPositions.filter((_, i) => i !== index)
-        );
+      // if (isCircleReachedSquare(position, centerX, centerY, sizeCastle)) {
+      //   setScore((prevScore) => prevScore + 1);
+      //   setCirclePosition((prevPositions) =>
+      //     prevPositions.filter((_, i) => i !== index)
+      //   );
          
-      } else {
+      // } else {
       drawCircle(ctx, position.x, position.y, 20, "red");
       
-      }
+      // }
     });
 
     if (imageCastle) {
