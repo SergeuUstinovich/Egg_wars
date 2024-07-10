@@ -113,9 +113,9 @@ function Layout() {
            
         }
       };
-      canvas.addEventListener("click", handleClick);
+      canvas.addEventListener("mousedown", handleClick);
       return () => {
-        canvas.removeEventListener("click", handleClick);
+        canvas.removeEventListener("mousedown", handleClick);
       };
     }
   }, [energyMax, addCircle]);
