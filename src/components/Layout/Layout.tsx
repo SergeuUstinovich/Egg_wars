@@ -37,27 +37,27 @@ function Layout() {
 
     const sizeBtn = ctx.canvas.width * 0.5;
     const buttonX = ctx.canvas.width / 2 - sizeBtn / 2;
-    const buttonY = ctx.canvas.height / 1.18 - sizeBtn;
+    const buttonY = ctx.canvas.height / 1.05 - sizeBtn;
 
     const sizeText = ctx.canvas.width * 0.04;
-    const textX = ctx.canvas.width / 1.35 - sizeBtn / 2;
-    const textY = ctx.canvas.height / 1.04 - sizeBtn;
+    const textX = ctx.canvas.width / 1.34 - sizeBtn / 2;
+    const textY = ctx.canvas.height / 0.96 - sizeBtn;
     circlePosition.map((position, index) => {
   
-      // position.x += position.dx 
-      // position.y += position.dy;
+      position.x += position.dx 
+      position.y += position.dy;
 
-      // // Проверяем, достиг ли круг квадрата
-      // if (isCircleReachedSquare(position, centerX, centerY, sizeCastle)) {
-      //   setScore((prevScore) => prevScore + 1);
-      //   setCirclePosition((prevPositions) =>
-      //     prevPositions.filter((_, i) => i !== index)
-      //   );
+      // Проверяем, достиг ли круг квадрата
+      if (isCircleReachedSquare(position, centerX, centerY, sizeCastle)) {
+        setScore((prevScore) => prevScore + 1);
+        setCirclePosition((prevPositions) =>
+          prevPositions.filter((_, i) => i !== index)
+        );
          
-      // } else {
-      drawCircle(ctx, position.x, position.y, 10, "red");
+      } else {
+      drawCircle(ctx, position.x, position.y, 20, "red");
       
-      // }
+      }
     });
 
     if (imageCastle) {
@@ -86,14 +86,14 @@ function Layout() {
     const canvas = document.querySelector("canvas");
     if (canvas) {
       const handleClick = (e: MouseEvent) => {
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
+        const centerX = canvas.width;
+        const centerY = canvas.height;
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        const sizeBtn = canvas.width * 0.23;
+        const sizeBtn = canvas.width * 0.25;
         const buttonX = canvas.width / 4 - sizeBtn / 2;
-        const buttonY = canvas.height / 2.26 - sizeBtn;
+        const buttonY = canvas.height / 2.36 - sizeBtn;
         if (
           x >= buttonX &&
           x <= buttonX + sizeBtn &&
