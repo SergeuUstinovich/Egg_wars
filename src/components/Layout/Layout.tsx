@@ -16,7 +16,7 @@ export interface circlePositionProps {
 
 function Layout() {
   const [score, setScore] = useState(0);
-  const [energyMax, setEnergyMax] = useState(150);
+  const [energyMax, setEnergyMax] = useState(50);
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
@@ -33,15 +33,15 @@ function Layout() {
     resizeCanvas(ctx.canvas);
     const sizeCastle = ctx.canvas.width * 0.6;
     const squareX = ctx.canvas.width / 1.9 - sizeCastle / 2;
-    const squareY = ctx.canvas.height / 1.8 - sizeCastle;
+    const squareY = ctx.canvas.height / 2.1 - sizeCastle;
 
     const sizeBtn = ctx.canvas.width * 0.5;
     const buttonX = ctx.canvas.width / 1.9 - sizeBtn / 2;
-    const buttonY = ctx.canvas.height / 1.05 - sizeBtn;
+    const buttonY = ctx.canvas.height / 1.14 - sizeBtn;
 
     const sizeText = ctx.canvas.width * 0.04;
-    const textX = ctx.canvas.width / 1.3 - sizeBtn / 2;
-    const textY = ctx.canvas.height / 0.95 - sizeBtn;
+    const textX = ctx.canvas.width / 1.29 - sizeBtn / 2;
+    const textY = ctx.canvas.height / 1.05 - sizeBtn;
     circlePosition.map((position, index) => {
   
       position.x += position.dx 
