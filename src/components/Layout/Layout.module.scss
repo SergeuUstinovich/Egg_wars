@@ -3,13 +3,7 @@
     position: relative;
     background-image: url('../../assets/img/bg-game.jpg');
     background-repeat: no-repeat;
-    background-size:  cover;
-}
-
-.btnUnit {
-    position: absolute;
-    bottom: 40px;
-    left: 155px;
+    background-size:  contain;
 }
 
 .divs {
