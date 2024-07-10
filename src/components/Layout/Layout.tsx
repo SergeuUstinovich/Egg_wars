@@ -15,16 +15,17 @@ export interface circlePositionProps {
 
 function Layout() {
   const [score, setScore] = useState(0);
-  const [numCircles, setNumCircles] = useState(150);
+  const [energyMax, setEnergyMax] = useState(150);
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
+  const [speedRun, setSpeedRun] = useState(100);
   const [btnScale, setBtnScale] = useState(1);
   const imageCastle = useImage(imageCasltes);
   const imageBtn = useImage(imageBtns);
   
 
-  function draw(ctx: CanvasRenderingContext2D) {
+  function draw(ctx: CanvasRenderingContext2D, frameCount: number) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     const centerX = ctx.canvas.width / 2;
     const centerY = ctx.canvas.height / 2;
@@ -40,9 +41,9 @@ function Layout() {
     const sizeText = ctx.canvas.width * 0.02;
     const textX = ctx.canvas.width / 2.67 - sizeBtn / 2;
     const textY = ctx.canvas.height / 2.08 - sizeBtn;
-
     circlePosition.map((position, index) => {
-      position.x += position.dx;
+  
+      position.x += position.dx 
       position.y += position.dy;
 
       // Проверяем, достиг ли круг квадрата
@@ -51,8 +52,10 @@ function Layout() {
         setCirclePosition((prevPositions) =>
           prevPositions.filter((_, i) => i !== index)
         );
+         
       } else {
       drawCircle(ctx, position.x, position.y, 10, "red");
+      
       }
     });
 
@@ -61,7 +64,7 @@ function Layout() {
     }
     
     if (imageBtn) {
-      const progress = numCircles / 50; //сюда передавать максс энергию
+      const progress = energyMax / 50; //сюда передавать максс энергию
       ctx.save();
       ctx.translate(buttonX + sizeBtn / 2, buttonY + sizeBtn / 2);
       ctx.scale(btnScale, btnScale);
@@ -73,7 +76,7 @@ function Layout() {
       drawProgressBar(ctx, 0, 0, sizeBtn / 2.33, progress);
       ctx.restore();
     }
-    drawText(ctx, sizeText, textX, textY, numCircles, '50') //макссЭнерегнию пока текст
+    drawText(ctx, sizeText, textX, textY, energyMax, '50') //макссЭнерегнию пока текст
     
   
   }
@@ -97,10 +100,11 @@ function Layout() {
           y <= buttonY + sizeBtn
         ) {
           
-          if (numCircles > 0) {
-            const newCircle = addCircle(100, centerX, centerY);
+          if (energyMax > 0) {
+            const newCircle = addCircle(speedRun, centerX, centerY);
+            // setSpeedRun(prev=> prev - (prev * 0.1)) //скорость будет изменяться в зависимости от прокачки пересмотреть
             setCirclePosition((prevPositions) => [...prevPositions, newCircle]);
-            setNumCircles((prev) => prev - 1);
+            setEnergyMax((prev) => prev - 1);
             setBtnScale(0.9);
             const timerId = setTimeout(() => setBtnScale(1), 100);
             return () => clearTimeout(timerId)
@@ -113,7 +117,7 @@ function Layout() {
         canvas.removeEventListener("click", handleClick);
       };
     }
-  }, [numCircles, addCircle]);
+  }, [energyMax, addCircle]);
 
   return (
     <>
