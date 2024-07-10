@@ -37,22 +37,22 @@ export function addCircle(speedRun: number, canvasW: number, canvasH: number) {
   //         canvasH / 1.8 + 300
   //       );
   // второй варик с высотой
-  // const position =
-  //   randomSide < 0.5
-  //     ? generateRandomPosition(
-  //         30,
-  //         110,
-  //         canvasH / 7,
-  //         canvasH / 2 + 300
-  //       )
-  //     : generateRandomPosition(
-  //         canvasW - 30,
-  //         canvasW - 110,
-  //         canvasH / 7,
-  //         canvasH / 2 + 300
-  //       );
+  const position =
+    randomSide < 0.5
+      ? generateRandomPosition(
+          30,
+          110,
+          canvasH / 7,
+          canvasH / 2 + 300
+        )
+      : generateRandomPosition(
+          canvasW - 30,
+          canvasW - 110,
+          canvasH / 7,
+          canvasH / 2 + 300
+        );
   // третий варик
-  const position = generateRandomPosition(30, canvasW - 30, canvasH / 1.6, canvasH - 150);
+  // const position = generateRandomPosition(30, canvasW - 30, canvasH / 1.6, canvasH - 100);
 
   const dx = (canvasW / 2 - position.x) / speedRun;
   const dy = (canvasH / 2.5 - position.y) / speedRun;
@@ -72,10 +72,10 @@ export function isCircleReachedSquare(
   size: number
 ): boolean {
   const inXRange =
-    position.x >= centerX / 1 - size / 1 &&
-    position.x <= centerX / 2.5 + size / 2.5;
+    position.x >= centerX / 0.9 - size / 0.9 &&
+    position.x <= centerX / 3 + size / 3;
   const inYRange =
-    position.y >= centerY / 2 - size && position.y <= centerY / 2;
+    position.y >= centerY / 1.5 - size && position.y <= centerY / 1.5;
   return inXRange && inYRange;
 }
 
