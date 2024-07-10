@@ -1,6 +1,6 @@
 import { generateRandomPosition } from "./getRandomCoordinate";
 
-// Функция для получения размера канваса
+
 export function getCanvasSize(canvas: HTMLCanvasElement): {
   width: number;
   height: number;
@@ -8,7 +8,7 @@ export function getCanvasSize(canvas: HTMLCanvasElement): {
   return { width: canvas.width, height: canvas.height };
 }
 
-// Функция для рисования круга
+
 export function drawCircle(
   context: CanvasRenderingContext2D,
   x: number,
