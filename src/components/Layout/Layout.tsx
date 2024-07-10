@@ -32,16 +32,16 @@ function Layout() {
     const centerY = ctx.canvas.height;
     resizeCanvas(ctx.canvas);
     const sizeCastle = ctx.canvas.width * 0.6;
-    const squareX = ctx.canvas.width / 2 - sizeCastle / 2;
+    const squareX = ctx.canvas.width / 1.9 - sizeCastle / 2;
     const squareY = ctx.canvas.height / 1.8 - sizeCastle;
 
     const sizeBtn = ctx.canvas.width * 0.5;
-    const buttonX = ctx.canvas.width / 2 - sizeBtn / 2;
+    const buttonX = ctx.canvas.width / 1.9 - sizeBtn / 2;
     const buttonY = ctx.canvas.height / 1.05 - sizeBtn;
 
     const sizeText = ctx.canvas.width * 0.04;
-    const textX = ctx.canvas.width / 1.34 - sizeBtn / 2;
-    const textY = ctx.canvas.height / 0.96 - sizeBtn;
+    const textX = ctx.canvas.width / 1.3 - sizeBtn / 2;
+    const textY = ctx.canvas.height / 0.95 - sizeBtn;
     circlePosition.map((position, index) => {
   
       position.x += position.dx 
@@ -55,7 +55,7 @@ function Layout() {
         );
          
       } else {
-      drawCircle(ctx, position.x, position.y, 20, "red");
+      drawCircle(ctx, position.x, position.y, 10, "red");
       
       }
     });
@@ -91,9 +91,9 @@ function Layout() {
         const rect = canvas.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        const sizeBtn = canvas.width * 0.25;
-        const buttonX = canvas.width / 4 - sizeBtn / 3;
-        const buttonY = canvas.height / 2.36 - sizeBtn;
+        const sizeBtn = canvas.width * 0.5;
+        const buttonX = canvas.width / 1.9 - sizeBtn / 2;
+        const buttonY = canvas.height / 1.05 - sizeBtn;
         if (
           x >= buttonX &&
           x <= buttonX + sizeBtn &&
@@ -107,7 +107,7 @@ function Layout() {
             setCirclePosition((prevPositions) => [...prevPositions, newCircle]);
             setEnergyMax((prev) => prev - 1);
             setBtnScale(0.9);
-            const timerId = setTimeout(() => setBtnScale(1), 100);
+            const timerId = setTimeout(() => setBtnScale(1), 50);
             return () => clearTimeout(timerId)
           }
            
