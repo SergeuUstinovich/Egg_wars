@@ -25,7 +25,6 @@ function Layout() {
   const imageCastle = useImage(imageCasltes);
   const imageBtn = useImage(imageBtns);
   
-
   function draw(ctx: CanvasRenderingContext2D, frameCount: number) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     const centerX = ctx.canvas.width;
