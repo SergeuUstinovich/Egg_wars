@@ -27,6 +27,7 @@ function Layout() {
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
+  
   const [speedRun, setSpeedRun] = useState(200);
   const [btnScale, setBtnScale] = useState(1);
   const imageCastle = useImage(imageCasltes);
