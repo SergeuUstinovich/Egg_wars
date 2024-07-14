@@ -13,6 +13,7 @@ import useImage from "../../utils/useImage";
 import useCanvas from "../../utils/useCanvas";
 import { variable } from "../../utils/variable";
 import { drawBtn } from "../../utils/drawImages";
+import { useTelegram } from "../../provider/telegram/telegram";
 
 export interface circlePositionProps {
   x: number;
@@ -27,6 +28,7 @@ function Layout() {
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
+
   const [speedRun, setSpeedRun] = useState(200);
   const [btnScale, setBtnScale] = useState(1);
   const imageCastle = useImage(imageCasltes);
@@ -35,13 +37,6 @@ function Layout() {
   const canvasRef = useRef<ElementRef<"canvas">>(null);
   let ctx = canvasRef.current?.getContext("2d");
   useCanvas(draw, canvasRef.current);
-
-  if (imageCastle && ctx) {
-    const sizeCastle = ctx.canvas.width * 0.6;
-    const squareX = ctx.canvas.width / 1.9 - sizeCastle / 2;
-    const squareY = ctx.canvas.height / 2.1 - sizeCastle;
-    ctx.drawImage(imageCastle, squareX, squareY, sizeCastle, sizeCastle);
-  }
 
   function draw(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -72,17 +67,14 @@ function Layout() {
         drawCircle(ctx, item.x, item.y, 10, "red");
       }
     });
-
     if (imageCastle) {
       ctx.drawImage(imageCastle, squareX, squareY, sizeCastle, sizeCastle);
     }
-
     if (imageBtn) {
       const progress = energyMax / 50; //сюда передавать максс энергию
       drawBtn(ctx, buttonX, buttonY, sizeBtn, imageBtn, btnScale, progress);
     }
     drawText(ctx, sizeText, textX, textY, energyMax, "50"); //макссЭнерегнию пока текст
-    
   }
 
   useEffect(() => {
@@ -95,12 +87,7 @@ function Layout() {
           for (let i = 0; i < e.touches.length; i++) {
             const x = e.touches[i].clientX - rect.left;
             const y = e.touches[i].clientY - rect.top;
-            if (
-              x >= buttonX &&
-              x <= buttonX + sizeBtn &&
-              y >= buttonY &&
-              y <= buttonY + sizeBtn
-            ) {
+            if (x >= buttonX && x <= buttonX + sizeBtn && y >= buttonY && y <= buttonY + sizeBtn) {
               if (energyMax > 0) {
                 const newCircle = addCircle(speedRun, centerX, centerY);
                 setCirclePosition((prevPositions) => [
@@ -128,6 +115,7 @@ function Layout() {
       <header></header>
       <main className={style.main}>
         <div className={style.divs}>{score} Монеты</div>
+        <p>{useTelegram().userName}</p>
         <Canvas ref={canvasRef} />
       </main>
       <footer></footer>
