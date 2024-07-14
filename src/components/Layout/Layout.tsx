@@ -13,6 +13,7 @@ import useImage from "../../utils/useImage";
 import useCanvas from "../../utils/useCanvas";
 import { variable } from "../../utils/variable";
 import { drawBtn } from "../../utils/drawImages";
+import { useTelegram } from "../../provider/telegram/telegram";
 
 export interface circlePositionProps {
   x: number;
@@ -74,7 +75,6 @@ function Layout() {
       drawBtn(ctx, buttonX, buttonY, sizeBtn, imageBtn, btnScale, progress);
     }
     drawText(ctx, sizeText, textX, textY, energyMax, "50"); //макссЭнерегнию пока текст
-    
   }
 
   useEffect(() => {
@@ -115,6 +115,7 @@ function Layout() {
       <header></header>
       <main className={style.main}>
         <div className={style.divs}>{score} Монеты</div>
+        <p>{useTelegram().userName}</p>
         <Canvas ref={canvasRef} />
       </main>
       <footer></footer>
