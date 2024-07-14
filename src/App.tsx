@@ -3,7 +3,7 @@ import { useTelegram } from "./provider/telegram/telegram";
 import "./styles/global/App.scss";
 
 function App() {
-  useTelegram();
+  useTelegram().tg.expand();
   return (
     <>
       <Layout />
