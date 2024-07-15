@@ -14,6 +14,7 @@ import useCanvas from "../../utils/useCanvas";
 import { variable } from "../../utils/variable";
 import { drawBtn } from "../../utils/drawImages";
 import { useTelegram } from "../../provider/telegram/telegram";
+import { Header } from "../Header";
 
 export interface circlePositionProps {
   x: number;
@@ -87,7 +88,12 @@ function Layout() {
           for (let i = 0; i < e.touches.length; i++) {
             const x = e.touches[i].clientX - rect.left;
             const y = e.touches[i].clientY - rect.top;
-            if (x >= buttonX && x <= buttonX + sizeBtn && y >= buttonY && y <= buttonY + sizeBtn) {
+            if (
+              x >= buttonX &&
+              x <= buttonX + sizeBtn &&
+              y >= buttonY &&
+              y <= buttonY + sizeBtn
+            ) {
               if (energyMax > 0) {
                 const newCircle = addCircle(speedRun, centerX, centerY);
                 setCirclePosition((prevPositions) => [
@@ -112,7 +118,7 @@ function Layout() {
 
   return (
     <>
-      <header></header>
+      <Header />
       <main className={style.main}>
         <div className={style.divs}>{score} Монеты</div>
         <p>{useTelegram().userName}</p>
