@@ -75,7 +75,6 @@ function GameField() {
     circlePosition.map((item, index) => {
       item.x += item.dx;
       item.y += item.dy;
-
       // Проверяем, достиг ли круг квадрата
       if (isCircleReachedSquare(item, squareX, squareY, sizeCastle)) {
         setCoinMax((prev) => prev + item.damage);
