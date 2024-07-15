@@ -22,44 +22,6 @@ export function drawCircle(
   context.fill();
 }
 
-export function addCircle(speedRun: number, canvasW: number, canvasH: number) {
-  const randomSide = Math.random();
-
-  // Если число меньше 0.5, генерируем позицию по левой стороне экрана, иначе - по правой
-  // первый варик
-  // const position =
-  //   randomSide < 0.5
-  //     ? generateRandomPosition(30, 110, canvasH / 1.8, canvasH / 1.8 + 300)
-  //     : generateRandomPosition(
-  //         canvasW - 30,
-  //         canvasW - 110,
-  //         canvasH / 1.8,
-  //         canvasH / 1.8 + 300
-  //       );
-  // второй варик с высотой
-  const position =
-    randomSide < 0.5
-      ? generateRandomPosition(
-          30,
-          110,
-          canvasH / 7,
-          canvasH / 2 + 300
-        )
-      : generateRandomPosition(
-          canvasW - 30,
-          canvasW - 110,
-          canvasH / 7,
-          canvasH / 2 + 300
-        );
-  // третий варик
-  // const position = generateRandomPosition(30, canvasW - 30, canvasH / 1.6, canvasH - 100);
-
-  const dx = (canvasW / 2 - position.x) / speedRun;
-  const dy = (canvasH / 2.5 - position.y) / speedRun;
-
-  return { ...position, dx, dy };
-}
-
 interface Position {
   x: number;
   y: number;
@@ -72,10 +34,11 @@ export function isCircleReachedSquare(
   size: number
 ): boolean {
   const inXRange =
-    position.x >= centerX / 0.9 - size / 0.9 &&
-    position.x <= centerX / 3 + size / 3;
+    position.x >= centerX &&
+    position.x <= centerX + size;
   const inYRange =
-    position.y >= centerY / 1.5 - size && position.y <= centerY / 1.5;
+    position.y >= centerY &&
+    position.y <= centerY + size;
   return inXRange && inYRange;
 }
 
@@ -101,11 +64,28 @@ export function drawText(
   sizeText: number,
   textX: number,
   textY: number,
-  energy: number,
-  maxEnergy: string
+  text: string,
+  color: string,
 ) {
   ctx.textAlign = "center";
   ctx.font = `${sizeText}px PassionOne`;
-  ctx.fillStyle = "black";
-  ctx.fillText(`${energy} / ${maxEnergy}`, textX, textY);
+  ctx.fillStyle = color;
+  ctx.fillText(text, textX, textY);
+}
+
+export function drawTextTape(
+  ctx: CanvasRenderingContext2D,
+  sizeText: number,
+  textX: number,
+  textY: number,
+  text: string,
+  color: string
+) {
+  ctx.textAlign = "center";
+  ctx.font = `${sizeText}px PassionOne`;
+  ctx.strokeStyle = 'black'; 
+  ctx.lineWidth = 2; 
+  ctx.fillStyle = color;
+  ctx.strokeText(text, textX, textY);
+  ctx.fillText(text, textX, textY);
 }
