@@ -72,7 +72,6 @@ function GameField() {
       sizeTexеHp,
       textLvlHpY,
     } = variable(ctx);
-
     circlePosition.map((item, index) => {
       item.x += item.dx;
       item.y += item.dy;
