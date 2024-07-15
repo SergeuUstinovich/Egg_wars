@@ -1,0 +1,60 @@
+.coinBlock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--black);
+    padding: 0 30px 0 13px;
+    height: 54px;
+
+    .descrLvl {
+        font-size: 25px;
+        line-height: 64%;
+        color: #cdcde5;
+    }
+
+    .coinBlockMoney {
+        display: flex;
+        align-items: center;
+        max-width: 176px;
+        width: 100%;
+        position: relative;
+        
+        .imgCoin {
+            position: relative;
+            display: block;
+            margin-right: -25px;
+            z-index: 2;
+        }
+
+        .bgValue {
+            background-image: url('../../assets/img/bg-value.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            max-width: 146px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            .descr {
+                font-size: 22px;
+                line-height: 73%;
+                color: #151527;
+                padding: 6px 17px;
+            }
+        }
+
+        .btnDonatMoney {
+            
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            right: -18px;
+        }
+    }
+    
+    
+}
+
