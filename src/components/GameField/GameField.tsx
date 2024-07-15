@@ -160,7 +160,7 @@ function GameField() {
             }
           }
         };
-        canvas.addEventListener("touchstart", handleTouchStart);
+        canvas.addEventListener("touchstart", handleTouchStart, { passive: true });
         return () => {
           canvas.removeEventListener("touchstart", handleTouchStart);
         };
