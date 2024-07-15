@@ -19,9 +19,9 @@ export function variable(ctx: CanvasRenderingContext2D) {
     const tapeX = ctx.canvas.width / 1.98 - sizeTapeX / 2;
     const tapeY = ctx.canvas.height / 11.1 - sizeTapeY;
 
-    const sizeBgTypeX = ctx.canvas.width;
+    const sizeBgTypeX = ctx.canvas.width +2;
     const sizeBgTypeY = ctx.canvas.height * 0.09;
-    const BgTypeX = ctx.canvas.width / 2.06 - sizeTapeX / 2;
+    const BgTypeX = ctx.canvas.width / 2.02 - sizeTapeX / 2;
     const BgTypeY = ctx.canvas.height / 12.5 - sizeTapeY;
 
     const sizeTextLvl = ctx.canvas.width * 0.05;
