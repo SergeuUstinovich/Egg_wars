@@ -14,7 +14,7 @@ import {
   drawTextTape,
   isCircleReachedSquare,
 } from "../../utils/drawCanvas";
-import { drawBtn } from "../../utils/drawImages";
+import { drawBtn, drawTape } from "../../utils/drawImages";
 import { coinActions } from "../../provider/StoreProvider";
 import { addUnitPerson } from "../../utils/hpcSpawn";
 
@@ -87,20 +87,18 @@ function GameField() {
     });
 
     if (imageTape) {
-      // Создаем градиент
-      let gradient = ctx.createLinearGradient(
+      drawTape(
+        ctx,
+        imageTape,
         BgTypeX,
         BgTypeY,
-        BgTypeX,
-        BgTypeY + sizeBgTypeY
+        sizeBgTypeX,
+        sizeBgTypeY,
+        tapeX,
+        tapeY,
+        sizeTapeX,
+        sizeTapeY
       );
-      gradient.addColorStop(0, "#000");
-      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-
-      // Применяем градиент поверх изображения
-      ctx.fillStyle = gradient;
-      ctx.fillRect(BgTypeX, BgTypeY, sizeBgTypeX, sizeBgTypeX);
-      ctx.drawImage(imageTape, tapeX, tapeY, sizeTapeX, sizeTapeY);
       drawTextTape(ctx, sizeTextLvl, textLvlX, textLvlY, `Level 1`, "white");
       drawTextTape(
         ctx,
