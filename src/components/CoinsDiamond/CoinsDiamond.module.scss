@@ -1,241 +1,215 @@
 .coinBlock {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--black);
-    padding: 0 32px 0 13px;
-    height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--black);
+  padding: 0 32px 0 13px;
+  height: 54px;
 
-    .descrLvl {
-        font-size: 25px;
-        line-height: 64%;
-        color: var(--color-text-primary);
-        max-width: 70px;
+  .descrLvl {
+    font-size: 25px;
+    line-height: 64%;
+    color: var(--color-text-primary);
+    max-width: 70px;
+    width: 100%;
+  }
+
+  .coinBar {
+    display: flex;
+    gap: 26px;
+    max-width: 394px;
+    width: 100%;
+
+    .coinBlockMoney {
+      display: flex;
+      align-items: center;
+      max-width: 176px;
+      width: 100%;
+      position: relative;
+
+      .imgCoin {
+        position: relative;
+        display: block;
+        margin-right: -25px;
+        z-index: 2;
+        width: 72px;
+      }
+
+      .bgValue {
+        background-image: url("../../assets/img/bg-value.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        max-width: 146px;
         width: 100%;
+        display: flex;
+        justify-content: center;
+
+        .descr {
+          font-size: 22px;
+          line-height: 73%;
+          color: var(--color-text);
+          padding: 6px 17px;
+        }
+      }
+
+      .btnDonatMoney {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        right: -25px;
+      }
+    }
+  }
+}
+
+@media (max-width: 465px) {
+  .coinBlock {
+    .descrLvl {
+      font-size: 20px;
+      max-width: 60px;
     }
 
     .coinBar {
-        display: flex;
-        gap: 26px;
-        max-width: 394px;
-        width: 100%;
-
-        .coinBlockMoney {
-            display: flex;
-            align-items: center;
-            max-width: 176px;
-            width: 100%;
-            position: relative;
-           
-            
-            .imgCoin {
-                position: relative;
-                display: block;
-                margin-right: -25px;
-                z-index: 2;
-                width: 72px;
-            }
-    
-            .bgValue {
-                background-image: url('../../assets/img/bg-value.png');
-                background-repeat: no-repeat;
-                background-size: cover;
-                max-width: 146px;
-                width: 100%;
-                display: flex;
-                justify-content: center;
-    
-                .descr {
-                    font-size: 22px;
-                    line-height: 73%;
-                    color: var(--color-text);
-                    padding: 6px 17px;
-                }
-            }
-    
-            .btnDonatMoney {
-                position: absolute;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 36px;
-                height: 36px;
-                right: -25px;
-            }
-        } 
+      .coinBlockMoney {
+        .imgCoin {
+          width: 60px;
+        }
+      }
     }
- 
-}
 
-
-@media (max-width: 465px) {
-    .coinBlock {
-
-        .descrLvl {
-            font-size: 20px;
-            max-width: 60px;
-        }
-
-        .coinBar {
-
-            .coinBlockMoney {
-
-                .imgCoin {
-                    width: 60px;
-                }
-            }
-        }
-
-        .btnDonatMoney img {
-            position: absolute;
-            width: 34px;
-            height: 34px;
-        }
+    .btnDonatMoney img {
+      position: absolute;
+      width: 34px;
+      height: 34px;
     }
-    
+  }
 }
 
 @media (max-width: 441px) {
-    .coinBlock {
-
-        .coinBar {
-
-            .coinBlockMoney {
-
-                .imgCoin {
-                    width: 50px;
-                    margin-right: -20px;
-                }
-
-                .bgValue {
-                    max-width: 146px;
-        
-                    .descr {
-                        font-size: 20px;
-                        padding: 4px 17px;
-                    }
-                }
-            }
+  .coinBlock {
+    .coinBar {
+      .coinBlockMoney {
+        .imgCoin {
+          width: 50px;
+          margin-right: -20px;
         }
 
-        .btnDonatMoney img {
-            position: absolute;
-            width: 30px;
-            height: 30px;
+        .bgValue {
+          max-width: 146px;
+
+          .descr {
+            font-size: 20px;
+            padding: 4px 17px;
+          }
         }
+      }
     }
-    
+
+    .btnDonatMoney img {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+    }
+  }
 }
 
 @media (max-width: 416px) {
-    .coinBlock {
-
-        .descrLvl {
-            font-size: 18px;
-            max-width: 55px;
-        }
-
-        .coinBar {
-
-            .coinBlockMoney {
-
-                .imgCoin {
-                    width: 45px;
-                    margin-right: -16px;
-                }
-
-                .bgValue {
-                    max-width: 126px;
-        
-                    .descr {
-                        font-size: 18px;
-                        padding: 2px 17px;
-                    }
-                }
-            }
-        }
-
-        .btnDonatMoney img {
-            position: absolute;
-            width: 26px;
-            height: 26px;
-        }
+  .coinBlock {
+    .descrLvl {
+      font-size: 18px;
+      max-width: 55px;
     }
-    
+
+    .coinBar {
+      .coinBlockMoney {
+        .imgCoin {
+          width: 45px;
+          margin-right: -16px;
+        }
+
+        .bgValue {
+          max-width: 126px;
+
+          .descr {
+            font-size: 18px;
+            padding: 2px 17px;
+          }
+        }
+      }
+    }
+
+    .btnDonatMoney img {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+    }
+  }
 }
 
 @media (max-width: 385px) {
-    .coinBlock {
-
-        .descrLvl {
-            font-size: 17px;
-            max-width: 50px;
-        }
-
-        .coinBar {
-            gap: 15px;
-
-            .coinBlockMoney {
-
-                .imgCoin {
-                    width: 50px;
-                    margin-right: -15px;
-                }
-
-                .bgValue {
-        
-                    .descr {
-                        font-size: 15px;
-                        padding: 2px 15px;
-                    }
-                }
-            }
-        }
-
-        .btnDonatMoney img {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            right: 10px;
-        }
+  .coinBlock {
+    .descrLvl {
+      font-size: 17px;
+      max-width: 50px;
     }
-    
+
+    .coinBar {
+      gap: 15px;
+
+      .coinBlockMoney {
+        .imgCoin {
+          width: 50px;
+          margin-right: -15px;
+        }
+
+        .bgValue {
+          .descr {
+            font-size: 15px;
+            padding: 2px 15px;
+          }
+        }
+      }
+    }
+
+    .btnDonatMoney img {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      right: 10px;
+    }
+  }
 }
 
 @media (max-width: 350px) {
-    .coinBlock {
-        
-
-        .descrLvl {
-            font-size: 14px;
-            max-width: 40px;
-        }
-
-        .coinBar {
-            
-            .coinBlockMoney {
-
-                .imgCoin {
-                    width: 40px;
-                    margin-right: -13px;
-                }
-
-                .bgValue {
-        
-                    .descr {
-                        font-size: 13px;
-                        padding: 2px 13px;
-                    }
-                }
-            }
-        }
-        .btnDonatMoney img {
-            position: absolute;
-            width: 22px;
-            height: 22px;
-            right: 7px;
-        }
+  .coinBlock {
+    .descrLvl {
+      font-size: 14px;
+      max-width: 40px;
     }
-    
-}
 
+    .coinBar {
+      .coinBlockMoney {
+        .imgCoin {
+          width: 40px;
+          margin-right: -13px;
+        }
+
+        .bgValue {
+          .descr {
+            font-size: 13px;
+            padding: 2px 13px;
+          }
+        }
+      }
+    }
+    .btnDonatMoney img {
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      right: 7px;
+    }
+  }
+}
