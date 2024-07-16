@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom"
-import { Button } from "../../ui/Button"
 import style from './NavBar.module.scss'
 import imgGuilds from '../../assets/img/guilds.png'
 import imgFriends from '../../assets/img/friends.png'

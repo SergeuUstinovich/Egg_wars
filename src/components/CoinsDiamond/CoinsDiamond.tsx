@@ -6,7 +6,7 @@ import imgPlus from '../../assets/img/btn_plus.png'
 import { useSelector } from "react-redux"
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin"
 import { useEffect, useState } from "react"
-import { tapTap, userInfo } from "../../api/userInfo"
+import { userInfo } from "../../api/userInfo"
 
 function CoinsDiamond() {
 
