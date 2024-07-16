@@ -32,12 +32,12 @@ function CoinsDiamond() {
     
     return (
         <div className={style.coinBlock}>
-            <p onClick={handleClick} className={style.descrLvl}>LVL 156</p>
+            <p onClick={handleClick} className={style.descrLvl}>LVL 1</p>
             <div className={style.coinBar}>
             <div className={style.coinBlockMoney}>
                 <img className={style.imgCoin} src={imgCoin} alt="" />
                 <div className={style.bgValue}>
-                    <p className={style.descr}>5 000 000</p>
+                    <p className={style.descr}>{coin}</p>
                 </div>
                 <Button className={style.btnDonatMoney}>
                     <img src={imgPlus} alt="" />
@@ -46,7 +46,7 @@ function CoinsDiamond() {
             <div className={style.coinBlockMoney}>
                 <img className={style.imgCoin} src={imgDiamond} alt="" />
                 <div className={style.bgValue}>
-                    <p className={style.descr}>5 000 000</p>
+                    <p className={style.descr}>0</p>
                 </div>
                 <Button className={style.btnDonatMoney}>
                     <img src={imgPlus} alt="" />
