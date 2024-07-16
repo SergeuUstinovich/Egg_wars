@@ -26,7 +26,7 @@ export function variable(ctx: CanvasRenderingContext2D) {
 
   const sizeTextLvl = ctx.canvas.width * 0.05;
   const textLvlX = BgTypeX + sizeBgTypeX / 2;
-  const textLvlY = BgTypeY + sizeTextLvl + 7;
+  const textLvlY = BgTypeY + sizeTextLvl + 6;
 
   const sizeTexеHp = ctx.canvas.width * 0.036;
   const textLvlHpY = textLvlY + sizeTexеHp + 1;

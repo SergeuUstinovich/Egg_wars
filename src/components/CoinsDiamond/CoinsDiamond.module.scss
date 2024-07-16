@@ -9,7 +9,7 @@
     .descrLvl {
         font-size: 25px;
         line-height: 64%;
-        color: #cdcde5;
+        color: var(--color-text-primary);
         max-width: 70px;
         width: 100%;
     }
@@ -48,7 +48,7 @@
                 .descr {
                     font-size: 22px;
                     line-height: 73%;
-                    color: #151527;
+                    color: var(--color-text);
                     padding: 6px 17px;
                 }
             }

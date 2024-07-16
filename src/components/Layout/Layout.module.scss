@@ -1,11 +1,16 @@
 .main {
-    height: 100vh;
     position: relative;
-    // background-image: url('../../assets/img/bg-game.jpg');
-    // background-repeat: no-repeat;
-    // background-size: cover;
+    height: 100vh;
+    padding-bottom: 19px;
 }
 
 .divs {
     color: red;
+}
+
+.footers {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
