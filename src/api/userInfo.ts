@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const api_url = import.meta.env.MODE === 'development' ? '/api' : import.meta.env.VITE_API_BASE_URL;
+
 export function userInfo() {
-    return axios.post('/api/main/main_info/',{
+    return axios.post(`${api_url}/main/main_info/`,{
         tg_id: '12345',
         name: 'Сергей'
     })
