@@ -18,9 +18,7 @@ html {
     min-width: 320px;
     max-width: 509px;
     height: 100vh;
-    background-image: url('../../assets/img/bg-game.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+    overflow: hidden;
   }
   
   :root {
@@ -34,11 +32,13 @@ html {
     // --dark-grey: #555;
     // --grey: #bdbbbe;
     // --light-grey: #f1f1f1;
+    --color-text-primary:#cdcde5;
+    --color-text:#151527;
     --white: #fff;
-    // --error: #d51a52;
     --black: #000;
-    --btn-donat-gradient-lime: #bce93a;
-    --btn-donat-gradient-limegreen: #7ac021;
+    // --error: #d51a52;
+    
+    
   }
   
   img {

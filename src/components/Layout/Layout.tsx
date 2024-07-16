@@ -1,19 +1,22 @@
 import style from "./Layout.module.scss";
 import CoinsDiamond from "../CoinsDiamond/CoinsDiamond";
-import GameField from "../GameField/GameField";
+import NavBar from "../NavBar/NavBar";
+import { Outlet } from "react-router-dom";
 
 
 function Layout() {
   return (
     <>
-      <header>
+    {/* <p>{useTelegram().userName}</p> */}
+      <header className={style.headers}>
         <CoinsDiamond />
       </header>
       <main className={style.main}>
-        {/* <p>{useTelegram().userName}</p> */}
-        <GameField />
+        <Outlet />
       </main>
-      <footer></footer>
+      <footer className={style.footers}>
+        <NavBar />
+      </footer>
     </>
   );
 }
