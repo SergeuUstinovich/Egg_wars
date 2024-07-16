@@ -24,7 +24,6 @@ function CoinsDiamond() {
                 console.log(img)
             })
         })
-        
         // tapTap()
     }
     useEffect(() => {
