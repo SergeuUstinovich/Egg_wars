@@ -17,7 +17,8 @@
     .coinBar {
         display: flex;
         gap: 26px;
-
+        max-width: 394px;
+        width: 100%;
 
         .coinBlockMoney {
             display: flex;
