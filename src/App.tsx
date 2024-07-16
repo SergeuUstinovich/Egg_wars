@@ -12,7 +12,7 @@ function App() {
       <Suspense fallback={<div>Loading</div>}>
         <Routes>
           <Route path={'*'} element={<Layout />}>
-            <Route index element={<GameField />} />
+            <Route path={"friends"} element={<div className='friend'>Ntfrf</div>} />
           </Route>
         </Routes>
       </Suspense>

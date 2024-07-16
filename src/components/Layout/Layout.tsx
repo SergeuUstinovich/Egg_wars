@@ -2,6 +2,7 @@ import style from "./Layout.module.scss";
 import CoinsDiamond from "../CoinsDiamond/CoinsDiamond";
 import NavBar from "../NavBar/NavBar";
 import { Outlet } from "react-router-dom";
+import GameField from "../GameField/GameField";
 
 
 function Layout() {
@@ -12,7 +13,7 @@ function Layout() {
         <CoinsDiamond />
       </header>
       <main className={style.main}>
-        <Outlet />
+        <GameField />
       </main>
       <footer className={style.footers}>
         <NavBar />

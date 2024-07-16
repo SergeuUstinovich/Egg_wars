@@ -17,6 +17,7 @@ import {
 import { drawBtn, drawTape } from "../../utils/drawImages";
 import { coinActions } from "../../provider/StoreProvider";
 import { addUnitPerson } from "../../utils/hpcSpawn";
+import { Outlet } from "react-router-dom";
 
 export interface circlePositionProps {
   x: number;
@@ -168,7 +169,13 @@ function GameField() {
     }
   }, [energy, addUnitPerson, ctx]);
 
-  return <Canvas ref={canvasRef} />;
+  return (
+    <>
+      <Canvas ref={canvasRef} />
+      <Outlet />
+    </>
+    
+  );
 }
 
 export default GameField;
