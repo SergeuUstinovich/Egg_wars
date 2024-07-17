@@ -15,15 +15,15 @@ function CoinsDiamond() {
     
     const handleClick = async () => {
         const img = await userInfo()
-        img.map((item:any) => {
-            const person = item.person
-            const img = person.army
-            img.map((item: any) => {
-                const img = item.image
-                setImage(img)
-                console.log(img)
-            })
-        })
+        // img.map((item:any) => {
+        //     const person = item.person
+        //     const img = person.army
+        //     img.map((item: any) => {
+        //         const img = item.image
+        //         setImage(img)
+        //         console.log(img)
+        //     })
+        // })
         // tapTap()
     }
     useEffect(() => {
