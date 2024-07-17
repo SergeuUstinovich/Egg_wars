@@ -5,6 +5,6 @@ export interface CoinType {
     lvl: number
 }
 
-export interface CoinSheme {
+export interface CoinScheme {
     infoUser?: CoinType
 }

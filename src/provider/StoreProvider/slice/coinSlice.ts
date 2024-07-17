@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CoinSheme, CoinType } from "../../../types/CoinType";
+import { CoinScheme, CoinType } from "../../../types/CoinType";
 
-const initialState: CoinSheme = {}
+const initialState: CoinScheme = {}
 
 export const coinSlice = createSlice({
     name: 'coin',
