@@ -7,7 +7,7 @@ import GameField from "../GameField/GameField";
 
 
 function Layout() {
-  const {tg_id} = useTelegram()
+  const {tg_id, userName} = useTelegram()
   return (
     <>
     
@@ -15,7 +15,7 @@ function Layout() {
         <CoinsDiamond />
       </header>
       <main className={style.main}>
-      <p>{tg_id} текст</p>
+      <p>{tg_id} текст {userName}</p>
         <GameField />
         <Outlet />
       </main>
