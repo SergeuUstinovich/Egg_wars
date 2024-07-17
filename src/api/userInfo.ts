@@ -2,15 +2,30 @@ import axios from "axios";
 
 const api_url = import.meta.env.MODE === 'development' ? '/api' : import.meta.env.VITE_API_BASE_URL;
 
-export function userInfo() {
+export function userInfo(tg_id: string, name: string) {
     return axios.post(`${api_url}/main/main_info/`,{
-        tg_id: '12345',
-        name: 'Сергей'
+        name,
+        tg_id
+        
     })
     .then(response => {
-        const img = response.data
-        return img
+        const data  = response.data
+        return data
     })
+    .catch(error => console.log("информация userInfo" + error))
+}
+
+export function infoArmy(tg_id: string, name: string) {
+    return axios.post(`${api_url}/main/takin_army/`,{
+        name,
+        tg_id
+    })
+    .then(response => {
+        const data  = response.data
+        console.log(data)
+        return data
+    })
+    .catch(error => console.log("информация infoArmy" + error))
 }
 
 export function tapTap() {

@@ -1,3 +1,10 @@
 export interface CoinType {
-    coin: number
+    money: number
+    energy: number
+    hp_castle: number
+    lvl: number
+}
+
+export interface CoinSheme {
+    infoUser?: CoinType
 }

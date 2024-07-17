@@ -1,16 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CoinType } from "../../../types/CoinType";
+import { CoinSheme, CoinType } from "../../../types/CoinType";
 
-const initialState: CoinType = {
-    coin: 0
-}
+const initialState: CoinSheme = {}
 
 export const coinSlice = createSlice({
     name: 'coin',
     initialState,
     reducers: {
-        addCoinStore: (state, action: PayloadAction<number>) => {
-            state.coin += action.payload;
+        addCoinStore: (state, action: PayloadAction<CoinType>) => {
+            state.infoUser = action.payload
         },
     }
 })

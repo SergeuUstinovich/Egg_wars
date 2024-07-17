@@ -15,9 +15,9 @@ import {
   isCircleReachedSquare,
 } from "../../utils/drawCanvas";
 import { drawBtn, drawTape } from "../../utils/drawImages";
-import { coinActions } from "../../provider/StoreProvider";
 import { addUnitPerson } from "../../utils/hpcSpawn";
 import { Outlet } from "react-router-dom";
+
 
 export interface circlePositionProps {
   x: number;
@@ -30,10 +30,10 @@ export interface circlePositionProps {
 
 function GameField() {
   const dispatch = useDispatch();
-  const coin = useSelector(getCoin);
+  const infoUser = useSelector(getCoin);
   const [coinMax, setCoinMax] = useState(0);
-  const [energyMax, setEnergyMax] = useState(50);
-  const [energy, setEnergy] = useState(energyMax);
+  // const [energyMax, setEnergyMax] = useState(0);
+  const [energy, setEnergy] = useState(infoUser?.energy);
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
@@ -46,6 +46,10 @@ function GameField() {
   const canvasRef = useRef<ElementRef<"canvas">>(null);
   let ctx = canvasRef.current?.getContext("2d");
   useCanvas(draw, canvasRef.current);
+
+  useEffect(()=> {
+    setEnergy(infoUser?.energy)
+  }, [infoUser])
 
   function draw(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -100,13 +104,13 @@ function GameField() {
         sizeTapeX,
         sizeTapeY
       );
-      drawTextTape(ctx, sizeTextLvl, textLvlX, textLvlY, `Level 1`, "white");
+      drawTextTape(ctx, sizeTextLvl, textLvlX, textLvlY, `Level ${infoUser?.lvl}`, "white");
       drawTextTape(
         ctx,
         sizeTexеHp,
         textLvlX,
         textLvlHpY,
-        `${coin} / 10 000`,
+        `${infoUser?.hp_castle.toLocaleString('ru-RU')} / 0`,
         "white"
       );
     }
@@ -114,15 +118,16 @@ function GameField() {
       ctx.drawImage(imageCastle, squareX, squareY, sizeCastle, sizeCastle);
     }
     if (imageBtn) {
-      const progress = energy / energyMax; //сюда передавать максс энергию
-      drawBtn(ctx, buttonX, buttonY, sizeBtn, imageBtn, btnScale, progress);
+        const progressBar = energy ? energy : 0
+        const progress = progressBar / 100; //сюда передавать максс энергию
+        drawBtn(ctx, buttonX, buttonY, sizeBtn, imageBtn, btnScale, progress);
     }
-    drawText(ctx, sizeText, textX, textY, `${energy} / ${energyMax}`, "black"); //макссЭнерегнию пока текст
+    drawText(ctx, sizeText, textX, textY, `${energy} / 100`, "black"); //макссЭнерегнию пока текст
   }
 
   useEffect(() => {
     const interval = setInterval(() => {
-      dispatch(coinActions.addCoinStore(coinMax));
+      // dispatch(coinActions.addCoinStore(coinMax));
       setCoinMax(0);
     }, 300); // Значение передается каждую секунду
 
@@ -147,16 +152,18 @@ function GameField() {
               y >= buttonY &&
               y <= buttonY + sizeBtn
             ) {
-              if (energy > 0) {
-                const newCircle = addUnitPerson(centerX, centerY);
-                setCirclePosition((prevPositions) => [
-                  ...prevPositions,
-                  newCircle,
-                ]);
-                setEnergy((prev) => prev - 1);
-                setBtnScale(0.9);
-                const timerId = setTimeout(() => setBtnScale(1), 50);
-                return () => clearTimeout(timerId);
+              if(energy) {
+                if (energy > 0) {
+                  const newCircle = addUnitPerson(centerX, centerY);
+                  setCirclePosition((prevPositions) => [
+                    ...prevPositions,
+                    newCircle,
+                  ]);
+                  setEnergy((prev) => prev ? prev - 1 : undefined);
+                  setBtnScale(0.9);
+                  const timerId = setTimeout(() => setBtnScale(1), 50);
+                  return () => clearTimeout(timerId);
+                }
               }
             }
           }
