@@ -7,6 +7,7 @@ import GameField from "../GameField/GameField";
 
 
 function Layout() {
+  const {tg_id} = useTelegram()
   return (
     <>
     
@@ -14,9 +15,9 @@ function Layout() {
         <CoinsDiamond />
       </header>
       <main className={style.main}>
-      <p>{useTelegram().tg_id}</p>
-        <Outlet />
+      <p>{tg_id} текст</p>
         <GameField />
+        <Outlet />
       </main>
       <footer className={style.footers}>
         <NavBar />
