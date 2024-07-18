@@ -29,6 +29,15 @@ function CoinsDiamond() {
     queryClient
   );
 
+  useEffect(() => {
+    if(infoUser?.energy_now !== infoUser?.energy_start) {
+      const inter = setInterval(() => {
+        infoValueMutation.mutate({ tg_id, userName });
+      }, 5000)
+      return () => clearInterval(inter)
+    }
+  }, [infoUser])
+
   const armyMutation = useMutation(
     {
       mutationFn: (data: { tg_id: string; userName: string }) =>

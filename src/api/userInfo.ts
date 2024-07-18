@@ -22,19 +22,28 @@ export function infoArmy(tg_id: string, name: string) {
     })
     .then(response => {
         const data  = response.data
-        console.log(data)
         return data
     })
     .catch(error => console.log("информация infoArmy" + error))
 }
 
-export function tapTap() {
+interface taptapProps {
+    energy: number
+    money: number
+    hp: number
+}
+
+export function tapTap(tg_id: string, money: number, energy: number, hp: number) {
     return axios.post('/api/main/tap-tap/',{
-        tg_id: '12345',
-        money: '1',
-        energy: '1',
-        hp: '1'
+        tg_id,
+        money,
+        energy,
+        hp
     })
-    .then(() => undefined)
+    .then(response => {
+        const data  = response.data
+        return data
+    })
+    .catch(error => console.log("информация tapTap" + error))
 }
 

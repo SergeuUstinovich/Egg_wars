@@ -17,6 +17,13 @@ import {
 import { drawBtn, drawTape } from "../../utils/drawImages";
 import { addUnitPerson } from "../../utils/hpcSpawn";
 import { Outlet } from "react-router-dom";
+import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
+import { useMutation } from "@tanstack/react-query";
+import { tapTap } from "../../api/userInfo";
+import { queryClient } from "../../api/queryClient";
+import { useTelegram } from "../../provider/telegram/telegram";
+import { coinActions } from "../../provider/StoreProvider";
+import { ArmyType } from "../../types/ArmyType";
 
 
 export interface circlePositionProps {
@@ -26,29 +33,53 @@ export interface circlePositionProps {
   dy: number;
   damage: number;
   color: string;
+  img: string;
 }
 
 function GameField() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
-  const [coinMax, setCoinMax] = useState(0);
-  // const [energyMax, setEnergyMax] = useState(0);
-  const [energy, setEnergy] = useState(infoUser?.energy);
+  const armyUser = useSelector(getArmy);
+  const { tg_id } = useTelegram();
+  const [army, setArmy] = useState<ArmyType | undefined>(armyUser);
+  const [hp, setHp] = useState(infoUser?.hp_castle_now);
+  const [money, setMoney] = useState(infoUser?.money);
+  const [energyMax, setEnergyMax] = useState(infoUser?.energy_start);
+  const [energy, setEnergy] = useState(infoUser?.energy_now);
+  const [energyHelp, setEnergyHelp] = useState(infoUser?.energy_now || 1);
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
   const [btnScale, setBtnScale] = useState(1);
-
   const imageCastle = useImage(imageCasltes);
   const imageBtn = useImage(imageBtns);
   const imageTape = useImage(imageTapes);
-
   const canvasRef = useRef<ElementRef<"canvas">>(null);
   let ctx = canvasRef.current?.getContext("2d");
   useCanvas(draw, canvasRef.current);
 
+  const tapTapMutation = useMutation({
+    mutationFn: (data: { tg_id: string; money: number, energy: number, hp: number }) =>
+      tapTap(data.tg_id, data.money, data.energy, data.hp),
+    onSuccess: (data) => {
+      dispatch(coinActions.updateCoinStore(data));
+    },
+  }, queryClient)
+
+  useEffect(() => {
+    if (armyUser) {
+      setArmy(armyUser)
+    }
+  }, [armyUser]);
+
   useEffect(()=> {
-    setEnergy(infoUser?.energy)
+    if(infoUser) {
+      setEnergyHelp(infoUser.energy_now)
+      setHp(infoUser.hp_castle_now)
+      setMoney(infoUser.money)
+      setEnergy(infoUser.energy_now)
+      setEnergyMax(infoUser.energy_start)
+    }
   }, [infoUser])
 
   function draw(ctx: CanvasRenderingContext2D) {
@@ -82,11 +113,12 @@ function GameField() {
       item.y += item.dy;
       // Проверяем, достиг ли круг квадрата
       if (isCircleReachedSquare(item, squareX, squareY, sizeCastle)) {
-        setCoinMax((prev) => prev + item.damage);
+        setHp((prev: any) => prev + item.damage);
+        setMoney((prev: any) => prev + item.damage);
         setCirclePosition((prevPositions) =>
           prevPositions.filter((_, i) => i !== index)
         );
-      } else {
+      } else { 
         drawCircle(ctx, item.x, item.y, 10, item.color);
       }
     });
@@ -109,8 +141,8 @@ function GameField() {
         ctx,
         sizeTexеHp,
         textLvlX,
-        textLvlHpY,
-        `${infoUser?.hp_castle.toLocaleString('ru-RU')} / 0`,
+        textLvlHpY, 
+        `${infoUser?.hp_castle_now.toLocaleString('ru-RU')} / ${infoUser?.hp_castle_start.toLocaleString('ru-RU')}`,
         "white"
       );
     }
@@ -118,23 +150,41 @@ function GameField() {
       ctx.drawImage(imageCastle, squareX, squareY, sizeCastle, sizeCastle);
     }
     if (imageBtn) {
-        const progressBar = energy ? energy : 0
-        const progress = progressBar / 100; //сюда передавать максс энергию
+        const progressEnergy = energyHelp ? energyHelp : 0
+        const progressEnergyMax = energyMax ? energyMax : 0
+        const progress = progressEnergy / progressEnergyMax; //сюда передавать максс энергию
         drawBtn(ctx, buttonX, buttonY, sizeBtn, imageBtn, btnScale, progress);
     }
-    drawText(ctx, sizeText, textX, textY, `${energy} / 100`, "black"); //макссЭнерегнию пока текст
+    drawText(ctx, sizeText, textX, textY, `${energyHelp} / ${energyMax}`, "black"); //макссЭнерегнию пока текст
   }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // dispatch(coinActions.addCoinStore(coinMax));
-      setCoinMax(0);
-    }, 300); // Значение передается каждую секунду
+  // const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  // const [mutationSent, setMutationSent] = useState(false);
 
-    return () => {
-      clearInterval(interval); // Очищаем интервал при размонтировании компонента
-    };
-  }, [dispatch, coinMax]);
+  useEffect(() => {
+    if(
+      energy &&
+      money !== null && money !== undefined &&
+      hp !== null && hp !== undefined
+      // mutationSent !== null
+    ) {
+      // if(!mutationSent) {
+        const newTimeoutId = setTimeout(() => {
+          tapTapMutation.mutate({tg_id, money, energy, hp})
+          // setMutationSent(true);  
+        }, 500);
+        // setTimeoutId(newTimeoutId);
+      // }
+      return () => clearTimeout(newTimeoutId)
+    }}, [energy, money]);
+  
+  // useEffect(() => {
+  //   if(timeoutId) {
+  //     clearTimeout(timeoutId);
+  //   }
+  //   setTimeoutId(null)
+  //   setMutationSent(false);
+  // }, [energy, money]);
 
   useEffect(() => {
     if (ctx) {
@@ -152,19 +202,18 @@ function GameField() {
               y >= buttonY &&
               y <= buttonY + sizeBtn
             ) {
-              if(energy) {
-                if (energy > 0) {
-                  const newCircle = addUnitPerson(centerX, centerY);
+                if (energyHelp > 0) {
+                  const newCircle = addUnitPerson(centerX, centerY, army);
                   setCirclePosition((prevPositions) => [
                     ...prevPositions,
                     newCircle,
                   ]);
-                  setEnergy((prev) => prev ? prev - 1 : undefined);
+                  setEnergy((prev: any) => prev - 1);
+                  setEnergyHelp((prev: any) => prev - 1);
                   setBtnScale(0.9);
                   const timerId = setTimeout(() => setBtnScale(1), 50);
                   return () => clearTimeout(timerId);
                 }
-              }
             }
           }
         };
@@ -174,7 +223,7 @@ function GameField() {
         };
       }
     }
-  }, [energy, addUnitPerson, ctx]);
+  }, [addUnitPerson, ctx, energyHelp, army]);
 
   return (
     <>

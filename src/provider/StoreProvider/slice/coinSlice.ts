@@ -10,6 +10,9 @@ export const coinSlice = createSlice({
         addCoinStore: (state, action: PayloadAction<CoinType>) => {
             state.infoUser = action.payload
         },
+        updateCoinStore: (state, action: PayloadAction<CoinType>) => {
+            state.infoUser = {...state.infoUser, ...action.payload}
+        }
     }
 })
 
