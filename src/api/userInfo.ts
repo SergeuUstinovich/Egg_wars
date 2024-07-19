@@ -3,11 +3,7 @@ import axios from "axios";
 const api_url = import.meta.env.MODE === 'development' ? '/api' : import.meta.env.VITE_API_BASE_URL;
 
 export function userInfo(tg_id: string, name: string) {
-    return axios.post(`${api_url}/main/main_info/`,{
-        name,
-        tg_id
-        
-    })
+    return axios.get(`${api_url}/main/main_info/${tg_id}/${name}/`)
     .then(response => {
         const data  = response.data
         return data

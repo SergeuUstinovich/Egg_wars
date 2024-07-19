@@ -6,7 +6,7 @@ import imgPlus from "../../assets/img/btn_plus.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { useTelegram } from "../../provider/telegram/telegram";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import {  useQuery } from "@tanstack/react-query";
 import { infoArmy, userInfo } from "../../api/userInfo";
 import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
@@ -17,38 +17,24 @@ function CoinsDiamond() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
   const { tg_id, userName } = useTelegram();
-
-  const infoValueMutation = useMutation(
+  
+  // const [hasFetched, setHasFetched] = useState(false);
+  const infoQuery = useQuery(
     {
-      mutationFn: (data: { tg_id: string; userName: string }) =>
-        userInfo(data.tg_id, data.userName),
-      onSuccess: (data) => {
-        localStorage.setItem('hpCastle', JSON.stringify(data.hp_castle_now));
-        dispatch(coinActions.addCoinStore(data));
-      },
+      queryFn: () => userInfo(tg_id, userName),
+      queryKey: ["info", tg_id],
+      enabled: !!tg_id,  //&& (hasFetched ? infoUser?.energy_now !== infoUser?.energy_start : true)
+      retry: 0,
+      // refetchInterval: 5000,
     },
     queryClient
   );
 
   useEffect(() => {
-    if(infoUser?.energy_now !== infoUser?.energy_start) {
-      const inter = setInterval(() => {
-        infoValueMutation.mutate({ tg_id, userName });
-      }, 30000)
-      return () => clearInterval(inter)
-    }
-  }, [infoUser])
+    dispatch(coinActions.addCoinStore(infoQuery.data));
+      // setHasFetched(true);
+  }, [infoQuery.data])
 
-  useEffect(() => {
-    if(infoUser) {
-      const savedHp = localStorage.getItem('hpCastle');
-      if(savedHp) {
-        if(JSON.parse(savedHp) >= infoUser?.hp_castle_start) {
-          infoValueMutation.mutate({ tg_id, userName });
-        }
-      }
-    }
-  }, [infoUser])
 
   const armyQuery = useQuery(
     {
@@ -63,10 +49,7 @@ function CoinsDiamond() {
   useEffect(() => {
     dispatch(armyActions.addArmyStore(armyQuery.data))
   }, [armyQuery.data])
-  
-  useEffect(() => {
-    infoValueMutation.mutate({ tg_id, userName });
-  }, [tg_id]);
+  const savedMoney = localStorage.getItem('score')
 
   return (
     <div className={style.coinBlock}>
@@ -76,7 +59,9 @@ function CoinsDiamond() {
           <img className={style.imgCoin} src={imgCoin} alt="" />
           <div className={style.bgValue}>
             <p className={style.descr}>
-              {infoUser?.money.toLocaleString("ru-RU")}
+              {savedMoney && (
+                JSON.parse(savedMoney).toLocaleString("ru-RU")
+              )}
             </p>
           </div>
           <Button className={style.btnDonatMoney}>
