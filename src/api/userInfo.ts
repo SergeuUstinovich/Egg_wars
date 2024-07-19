@@ -25,7 +25,7 @@ export function infoArmy(tg_id: string) {
 }
 
 export function tapTap(tg_id: string, money: number, energy: number, hp: number) {
-    return axios.post('/api/main/tap-tap/',{
+    return axios.post(`${api_url}/main/tap-tap/`,{
         tg_id,
         money,
         energy,
@@ -39,7 +39,7 @@ export function tapTap(tg_id: string, money: number, energy: number, hp: number)
 }
 
 export function upDamage(tg_id: string, id_warrior: number) {
-    return axios.post('/api/main/upgrade_army_bring_money/',{
+    return axios.post(`${api_url}/main/upgrade_army_bring_money/`,{
         tg_id,
         id_warrior,
     })
@@ -51,7 +51,7 @@ export function upDamage(tg_id: string, id_warrior: number) {
 }
 
 export function upSpeed(tg_id: string, id_warrior: number) {
-    return axios.post('/api/main/upgrade_army_speed/',{
+    return axios.post(`${api_url}/main/upgrade_army_speed/`,{
         tg_id,
         id_warrior,
     })

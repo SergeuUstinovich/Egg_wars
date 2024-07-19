@@ -16,7 +16,6 @@ import {
 } from "../../utils/drawCanvas";
 import { drawBtn, drawTape } from "../../utils/drawImages";
 import { addUnitPerson } from "../../utils/hpcSpawn";
-import { Outlet } from "react-router-dom";
 import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 import { useMutation } from "@tanstack/react-query";
 import { tapTap } from "../../api/userInfo";

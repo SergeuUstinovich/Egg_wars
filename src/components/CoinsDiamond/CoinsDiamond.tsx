@@ -12,14 +12,11 @@ import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
 import { useEffect } from "react";
 import { armyActions } from "../../provider/StoreProvider/slice/armySlice";
-import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 
 function CoinsDiamond() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
   const { tg_id, userName } = useTelegram();
-  const armyUser = useSelector(getArmy);
-
 
   const infoValueMutation = useMutation(
     {

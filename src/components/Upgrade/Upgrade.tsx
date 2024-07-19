@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import ModalRoute from "../../ui/ModalRoute/ModalRoute";
-import style from "./Upgrage.module.scss";
+// import style from "./Upgrage.module.scss";
 import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 import { useEffect, useState } from "react";
 import ArmyList from "../ArmyList/ArmyList";
@@ -9,7 +9,6 @@ import { ArmyType } from "../../types/ArmyType";
 
 function Upgrade() {
   const armyUser = useSelector(getArmy);
-  
   const [army, setArmy] = useState<ArmyType[]>()
 
   useEffect(() => {
