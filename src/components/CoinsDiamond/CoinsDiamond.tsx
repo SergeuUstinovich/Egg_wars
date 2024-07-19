@@ -33,10 +33,16 @@ function CoinsDiamond() {
     if(infoUser?.energy_now !== infoUser?.energy_start) {
       const inter = setInterval(() => {
         infoValueMutation.mutate({ tg_id, userName });
-      }, 5000)
+      }, 30000)
       return () => clearInterval(inter)
     }
   }, [infoUser])
+
+  useEffect(() => {
+    if(infoUser?.hp_castle_now === infoUser?.hp_castle_start) {
+      infoValueMutation.mutate({ tg_id, userName });
+    }
+  }, [infoUser?.hp_castle_now])
 
   const armyMutation = useMutation(
     {
@@ -53,6 +59,8 @@ function CoinsDiamond() {
     infoValueMutation.mutate({ tg_id, userName });
     armyMutation.mutate({ tg_id, userName });
   }, [tg_id]);
+
+  
 
   return (
     <div className={style.coinBlock}>

@@ -41,15 +41,21 @@ function GameField() {
   const infoUser = useSelector(getCoin);
   const armyUser = useSelector(getArmy);
   const { tg_id } = useTelegram();
+
+  const [scoreMoney, setScoreMoney] = useState(0);
+  const [scoreHp, setScoreHp] = useState(0);
+
   const [army, setArmy] = useState<ArmyType | undefined>(armyUser);
   const [hp, setHp] = useState(infoUser?.hp_castle_now);
   const [money, setMoney] = useState(infoUser?.money);
   const [energyMax, setEnergyMax] = useState(infoUser?.energy_start);
   const [energy, setEnergy] = useState(infoUser?.energy_now);
   const [energyHelp, setEnergyHelp] = useState(infoUser?.energy_now || 1);
+
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
+
   const [btnScale, setBtnScale] = useState(1);
   const imageCastle = useImage(imageCasltes);
   const imageBtn = useImage(imageBtns);
@@ -82,6 +88,64 @@ function GameField() {
     }
   }, [infoUser])
 
+
+useEffect(() => {
+  if(
+    hp !== null && hp !== undefined &&
+    money !== null && money !== undefined &&
+    energy !== null && energy !== undefined 
+  ) {
+    const currentMoney = money
+    const currentEnergy = energy
+    const currentHp = hp
+    const newTimeoutId = setTimeout(() => {
+      tapTapMutation.mutate({tg_id, money: currentMoney, energy: currentEnergy, hp: currentHp});
+    }, 500);
+
+    return () => clearTimeout(newTimeoutId);
+  }
+}, [energy, money, hp, scoreMoney]);
+
+useEffect(() => {
+  if(scoreMoney === 0 && scoreHp === 0) {
+    if(infoUser) {
+      localStorage.setItem('score', JSON.stringify(infoUser?.money));
+      localStorage.setItem('hpCastle', JSON.stringify(infoUser?.hp_castle_now));
+    }
+  } else {
+    localStorage.setItem('score', JSON.stringify(scoreMoney));
+    localStorage.setItem('hpCastle', JSON.stringify(scoreHp));
+  }
+  if(money !== null && money !== undefined && hp !== null && hp !== undefined) {
+    const differenceMoney = scoreMoney - money;
+    const differenceHp = scoreHp - hp;
+    if (differenceMoney > 0 ) {
+      setMoney((prev: any) => prev + differenceMoney);
+      setHp((prev: any) => prev + differenceHp);
+    } else {
+      setScoreMoney(money)
+      setScoreHp(hp)
+    }
+  }
+}, [scoreMoney, money, infoUser, scoreHp, hp]);
+
+useEffect(() => {
+  const savedScore = localStorage.getItem('score');
+  const savedHp = localStorage.getItem('hpCastle');
+  if (savedScore && savedHp) {
+    setScoreMoney(JSON.parse(savedScore));
+    setScoreHp(JSON.parse(savedHp));
+  } else {
+    if(infoUser) {
+      localStorage.setItem('score', JSON.stringify(infoUser?.money));
+      localStorage.setItem('hpCastle', JSON.stringify(infoUser?.hp_castle_now));
+      setScoreMoney(infoUser?.money);
+      setScoreHp(infoUser?.hp_castle_now)
+    }
+  }
+}, [infoUser]);
+
+
   function draw(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     const {
@@ -111,10 +175,13 @@ function GameField() {
     circlePosition.map((item, index) => {
       item.x += item.dx;
       item.y += item.dy;
+      
       // Проверяем, достиг ли круг квадрата
       if (isCircleReachedSquare(item, squareX, squareY, sizeCastle)) {
-        setHp((prev: any) => prev + item.damage);
-        setMoney((prev: any) => prev + item.damage);
+        setScoreHp((prev: any) => prev + item.damage);
+        setScoreMoney((prev: any) => prev + item.damage)
+          // setMoney((prev: any) => prev + item.damage);
+        
         setCirclePosition((prevPositions) =>
           prevPositions.filter((_, i) => i !== index)
         );
@@ -157,34 +224,6 @@ function GameField() {
     }
     drawText(ctx, sizeText, textX, textY, `${energyHelp} / ${energyMax}`, "black"); //макссЭнерегнию пока текст
   }
-
-  // const [timeoutId, setTimeoutId] = useState<number | null>(null);
-  // const [mutationSent, setMutationSent] = useState(false);
-
-  useEffect(() => {
-    if(
-      energy &&
-      money !== null && money !== undefined &&
-      hp !== null && hp !== undefined
-      // mutationSent !== null
-    ) {
-      // if(!mutationSent) {
-        const newTimeoutId = setTimeout(() => {
-          tapTapMutation.mutate({tg_id, money, energy, hp})
-          // setMutationSent(true);  
-        }, 500);
-        // setTimeoutId(newTimeoutId);
-      // }
-      return () => clearTimeout(newTimeoutId)
-    }}, [energy, money]);
-  
-  // useEffect(() => {
-  //   if(timeoutId) {
-  //     clearTimeout(timeoutId);
-  //   }
-  //   setTimeoutId(null)
-  //   setMutationSent(false);
-  // }, [energy, money]);
 
   useEffect(() => {
     if (ctx) {
