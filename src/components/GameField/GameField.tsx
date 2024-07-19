@@ -68,6 +68,12 @@ function GameField() {
     mutationFn: (data: { tg_id: string; money: number, energy: number, hp: number }) =>
       tapTap(data.tg_id, data.money, data.energy, data.hp),
     onSuccess: (data) => {
+      if(scoreMoney === 0 && scoreHp === 0) {
+        if(infoUser) {
+          localStorage.setItem('score', JSON.stringify(infoUser?.money));
+          localStorage.setItem('hpCastle', JSON.stringify(infoUser?.hp_castle_now));
+        }
+      }
       dispatch(coinActions.updateCoinStore(data));
     },
   }, queryClient)
@@ -107,15 +113,6 @@ useEffect(() => {
 }, [energy, money, hp, scoreMoney]);
 
 useEffect(() => {
-  if(scoreMoney === 0 && scoreHp === 0) {
-    if(infoUser) {
-      localStorage.setItem('score', JSON.stringify(infoUser?.money));
-      localStorage.setItem('hpCastle', JSON.stringify(infoUser?.hp_castle_now));
-    }
-  } else {
-    localStorage.setItem('score', JSON.stringify(scoreMoney));
-    localStorage.setItem('hpCastle', JSON.stringify(scoreHp));
-  }
   if(money !== null && money !== undefined && hp !== null && hp !== undefined) {
     const differenceMoney = scoreMoney - money;
     const differenceHp = scoreHp - hp;
@@ -130,20 +127,22 @@ useEffect(() => {
 }, [scoreMoney, money, infoUser, scoreHp, hp]);
 
 useEffect(() => {
+  if(infoUser) {
+    localStorage.setItem('score', JSON.stringify(infoUser?.money));
+    localStorage.setItem('hpCastle', JSON.stringify(infoUser?.hp_castle_now));
+    setScoreMoney(infoUser?.money);
+    setScoreHp(infoUser?.hp_castle_now)
+  } 
+}, [infoUser]);
+
+useEffect(() => {
   const savedScore = localStorage.getItem('score');
   const savedHp = localStorage.getItem('hpCastle');
   if (savedScore && savedHp) {
     setScoreMoney(JSON.parse(savedScore));
     setScoreHp(JSON.parse(savedHp));
-  } else {
-    if(infoUser) {
-      localStorage.setItem('score', JSON.stringify(infoUser?.money));
-      localStorage.setItem('hpCastle', JSON.stringify(infoUser?.hp_castle_now));
-      setScoreMoney(infoUser?.money);
-      setScoreHp(infoUser?.hp_castle_now)
-    }
   }
-}, [infoUser]);
+}, [infoUser])
 
 
   function draw(ctx: CanvasRenderingContext2D) {
@@ -267,7 +266,6 @@ useEffect(() => {
   return (
     <>
       <Canvas ref={canvasRef} />
-      <Outlet />
     </>
     
   );

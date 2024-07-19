@@ -15,22 +15,13 @@ export function userInfo(tg_id: string, name: string) {
     .catch(error => console.log("информация userInfo" + error))
 }
 
-export function infoArmy(tg_id: string, name: string) {
-    return axios.post(`${api_url}/main/takin_army/`,{
-        name,
-        tg_id
-    })
+export function infoArmy(tg_id: string) {
+    return axios.get(`${api_url}/main/takin_army/${tg_id}/`)
     .then(response => {
         const data  = response.data
         return data
     })
     .catch(error => console.log("информация infoArmy" + error))
-}
-
-interface taptapProps {
-    energy: number
-    money: number
-    hp: number
 }
 
 export function tapTap(tg_id: string, money: number, energy: number, hp: number) {
@@ -45,5 +36,29 @@ export function tapTap(tg_id: string, money: number, energy: number, hp: number)
         return data
     })
     .catch(error => console.log("информация tapTap" + error))
+}
+
+export function upDamage(tg_id: string, id_warrior: number) {
+    return axios.post('/api/main/upgrade_army_bring_money/',{
+        tg_id,
+        id_warrior,
+    })
+    .then(response => {
+        const data  = response.data
+        return data
+    })
+    .catch(error => console.log("информация upDamage" + error))
+}
+
+export function upSpeed(tg_id: string, id_warrior: number) {
+    return axios.post('/api/main/upgrade_army_speed/',{
+        tg_id,
+        id_warrior,
+    })
+    .then(response => {
+        const data  = response.data
+        return data
+    })
+    .catch(error => console.log("информация upSpeed" + error))
 }
 

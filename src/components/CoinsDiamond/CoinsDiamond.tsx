@@ -6,23 +6,27 @@ import imgPlus from "../../assets/img/btn_plus.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { useTelegram } from "../../provider/telegram/telegram";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { infoArmy, userInfo } from "../../api/userInfo";
 import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
 import { useEffect } from "react";
 import { armyActions } from "../../provider/StoreProvider/slice/armySlice";
+import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 
 function CoinsDiamond() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
   const { tg_id, userName } = useTelegram();
+  const armyUser = useSelector(getArmy);
+
 
   const infoValueMutation = useMutation(
     {
       mutationFn: (data: { tg_id: string; userName: string }) =>
         userInfo(data.tg_id, data.userName),
       onSuccess: (data) => {
+        localStorage.setItem('hpCastle', JSON.stringify(data.hp_castle_now));
         dispatch(coinActions.addCoinStore(data));
       },
     },
@@ -39,28 +43,33 @@ function CoinsDiamond() {
   }, [infoUser])
 
   useEffect(() => {
-    if(infoUser?.hp_castle_now === infoUser?.hp_castle_start) {
-      infoValueMutation.mutate({ tg_id, userName });
+    if(infoUser) {
+      const savedHp = localStorage.getItem('hpCastle');
+      if(savedHp) {
+        if(JSON.parse(savedHp) >= infoUser?.hp_castle_start) {
+          infoValueMutation.mutate({ tg_id, userName });
+        }
+      }
     }
-  }, [infoUser?.hp_castle_now])
+  }, [infoUser])
 
-  const armyMutation = useMutation(
+  const armyQuery = useQuery(
     {
-      mutationFn: (data: { tg_id: string; userName: string }) =>
-        infoArmy(data.tg_id, data.userName),
-      onSuccess: (data) => {
-        dispatch(armyActions.addArmyStore(data))
-      },
+      queryFn: () => infoArmy(tg_id),
+      queryKey: ["army", tg_id],
+      enabled: !!tg_id,
+      retry: 0
     },
     queryClient
   );
 
   useEffect(() => {
-    infoValueMutation.mutate({ tg_id, userName });
-    armyMutation.mutate({ tg_id, userName });
-  }, [tg_id]);
-
+    dispatch(armyActions.addArmyStore(armyQuery.data))
+  }, [armyQuery.data])
   
+  useEffect(() => {
+    infoValueMutation.mutate({ tg_id, userName });
+  }, [tg_id]);
 
   return (
     <div className={style.coinBlock}>
