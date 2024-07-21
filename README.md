@@ -1,8 +1,5 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Поправить данные с телеги когда билд!
+2. Проблема  const { devicePixelRatio:ratio=1 } = window телеграм просто не читает это свойство то есть страдает графа использовал для качетсва канваса, по итогу по умолчанию поставил 2 для современных устройст
+эти переменные надо поправлять в зависимости от свойста ретио
+const centerX = ctx.canvas.width / 2; сколько ретио на столько и делим, к сожалению в телеге просто так такого свойста для определение дисплея устройста
+const centerY = ctx.canvas.height / 2;

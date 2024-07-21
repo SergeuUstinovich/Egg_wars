@@ -43,14 +43,11 @@ function GameField() {
   const [scoreMoney, setScoreMoney] = useState(0);
   const [scoreHp, setScoreHp] = useState(0);
   const [scoreEnergy, setScoreEnergy] = useState(0);
-  
+
   const [dataLoad, setDataLoad] = useState(false);
 
   const [army, setArmy] = useState<ArmyType | undefined>(armyUser);
-  const [hp, setHp] = useState(infoUser?.hp_castle_now);
-  const [money, setMoney] = useState(infoUser?.money);
   const [energyMax, setEnergyMax] = useState(infoUser?.energy_start);
-  const [energy, setEnergy] = useState(infoUser?.energy_now);
 
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
@@ -74,24 +71,11 @@ function GameField() {
         hp: number;
       }) => tapTap(data.tg_id, data.money, data.energy, data.hp),
       onSuccess: (data) => {
-        if (scoreMoney === 0 && scoreHp === 0 && scoreEnergy === 0) {
-          if (infoUser) {
-            localStorage.setItem("score", JSON.stringify(infoUser?.money));
-            localStorage.setItem(
-              "hpCastle",
-              JSON.stringify(infoUser?.hp_castle_now)
-            );
-          } else {
-            localStorage.setItem("score", JSON.stringify(scoreMoney));
-            localStorage.setItem("hpCastle", JSON.stringify(scoreHp));
-          }
-        }
         if (infoUser) {
           if (scoreHp >= infoUser?.hp_castle_start) {
             queryClient.invalidateQueries({ queryKey: ["info", tg_id] });
           }
         }
-
         dispatch(coinActions.updateCoinStore(data));
       },
     },
@@ -105,114 +89,75 @@ function GameField() {
   }, [armyUser]);
   //загрузка актуальных данных
   useEffect(() => {
-    if(infoUser) {
-      setScoreEnergy(infoUser?.energy_now)
+    if (infoUser) {
+      setScoreMoney(infoUser.money);
+      setScoreEnergy(infoUser.energy_now);
+      setScoreHp(infoUser.hp_castle_now);
+      setEnergyMax(infoUser.energy_start);
     }
-  }, [dataLoad])
+  }, [dataLoad]);
   //загрузка актуальных данных
   useEffect(() => {
     if (infoUser) {
-      setDataLoad(true)
-      setHp(infoUser.hp_castle_now);
-      setMoney(infoUser.money);
-      setEnergy(infoUser.energy_now);
-      setEnergyMax(infoUser.energy_start);
+      setDataLoad(true);
     }
   }, [infoUser]);
   //отправка после кликов
   useEffect(() => {
-    if (
-      hp !== null &&
-      hp !== undefined &&
-      money !== null &&
-      money !== undefined &&
-      energy !== null &&
-      energy !== undefined
-    ) {
-      const newTimeoutId = setTimeout(() => {
-        tapTapMutation.mutate({ tg_id, money, energy: scoreEnergy, hp });
-      }, 500);
+    const newTimeoutId = setTimeout(() => {
+      tapTapMutation.mutate({
+        tg_id,
+        money: scoreMoney,
+        energy: scoreEnergy,
+        hp: scoreHp,
+      });
+    }, 3500);
 
-      return () => clearTimeout(newTimeoutId);
-    }
-  }, [energy, money, hp]);
+    return () => clearTimeout(newTimeoutId);
+  }, [scoreHp, scoreMoney]);
   //для запуска таймера на серваке
   useEffect(() => {
-    if (
-      hp !== null &&
-      hp !== undefined &&
-      money !== null &&
-      money !== undefined &&
-      energy !== null &&
-      energy !== undefined
-    ) {
-      const newTimeoutId = setTimeout(() => {
-        tapTapMutation.mutate({ tg_id, money, energy: scoreEnergy, hp });
-      }, 10000);
+    const newTimeoutId = setTimeout(() => {
+      tapTapMutation.mutate({
+        tg_id,
+        money: scoreMoney,
+        energy: scoreEnergy,
+        hp: scoreHp,
+      });
+    }, 10000);
 
-      return () => clearTimeout(newTimeoutId);
-    }
+    return () => clearTimeout(newTimeoutId);
   }, [scoreEnergy]);
-  //подгоняем актуальные значение которые перезатирает(если не успели отправиться)
-  useEffect(() => {
-    if (
-      money !== null &&
-      money !== undefined &&
-      hp !== null &&
-      hp !== undefined
-    ) {
-      const differenceMoney = scoreMoney - money;
-      const differenceHp = scoreHp - hp;
-      if (differenceMoney > 0) {
-        setMoney((prev: any) => prev + differenceMoney);
-        setHp((prev: any) => prev + differenceHp);
-      } else {
-        setScoreMoney(money);
-        setScoreHp(hp);
-      }
-    }
-  }, [scoreMoney, money, infoUser, scoreHp, hp]);
 
   //таймер регена энергии
   useEffect(() => {
     if (energyMax) {
       const interval = setTimeout(() => {
         if (scoreEnergy < energyMax) {
-          setScoreEnergy((prevEnergy) => prevEnergy + 3);
+          setScoreEnergy((prevEnergy) => prevEnergy + 1);
         }
-      }, 1000);
-        if(scoreEnergy > energyMax) {
-          setScoreEnergy(energyMax)
-        }
+      }, 3000);
+      if (scoreEnergy > energyMax) {
+        setScoreEnergy(energyMax);
+      }
       return () => clearTimeout(interval);
     }
   }, [scoreEnergy]);
 
-  //актуальные данные в значения
+  const [intervalId, setIntervalId] = useState(0);
+
   useEffect(() => {
-    if (infoUser) {
-      localStorage.setItem("score", JSON.stringify(infoUser?.money));
-      localStorage.setItem("hpCastle", JSON.stringify(infoUser?.hp_castle_now));
-      setScoreMoney(infoUser?.money);
-      setScoreHp(infoUser?.hp_castle_now);
+    if (intervalId) {
+      clearInterval(intervalId);
     }
-  }, [infoUser]);
-  //выгрузка данных из локала
-  useEffect(() => {
-    const savedScore = localStorage.getItem("score");
-    const savedHp = localStorage.getItem("hpCastle");
-    // const savedEnergy = localStorage.getItem('energy');
-    if (savedScore && savedHp) {
-      //&& savedEnergy
-      setScoreMoney(JSON.parse(savedScore));
-      setScoreHp(JSON.parse(savedHp));
-      // setScoreEnergy(JSON.parse(savedEnergy));
-    }
-  }, [infoUser]);
-  //сохраняем актуальные значение в стор
-  useEffect(() => {
-    localStorage.setItem("energy", JSON.stringify(scoreEnergy));
-  }, [scoreEnergy]);
+    const interval = setInterval(() => {
+      dispatch(coinActions.updateCoin(scoreMoney));
+      clearInterval(interval);
+      setIntervalId(interval);
+    }, 500);
+    return () => clearInterval(interval);
+  }, [scoreMoney]);
+
   //рисуем на холсте
   function draw(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -282,7 +227,7 @@ function GameField() {
         sizeTexеHp,
         textLvlX,
         textLvlHpY,
-        `${infoUser?.hp_castle_now.toLocaleString(
+        `${scoreHp.toLocaleString(
           "ru-RU"
         )} / ${infoUser?.hp_castle_start.toLocaleString("ru-RU")}`,
         "white"

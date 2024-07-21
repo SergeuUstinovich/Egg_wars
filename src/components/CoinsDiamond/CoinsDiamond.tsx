@@ -49,7 +49,7 @@ function CoinsDiamond() {
   useEffect(() => {
     dispatch(armyActions.addArmyStore(armyQuery.data))
   }, [armyQuery.data])
-  const savedMoney = localStorage.getItem('score')
+  
 
   return (
     <div className={style.coinBlock}>
@@ -59,9 +59,9 @@ function CoinsDiamond() {
           <img className={style.imgCoin} src={imgCoin} alt="" />
           <div className={style.bgValue}>
             <p className={style.descr}>
-              {savedMoney && (
-                JSON.parse(savedMoney).toLocaleString("ru-RU")
-              )}
+              { 
+                infoUser?.money.toLocaleString("ru-RU")
+              }
             </p>
           </div>
           <Button className={style.btnDonatMoney}>
