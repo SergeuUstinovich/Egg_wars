@@ -23,11 +23,11 @@ export function isCircleReachedSquare(
   size: number
 ): boolean {
   const inXRange =
-    position.x >= centerX &&
-    position.x <= centerX - 20 + size;
+    position.x >= centerX + 40 &&
+    position.x <= centerX + size - 40;
   const inYRange =
     position.y >= centerY &&
-    position.y <= centerY - 20 + size;
+    position.y <= centerY + size - 30;
   return inXRange && inYRange;
 }
 

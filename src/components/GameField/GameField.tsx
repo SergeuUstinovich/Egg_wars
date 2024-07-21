@@ -122,7 +122,7 @@ function GameField() {
       });
     }, 2500);
     return () => clearTimeout(newTimeoutId);
-  }, [scoreHp]);
+  }, [scoreHp, scoreMoney]);
   //для запуска таймера на серваке
   useEffect(() => {
     const newTimeoutId = setTimeout(() => {
@@ -171,6 +171,7 @@ function GameField() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     const { sizeCastle, sizeBtn, sizeText, squareX, squareY, buttonX, buttonY, textX, textY, sizeTapeX, sizeTapeY, tapeX, tapeY, sizeBgTypeX, sizeBgTypeY, BgTypeX, BgTypeY, sizeTextLvl, textLvlX, textLvlY, sizeTexеHp, textLvlHpY, sizeCoinJump,
     } = variable(ctx);
+
     circlePosition.map((item, index) => {
       item.x += item.dx;
       item.y += item.dy;
@@ -192,6 +193,7 @@ function GameField() {
         drawCircle(ctx, item.x, item.y, 10, item.color);
       }
     });
+    
     //ленточка лвл
     if (imageTape) {
       drawTape(ctx, imageTape, BgTypeX, BgTypeY, sizeBgTypeX, sizeBgTypeY, tapeX, tapeY, sizeTapeX, sizeTapeY
