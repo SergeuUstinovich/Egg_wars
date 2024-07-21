@@ -130,7 +130,7 @@ function GameField() {
       energy !== undefined
     ) {
       const newTimeoutId = setTimeout(() => {
-        tapTapMutation.mutate({ tg_id, money, energy, hp });
+        tapTapMutation.mutate({ tg_id, money, energy: scoreEnergy, hp });
       }, 500);
 
       return () => clearTimeout(newTimeoutId);
