@@ -1,5 +1,5 @@
 export function variable(ctx: CanvasRenderingContext2D) {
-  const centerX = ctx.canvas.width;
+  const centerX = ctx.canvas.width / 2;
   const centerY = ctx.canvas.height;
 
   const sizeCastle = centerX * 0.3;
