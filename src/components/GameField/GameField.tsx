@@ -18,6 +18,7 @@ import { drawBtn, drawTape } from "../../utils/drawImages";
 import { coinActions } from "../../provider/StoreProvider";
 import { addUnitPerson } from "../../utils/hpcSpawn";
 import { Outlet } from "react-router-dom";
+import { resizeCanvas } from "../../utils/resizeCanvas";
 
 export interface circlePositionProps {
   x: number;
@@ -49,6 +50,7 @@ function GameField() {
 
   function draw(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    resizeCanvas(ctx.canvas);
     const {
       sizeCastle,
       sizeBtn,

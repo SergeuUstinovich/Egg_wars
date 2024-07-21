@@ -14,9 +14,9 @@ function useCanvas(draw: (context: CanvasRenderingContext2D, frameCount: number)
     if (context) {
       const render = () => {
         frameCount++;
-        if(canvas) {
-            resizeCanvas(canvas);
-        }
+        // if(canvas) {
+        //     resizeCanvas(canvas);
+        // }
         draw(context, frameCount);
         animationFrameId = window.requestAnimationFrame(render);
       };
