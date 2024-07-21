@@ -1,14 +1,3 @@
-import { generateRandomPosition } from "./getRandomCoordinate";
-
-
-export function getCanvasSize(canvas: HTMLCanvasElement): {
-  width: number;
-  height: number;
-} {
-  return { width: canvas.width, height: canvas.height };
-}
-
-
 export function drawCircle(
   context: CanvasRenderingContext2D,
   x: number,
@@ -35,10 +24,10 @@ export function isCircleReachedSquare(
 ): boolean {
   const inXRange =
     position.x >= centerX &&
-    position.x <= centerX + size;
+    position.x <= centerX - 20 + size;
   const inYRange =
     position.y >= centerY &&
-    position.y <= centerY + size;
+    position.y <= centerY - 20 + size;
   return inXRange && inYRange;
 }
 
@@ -89,3 +78,32 @@ export function drawTextTape(
   ctx.strokeText(text, textX, textY);
   ctx.fillText(text, textX, textY);
 }
+
+// export function drawTextCoin(
+//   ctx: CanvasRenderingContext2D,
+//   sizeText: number,
+//   textX: number,
+//   textY: number,
+//   text: string,
+//   color: string,
+//   arr: coinJumpProps[]
+// ) {
+//   arr.forEach((coin, index) => {
+//     const elapsedTime = Date.now() - coin.time;
+//     const rise = (50 * elapsedTime) / 500;
+//     ctx.font = `${sizeText}px PassionOne`;
+//     ctx.strokeStyle = 'black'; 
+//     ctx.lineWidth = 2; 
+//     ctx.fillStyle = color;
+//     ctx.strokeText(text, textX, textY - rise);
+//     ctx.fillText(text, textX, textY - rise);
+//     if (elapsedTime > 500) {
+//       setCoinJump((prevCoins) => prevCoins.filter((_, i) => i !== index));
+//     }
+//   })
+// }
+
+
+  
+  
+

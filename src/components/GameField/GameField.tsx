@@ -34,6 +34,13 @@ export interface circlePositionProps {
   img: string;
 }
 
+export interface coinJumpProps {
+  x: number,
+  y: number,
+  value: number,
+  time: number
+}
+
 function GameField() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
@@ -45,6 +52,8 @@ function GameField() {
   const [scoreEnergy, setScoreEnergy] = useState(0);
 
   const [dataLoad, setDataLoad] = useState(false);
+  const [intervalCoin, setIntervalCoin] = useState(0);
+  const [coinJump, setCoinJump] = useState<coinJumpProps[]>([]);
 
   const [army, setArmy] = useState<ArmyType | undefined>(armyUser);
   const [energyMax, setEnergyMax] = useState(infoUser?.energy_start);
@@ -111,10 +120,9 @@ function GameField() {
         energy: scoreEnergy,
         hp: scoreHp,
       });
-    }, 3500);
-
+    }, 2500);
     return () => clearTimeout(newTimeoutId);
-  }, [scoreHp, scoreMoney]);
+  }, [scoreHp]);
   //для запуска таймера на серваке
   useEffect(() => {
     const newTimeoutId = setTimeout(() => {
@@ -144,16 +152,16 @@ function GameField() {
     }
   }, [scoreEnergy]);
 
-  const [intervalId, setIntervalId] = useState(0);
+  
 
   useEffect(() => {
-    if (intervalId) {
-      clearInterval(intervalId);
+    if (intervalCoin) {
+      clearInterval(intervalCoin);
     }
     const interval = setInterval(() => {
       dispatch(coinActions.updateCoin(scoreMoney));
       clearInterval(interval);
-      setIntervalId(interval);
+      setIntervalCoin(interval);
     }, 500);
     return () => clearInterval(interval);
   }, [scoreMoney]);
@@ -161,38 +169,22 @@ function GameField() {
   //рисуем на холсте
   function draw(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    const {
-      sizeCastle,
-      sizeBtn,
-      sizeText,
-      squareX,
-      squareY,
-      buttonX,
-      buttonY,
-      textX,
-      textY,
-      sizeTapeX,
-      sizeTapeY,
-      tapeX,
-      tapeY,
-      sizeBgTypeX,
-      sizeBgTypeY,
-      BgTypeX,
-      BgTypeY,
-      sizeTextLvl,
-      textLvlX,
-      textLvlY,
-      sizeTexеHp,
-      textLvlHpY,
+    const { sizeCastle, sizeBtn, sizeText, squareX, squareY, buttonX, buttonY, textX, textY, sizeTapeX, sizeTapeY, tapeX, tapeY, sizeBgTypeX, sizeBgTypeY, BgTypeX, BgTypeY, sizeTextLvl, textLvlX, textLvlY, sizeTexеHp, textLvlHpY, sizeCoinJump,
     } = variable(ctx);
     circlePosition.map((item, index) => {
       item.x += item.dx;
       item.y += item.dy;
 
+      const newObjCoin = { x: squareX * 2.4, y: squareY * 3.5, value: item.damage, time: Date.now() }
+
       // Проверяем, достиг ли круг квадрата
       if (isCircleReachedSquare(item, squareX, squareY, sizeCastle)) {
         setScoreHp((prev: any) => prev + item.damage);
         setScoreMoney((prev: any) => prev + item.damage);
+        setCoinJump((prevCoins) => [
+          ...prevCoins,
+          newObjCoin,
+        ]);
         setCirclePosition((prevPositions) =>
           prevPositions.filter((_, i) => i !== index)
         );
@@ -202,57 +194,35 @@ function GameField() {
     });
     //ленточка лвл
     if (imageTape) {
-      drawTape(
-        ctx,
-        imageTape,
-        BgTypeX,
-        BgTypeY,
-        sizeBgTypeX,
-        sizeBgTypeY,
-        tapeX,
-        tapeY,
-        sizeTapeX,
-        sizeTapeY
+      drawTape(ctx, imageTape, BgTypeX, BgTypeY, sizeBgTypeX, sizeBgTypeY, tapeX, tapeY, sizeTapeX, sizeTapeY
       );
-      drawTextTape(
-        ctx,
-        sizeTextLvl,
-        textLvlX,
-        textLvlY,
-        `Level ${infoUser?.lvl}`,
-        "white"
-      );
-      drawTextTape(
-        ctx,
-        sizeTexеHp,
-        textLvlX,
-        textLvlHpY,
-        `${scoreHp.toLocaleString(
-          "ru-RU"
-        )} / ${infoUser?.hp_castle_start.toLocaleString("ru-RU")}`,
-        "white"
-      );
+      drawTextTape(ctx, sizeTextLvl, textLvlX, textLvlY, `Level ${infoUser?.lvl}`, "white");
+      drawTextTape(ctx, sizeTexеHp, textLvlX, textLvlHpY, `${scoreHp.toLocaleString("ru-RU")} / ${infoUser?.hp_castle_start.toLocaleString("ru-RU")}`, "white");
     }
     //замок
     if (imageCastle) {
       ctx.drawImage(imageCastle, squareX, squareY, sizeCastle, sizeCastle);
     }
+    coinJump.forEach((coin, index) => {
+      const elapsedTime = Date.now() - coin.time;
+      const rise = (50 * elapsedTime) / 500;
+      ctx.font = `${sizeCoinJump}px PassionOne`;
+      ctx.strokeStyle = 'black'; 
+      ctx.lineWidth = 2; 
+      ctx.fillStyle = 'Yellow';
+      ctx.strokeText(`+ ${coin.value}`, coin.x, coin.y - rise);
+      ctx.fillText(`+ ${coin.value}`, coin.x, coin.y - rise);
+      if (elapsedTime > 500) {
+        setCoinJump((prevCoins) => prevCoins.filter((_, i) => i !== index));
+      }
+    });
     //кнопка + прогрессбар
     if (imageBtn) {
       const progressEnergyMax = energyMax ? energyMax : 0;
       const progress = scoreEnergy / progressEnergyMax;
       drawBtn(ctx, buttonX, buttonY, sizeBtn, imageBtn, btnScale, progress);
     }
-    drawText(
-      ctx,
-      sizeText,
-      textX,
-      textY,
-      `${scoreEnergy.toLocaleString("ru-RU")} / ${energyMax?.toLocaleString(
-        "ru-RU"
-      )}`,
-      "black"
-    ); //макссЭнерегнию пока текст
+    drawText(ctx, sizeText, textX, textY, `${scoreEnergy.toLocaleString("ru-RU")} / ${energyMax?.toLocaleString("ru-RU")}`, "black");
   }
   //клик кнопки на поле(мультитап)
   useEffect(() => {

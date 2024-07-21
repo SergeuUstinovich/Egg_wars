@@ -1,12 +1,6 @@
 import { generateRandomPosition } from "./getRandomCoordinate";
 import { ArmyType } from "../types/ArmyType";
 
-// function getRandomColor() {
-//   const colors = ["red", "blue", "green"];
-//   const randomIndex = Math.floor(Math.random() * colors.length);
-//   return colors[randomIndex];
-// }
-
 export function addUnitPerson(canvasW: number, canvasH: number, armyUser: ArmyType | undefined) {
   const randomSide = Math.random();
   if (!Array.isArray(armyUser)) {

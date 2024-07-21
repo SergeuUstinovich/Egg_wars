@@ -30,6 +30,8 @@ export function variable(ctx: CanvasRenderingContext2D) {
 
   const sizeTexеHp = centerX * 0.036;
   const textLvlHpY = textLvlY + sizeTexеHp + 1;
+
+  const sizeCoinJump = centerX * 0.06;
   return {
     centerX,
     centerY,
@@ -55,5 +57,6 @@ export function variable(ctx: CanvasRenderingContext2D) {
     textLvlY,
     sizeTexеHp,
     textLvlHpY,
+    sizeCoinJump,
   };
 }
