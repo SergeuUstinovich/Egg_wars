@@ -3,7 +3,7 @@ export function resizeCanvas(canvas:HTMLCanvasElement) {
     
     if (canvas.width !== width || canvas.height !== height) {
       // const { devicePixelRatio:ratio=1 } = window
-      const ratio = 1;
+      const ratio = 2;
       const context = canvas.getContext('2d')
       canvas.width = width * ratio
       canvas.height = height * ratio
