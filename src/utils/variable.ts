@@ -1,6 +1,6 @@
 export function variable(ctx: CanvasRenderingContext2D) {
-  const centerX = ctx.canvas.width / 2; //2.75
-  const centerY = ctx.canvas.height / 2;  //2.75
+  const centerX = ctx.canvas.width; //2.75
+  const centerY = ctx.canvas.height;  //2.75
 
   const sizeCastle = centerX * 0.6;
   const squareX = centerX / 2 - sizeCastle / 2;
