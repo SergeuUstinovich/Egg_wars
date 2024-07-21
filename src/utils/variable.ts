@@ -11,8 +11,8 @@ export function variable(ctx: CanvasRenderingContext2D) {
   const buttonY = centerY / 1.23 - sizeBtn;
 
   const sizeText = centerX * 0.04;
-  const textX = centerX / 1.33 - sizeBtn / 2;
-  const textY = centerY / 1.12 - sizeBtn;
+  const textX = buttonX + sizeBtn / 2;
+  const textY = buttonY + sizeBtn / 3.2;
 
   const sizeTapeX = centerX * 0.99;
   const sizeTapeY = centerY * 0.08;
