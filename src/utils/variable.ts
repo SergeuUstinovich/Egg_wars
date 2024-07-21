@@ -1,6 +1,6 @@
 export function variable(ctx: CanvasRenderingContext2D) {
-  const centerX = ctx.canvas.width;
-  const centerY = ctx.canvas.height;
+  const centerX = ctx.canvas.width / 2;
+  const centerY = ctx.canvas.height / 2;
 
   const sizeCastle = centerX * 0.6;
   const squareX = centerX / 2 - sizeCastle / 2;
@@ -8,7 +8,7 @@ export function variable(ctx: CanvasRenderingContext2D) {
 
   const sizeBtn = centerX * 0.5;
   const buttonX = centerX / 2 - sizeBtn / 2;
-  const buttonY = centerY - sizeBtn;
+  const buttonY = centerY / 1.2 - sizeBtn;
 
   const sizeText = centerX * 0.04;
   const textX = buttonX + sizeBtn / 2;

@@ -137,12 +137,14 @@ function GameField() {
     if (ctx) {
       const { centerX, centerY, sizeBtn, buttonX, buttonY } = variable(ctx);
       const canvas = ctx?.canvas;
+      resizeCanvas(canvas);
       if (canvas) {
         const handleTouchStart = (e: TouchEvent) => {
           const rect = canvas.getBoundingClientRect();
           for (let i = 0; i < e.touches.length; i++) {
             const x = e.touches[i].clientX - rect.left;
             const y = e.touches[i].clientY - rect.top;
+            
             if (
               x >= buttonX &&
               x <= buttonX + sizeBtn &&
