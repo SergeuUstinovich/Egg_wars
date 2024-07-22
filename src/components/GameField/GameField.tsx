@@ -109,7 +109,7 @@ function GameField() {
         sizeTexеHp,
         textLvlX,
         textLvlHpY,
-        `${coins} / 10 000`,
+        `${coinMax} / 10 000`,
         "white"
       );
     }
@@ -126,9 +126,9 @@ function GameField() {
 
   useEffect(() => {
     const interval = setTimeout(() => {
-      localStorage.setItem('coin', JSON.stringify(coinMax))
+      // localStorage.setItem('coin', JSON.stringify(coinMax))
       dispatch(coinActions.addCoinStore(coinMax));
-      // setCoinMax(0);
+      setCoinMax(0);
     }, 300); // Значение передается каждую секунду
 
     return () => {
@@ -136,12 +136,12 @@ function GameField() {
     };
   }, [dispatch, coinMax]);
 
-  useEffect(() => {
-    const loadLs = localStorage.getItem('coin')
-    if(loadLs) {
-      setCoins(JSON.parse(loadLs))
-    }
-  }, [coin])
+  // useEffect(() => {
+  //   const loadLs = localStorage.getItem('coin')
+  //   if(loadLs) {
+  //     setCoins(JSON.parse(loadLs))
+  //   }
+  // }, [coin])
 
   useEffect(() => {
     if (ctx) {
