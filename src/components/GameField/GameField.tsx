@@ -122,9 +122,9 @@ function GameField() {
     drawText(ctx, sizeText, textX, textY, `${energy} / ${energyMax}`, "black"); //макссЭнерегнию пока текст
   }
 
-  useEffect(() => {
-    localStorage.setItem('coin', coin)
-  }, [coin])
+  // useEffect(() => {
+  //   localStorage.setItem('coin', coin)
+  // }, [coin])
 
   useEffect(() => {
     const interval = setInterval(() => {
