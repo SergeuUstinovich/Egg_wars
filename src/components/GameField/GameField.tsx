@@ -50,7 +50,7 @@ function GameField() {
   const [scoreMoney, setScoreMoney] = useState(0);
   const [scoreHp, setScoreHp] = useState(0);
   const [scoreEnergy, setScoreEnergy] = useState(0);
-  const [helperMoney, setHelperMoney] = useState(0);
+
 
   const [dataLoad, setDataLoad] = useState(false);
   const [intervalCoin, setIntervalCoin] = useState(0);
@@ -113,7 +113,6 @@ function GameField() {
       setScoreEnergy(infoUser.energy_now);
       setScoreHp(infoUser.hp_castle_now);
       setEnergyMax(infoUser.energy_start);
-      setHelperMoney(infoUser.money)
     }
   }, [dataLoad]);
   //загрузка актуальных данных
