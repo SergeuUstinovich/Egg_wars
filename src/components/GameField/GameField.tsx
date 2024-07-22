@@ -123,6 +123,10 @@ function GameField() {
   }
 
   useEffect(() => {
+    localStorage.setItem('coin', coin)
+  }, [coin])
+
+  useEffect(() => {
     const interval = setInterval(() => {
       dispatch(coinActions.addCoinStore(coinMax));
       setCoinMax(0);
