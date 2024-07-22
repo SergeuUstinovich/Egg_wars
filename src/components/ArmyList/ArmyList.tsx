@@ -23,7 +23,6 @@ function ArmyList({ army }: ArmyList) {
         upDamage(data.tg_id, data.id_warrior),
       onSuccess: (data) => {
         const moneyCoin: number = data.money;
-        localStorage.setItem("score", JSON.stringify(data.money));
         dispatch(coinActions.updateCoin(moneyCoin));
         queryClient.invalidateQueries({queryKey: ["army", tg_id]})
       },
@@ -37,7 +36,6 @@ function ArmyList({ army }: ArmyList) {
         upSpeed(data.tg_id, data.id_warrior),
       onSuccess: (data) => {
         const moneyCoin: number = data.money;
-        localStorage.setItem("score", JSON.stringify(data.money));
         dispatch(coinActions.updateCoin(moneyCoin));
         queryClient.invalidateQueries({queryKey: ["army", tg_id]})
       },

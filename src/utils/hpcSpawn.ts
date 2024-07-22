@@ -22,21 +22,6 @@ export function addUnitPerson(
           canvasH / 7,
           canvasH / 1.8 + 200
         );
-  // второй варик с высотой
-  // const position =
-  //   randomSide < 0.5
-  //     ? generateRandomPosition(
-  //         30,
-  //         110,
-  //         canvasH / 2,
-  //         canvasH / 2 + 300
-  //       )
-  //     : generateRandomPosition(
-  //         canvasW - 30,
-  //         canvasW - 110,
-  //         canvasH / 2,
-  //         canvasH / 2 + 300
-  //       );
   // третий варик
   // const position = generateRandomPosition(30, canvasW - 30, canvasH / 1.6, canvasH - 100);
 

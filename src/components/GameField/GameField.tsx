@@ -50,6 +50,7 @@ function GameField() {
   const [scoreMoney, setScoreMoney] = useState(0);
   const [scoreHp, setScoreHp] = useState(0);
   const [scoreEnergy, setScoreEnergy] = useState(0);
+  const [helperMoney, setHelperMoney] = useState(0);
 
   const [dataLoad, setDataLoad] = useState(false);
   const [intervalCoin, setIntervalCoin] = useState(0);
@@ -95,6 +96,15 @@ function GameField() {
     if (armyUser) {
       setArmy(armyUser);
     }
+    if(infoUser) {
+      setScoreMoney(infoUser?.money)
+      tapTapMutation.mutate({
+        tg_id,
+        money: infoUser.money,
+        energy: scoreEnergy,
+        hp: scoreHp,
+      });
+    }
   }, [armyUser]);
   //загрузка актуальных данных
   useEffect(() => {
@@ -103,6 +113,7 @@ function GameField() {
       setScoreEnergy(infoUser.energy_now);
       setScoreHp(infoUser.hp_castle_now);
       setEnergyMax(infoUser.energy_start);
+      setHelperMoney(infoUser.money)
     }
   }, [dataLoad]);
   //загрузка актуальных данных
@@ -113,28 +124,31 @@ function GameField() {
   }, [infoUser]);
   //отправка после кликов
   useEffect(() => {
-    const newTimeoutId = setTimeout(() => {
-      tapTapMutation.mutate({
-        tg_id,
-        money: scoreMoney,
-        energy: scoreEnergy,
-        hp: scoreHp,
-      });
-    }, 2500);
-    return () => clearTimeout(newTimeoutId);
+    if(infoUser) {
+      const newTimeoutId = setTimeout(() => {
+        tapTapMutation.mutate({
+          tg_id,
+          money: scoreMoney,
+          energy: scoreEnergy,
+          hp: scoreHp,
+        });
+      }, 2000);
+      return () => clearTimeout(newTimeoutId);
+    }
   }, [scoreHp, scoreMoney]);
   //для запуска таймера на серваке
   useEffect(() => {
-    const newTimeoutId = setTimeout(() => {
-      tapTapMutation.mutate({
-        tg_id,
-        money: scoreMoney,
-        energy: scoreEnergy,
-        hp: scoreHp,
-      });
-    }, 10000);
-
-    return () => clearTimeout(newTimeoutId);
+    if(infoUser) {
+      const newTimeoutId = setTimeout(() => {
+        tapTapMutation.mutate({
+          tg_id,
+          money: scoreMoney,
+          energy: scoreEnergy,
+          hp: scoreHp,
+        });
+      }, 10000);
+      return () => clearTimeout(newTimeoutId);
+    }
   }, [scoreEnergy]);
 
   //таймер регена энергии
