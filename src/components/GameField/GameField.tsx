@@ -33,6 +33,7 @@ function GameField() {
   const dispatch = useDispatch();
   const coin = useSelector(getCoin);
   const [coinMax, setCoinMax] = useState(0);
+  const [coins, setCoins] = useState(0);
   const [energyMax, setEnergyMax] = useState(50);
   const [energy, setEnergy] = useState(energyMax);
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
@@ -108,7 +109,7 @@ function GameField() {
         sizeTexеHp,
         textLvlX,
         textLvlHpY,
-        `${coin} / 10 000`,
+        `${coins} / 10 000`,
         "white"
       );
     }
@@ -122,20 +123,25 @@ function GameField() {
     drawText(ctx, sizeText, textX, textY, `${energy} / ${energyMax}`, "black"); //макссЭнерегнию пока текст
   }
 
-  // useEffect(() => {
-  //   localStorage.setItem('coin', coin)
-  // }, [coin])
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const interval = setTimeout(() => {
+      localStorage.setItem('coin', JSON.stringify(coinMax))
       dispatch(coinActions.addCoinStore(coinMax));
-      setCoinMax(0);
+      // setCoinMax(0);
     }, 300); // Значение передается каждую секунду
 
     return () => {
-      clearInterval(interval); // Очищаем интервал при размонтировании компонента
+      clearTimeout(interval); // Очищаем интервал при размонтировании компонента
     };
   }, [dispatch, coinMax]);
+
+  useEffect(() => {
+    const loadLs = localStorage.getItem('coin')
+    if(loadLs) {
+      setCoins(JSON.parse(loadLs))
+    }
+  }, [coin])
 
   useEffect(() => {
     if (ctx) {

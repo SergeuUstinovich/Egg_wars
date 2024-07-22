@@ -3,17 +3,17 @@ import { generateRandomPosition } from "./getRandomCoordinate";
 const arrHpc = [
     {
         damage: 1,
-        speedRun: 15,
+        speedRun: 7,
         color: 'red'
     },
     {
         damage: 1,
-        speedRun: 15,
+        speedRun: 7,
         color: 'blue'
     },
     {
         damage: 1,
-        speedRun: 15,
+        speedRun: 7,
         color: 'green'
     },
 ]
