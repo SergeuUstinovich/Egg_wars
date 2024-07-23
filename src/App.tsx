@@ -6,7 +6,6 @@ import { Route, Routes } from "react-router-dom";
 import GameField from "./components/GameField/GameField";
 
 function App() {
-  useTelegram().tg.expand();
   return (
     <>
       <Suspense fallback={<div>Loading</div>}>

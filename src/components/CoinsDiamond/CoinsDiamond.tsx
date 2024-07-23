@@ -16,7 +16,8 @@ function CoinsDiamond() {
     
     const habdle = () => {
         const link = 'https://t.me/share/url?url=https://t.me/EggWarsTest_bot&text={опциональный_текст}'
-        tg.openTelegramLink(link) 
+        tg.openTelegramLink(link)
+        tg.enableVerticalSwipes()
     }
     
     return (
