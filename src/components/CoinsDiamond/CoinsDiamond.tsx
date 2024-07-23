@@ -7,21 +7,21 @@ import { useSelector } from "react-redux"
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin"
 import { useEffect, useState } from "react"
 import { userInfo } from "../../api/userInfo"
+import { useTelegram } from "../../provider/telegram/telegram"
 
 function CoinsDiamond() {
-
+    const {tg} = useTelegram()
     const coin = useSelector(getCoin)
     const [img, setImage] = useState()
     
-    
-    const link = 'https://t.me/share/url?url=https://t.me/EggWarsTest_bot&text={опциональный_текст}'
-
-    
-    
+    const habdle = () => {
+        const link = 'https://t.me/share/url?url=https://t.me/EggWarsTest_bot&text={опциональный_текст}'
+        tg.openTelegramLink(link) 
+    }
     
     return (
         <div className={style.coinBlock}>
-            <a href={link} className={style.descrLvl}>LVL 1</a>
+            <p onClick={habdle} className={style.descrLvl}>LVL 1</p>
             <div className={style.coinBar}>
             <div className={style.coinBlockMoney}>
                 <img className={style.imgCoin} src={imgCoin} alt="" />
