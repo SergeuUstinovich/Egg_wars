@@ -92,23 +92,21 @@ function GameField() {
     queryClient
   );
   //загрузка актуальных данных
+  //разобраться с деньгами
   useEffect(() => {
     if (armyUser) {
       setArmy(armyUser);
     }
     if(infoUser) {
-      setScoreMoney(infoUser?.money)
-      tapTapMutation.mutate({
-        tg_id,
-        money: infoUser.money,
-        energy: scoreEnergy,
-        hp: scoreHp,
-      });
+      setScoreMoney(infoUser.money)
     }
   }, [armyUser]);
+
+
   //загрузка актуальных данных
   useEffect(() => {
     if (infoUser) {
+      // localStorage.setItem('coin', JSON.stringify(infoUser.money))
       setScoreMoney(infoUser.money);
       setScoreEnergy(infoUser.energy_now);
       setScoreHp(infoUser.hp_castle_now);
@@ -135,20 +133,6 @@ function GameField() {
       return () => clearTimeout(newTimeoutId);
     }
   }, [scoreHp, scoreMoney]);
-  //для запуска таймера на серваке
-  useEffect(() => {
-    if(infoUser) {
-      const newTimeoutId = setTimeout(() => {
-        tapTapMutation.mutate({
-          tg_id,
-          money: scoreMoney,
-          energy: scoreEnergy,
-          hp: scoreHp,
-        });
-      }, 10000);
-      return () => clearTimeout(newTimeoutId);
-    }
-  }, [scoreEnergy]);
 
   //таймер регена энергии
   useEffect(() => {
@@ -165,19 +149,28 @@ function GameField() {
     }
   }, [scoreEnergy]);
 
-  
+  // useEffect(() => {
+  //   localStorage.setItem('coin', JSON.stringify(scoreMoney))
+  // }, [scoreMoney]);
 
   useEffect(() => {
-    if (intervalCoin) {
-      clearInterval(intervalCoin);
-    }
-    const interval = setInterval(() => {
-      dispatch(coinActions.updateCoin(scoreMoney));
-      clearInterval(interval);
-      setIntervalCoin(interval);
-    }, 500);
-    return () => clearInterval(interval);
-  }, [scoreMoney]);
+      if (intervalCoin) {
+        clearInterval(intervalCoin);
+      }
+      const interval = setInterval(() => {
+        dispatch(coinActions.updateCoin(scoreMoney));
+        clearInterval(interval);
+        setIntervalCoin(interval);
+      }, 500);
+      return () => clearInterval(interval);
+  }, [scoreMoney])
+
+  // useEffect(() => {
+  //   const loadCoin = localStorage.getItem('coin')
+  //   if(loadCoin) {
+  //     setScoreMoney(JSON.parse(loadCoin))
+  //   }
+  // }, [infoUser?.money])
 
   //рисуем на холсте
   function draw(ctx: CanvasRenderingContext2D) {

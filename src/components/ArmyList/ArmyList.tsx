@@ -7,6 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
+import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 
 interface ArmyList {
   army?: ArmyType[];
@@ -16,14 +17,18 @@ function ArmyList({ army }: ArmyList) {
   const { tg_id } = useTelegram();
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
+  const armyUser = useSelector(getArmy);
 
   const upDamageMutate = useMutation(
     {
       mutationFn: (data: { tg_id: string; id_warrior: number }) =>
         upDamage(data.tg_id, data.id_warrior),
       onSuccess: (data) => {
-        const moneyCoin: number = data.money;
-        dispatch(coinActions.updateCoin(moneyCoin));
+        // const moneyCoin: number = data.money;
+        // localStorage.setItem('coin', JSON.stringify(moneyCoin))
+        if(infoUser && armyUser) {
+          dispatch(coinActions.updateCoin(infoUser.money - armyUser.price_bring_money));
+        }
         queryClient.invalidateQueries({queryKey: ["army", tg_id]})
       },
     },
@@ -35,8 +40,11 @@ function ArmyList({ army }: ArmyList) {
       mutationFn: (data: { tg_id: string; id_warrior: number }) =>
         upSpeed(data.tg_id, data.id_warrior),
       onSuccess: (data) => {
-        const moneyCoin: number = data.money;
-        dispatch(coinActions.updateCoin(moneyCoin));
+        // const moneyCoin: number = data.money;
+        // localStorage.setItem('coin', JSON.stringify(moneyCoin))
+        if(infoUser && armyUser) {
+          dispatch(coinActions.updateCoin(infoUser.money - armyUser.price_bring_money));
+        }
         queryClient.invalidateQueries({queryKey: ["army", tg_id]})
       },
     },
@@ -66,7 +74,7 @@ function ArmyList({ army }: ArmyList) {
                   {infoUser && (
                     <button
                         onClick={() => handleUpSpeed(item.id_warrior)}
-                        disabled={item.price_speed > infoUser?.money}
+                        disabled={item.price_speed > infoUser.money}
                     >
                         {item.price_speed} coin
                     </button>
