@@ -6,7 +6,7 @@ import imgPlus from "../../assets/img/btn_plus.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { useTelegram } from "../../provider/telegram/telegram";
-import {  useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { infoArmy, userInfo } from "../../api/userInfo";
 import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
@@ -16,14 +16,20 @@ import { armyActions } from "../../provider/StoreProvider/slice/armySlice";
 function CoinsDiamond() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
-  const { tg_id, userName } = useTelegram();
-  
+  const { tg_id, userName, tg } = useTelegram();
+
+  const habdle = () => { //перессылка
+    const link = //?url= тут присваиваем нашу реферальную ссылку
+      "https://t.me/share/url?url=https://t.me/EggWarsTest_bot&text={опциональный_текст}";
+    tg.openTelegramLink(link);
+  };
+
   // const [hasFetched, setHasFetched] = useState(false);
   const infoQuery = useQuery(
     {
       queryFn: () => userInfo(tg_id, userName),
       queryKey: ["info", tg_id],
-      enabled: !!tg_id,  //&& (hasFetched ? infoUser?.energy_now !== infoUser?.energy_start : true)
+      enabled: !!tg_id, //&& (hasFetched ? infoUser?.energy_now !== infoUser?.energy_start : true)
       retry: 0,
       // refetchInterval: 5000,
     },
@@ -32,24 +38,22 @@ function CoinsDiamond() {
 
   useEffect(() => {
     dispatch(coinActions.addCoinStore(infoQuery.data));
-      // setHasFetched(true);
-  }, [infoQuery.data])
-
+    // setHasFetched(true);
+  }, [infoQuery.data]);
 
   const armyQuery = useQuery(
     {
       queryFn: () => infoArmy(tg_id),
       queryKey: ["army", tg_id],
       enabled: !!tg_id,
-      retry: 0
+      retry: 0,
     },
     queryClient
   );
 
   useEffect(() => {
-    dispatch(armyActions.addArmyStore(armyQuery.data))
-  }, [armyQuery.data])
-  
+    dispatch(armyActions.addArmyStore(armyQuery.data));
+  }, [armyQuery.data]);
 
   return (
     <div className={style.coinBlock}>
@@ -59,9 +63,7 @@ function CoinsDiamond() {
           <img className={style.imgCoin} src={imgCoin} alt="" />
           <div className={style.bgValue}>
             <p className={style.descr}>
-              { 
-                infoUser?.money.toLocaleString("ru-RU")
-              }
+              {infoUser?.money.toLocaleString("ru-RU")}
             </p>
           </div>
           <Button className={style.btnDonatMoney}>
