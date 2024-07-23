@@ -141,7 +141,7 @@ function GameField() {
         if (scoreEnergy < energyMax) {
           setScoreEnergy((prevEnergy) => prevEnergy + 1);
         }
-      }, 3000);
+      }, 1000);
       if (scoreEnergy > energyMax) {
         setScoreEnergy(energyMax);
       }
