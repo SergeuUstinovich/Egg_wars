@@ -13,26 +13,15 @@ function CoinsDiamond() {
     const coin = useSelector(getCoin)
     const [img, setImage] = useState()
     
-    const handleClick = async () => {
-        const img = await userInfo()
-        // img.map((item:any) => {
-        //     const person = item.person
-        //     const img = person.army
-        //     img.map((item: any) => {
-        //         const img = item.image
-        //         setImage(img)
-        //         console.log(img)
-        //     })
-        // })
-        // tapTap()
-    }
-    useEffect(() => {
-        console.log(img)
-    }, [img])
+    
+    const link = 'https://t.me/share/url?url=https://t.me/EggWarsTest_bot&text={опциональный_текст}'
+
+    
+    
     
     return (
         <div className={style.coinBlock}>
-            <p onClick={handleClick} className={style.descrLvl}>LVL 1</p>
+            <a href={link} className={style.descrLvl}>LVL 1</a>
             <div className={style.coinBar}>
             <div className={style.coinBlockMoney}>
                 <img className={style.imgCoin} src={imgCoin} alt="" />
