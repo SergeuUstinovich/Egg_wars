@@ -1,6 +1,6 @@
 import CopySvg from "../../assets/svg/CopySvg/CopySvg";
 import CollectCard from "../../components/CollectCard/CollectCard";
-import CollectCoinds from "../../components/CollectCoinds/CollectCoinds";
+import CollectCoins from "../../components/CollectCoinds/CollectCoinds";
 import InviteFriend from "../../components/InviteFriend/InviteFriend";
 import { Button } from "../../ui/Button";
 import ModalRoute from "../../ui/ModalRoute/ModalRoute";
@@ -12,7 +12,7 @@ function Friends() {
       <div className={style.friend}>
         <InviteFriend />
         <CollectCard />
-        <CollectCoinds />
+        <CollectCoins />
         <div className={style.btnForward}>
           <Button className={style.infiteFr}>Invite Friend</Button>
           <Button className={style.copy}>
