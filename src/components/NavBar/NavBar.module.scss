@@ -9,12 +9,7 @@
   padding: 0 2px;
 
   .item {
-    background: linear-gradient(
-        0deg,
-        rgba(82, 83, 145, 0.5) 0%,
-        rgba(82, 83, 145, 0.5) 100%
-      ),
-      #343434;
+    background: var(--bg-navbar);
     position: relative;
     max-height: 78px;
     width: 100%;
@@ -46,12 +41,7 @@
   }
 
   .item.active {
-    background: linear-gradient(
-        180deg,
-        rgba(162, 181, 206, 0.5) 0%,
-        rgba(97, 80, 144, 0.5) 100%
-      ),
-      #e8eff8;
+    background: var(--bg-navbar-active);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     max-height: 89px;

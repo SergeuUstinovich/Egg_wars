@@ -58,3 +58,12 @@ export function upSpeed(tg_id: string, id_warrior: number) {
     .catch(error => console.log("информация upSpeed" + error))
 }
 
+export function referalLink(tg_id: string) {
+    return axios.get(`${api_url}/main/generate_link/${tg_id}/`)
+    .then(response => {
+        const data  = response.data
+        return data
+    })
+    .catch(error => console.log("информация infoArmy" + error))
+}
+

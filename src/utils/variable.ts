@@ -19,19 +19,20 @@ export function variable(ctx: CanvasRenderingContext2D) {
   const tapeX = centerX / 1.98 - sizeTapeX / 2;
   const tapeY = centerY / 11.1 - sizeTapeY;
 
-  const sizeBgTypeX = centerX + 2;
+  const sizeBgTypeX = centerX;
   const sizeBgTypeY = centerY * 0.09;
   const BgTypeX = centerX / 2.02 - sizeTapeX / 2;
   const BgTypeY = centerY / 12.5 - sizeTapeY;
 
   const sizeTextLvl = centerX * 0.05;
   const textLvlX = BgTypeX + sizeBgTypeX / 2;
-  const textLvlY = BgTypeY + sizeTextLvl + 6;
+  const textLvlY = BgTypeY + sizeTextLvl + 2;
 
   const sizeTexеHp = centerX * 0.036;
-  const textLvlHpY = textLvlY + sizeTexеHp + 1;
+  const textLvlHpY = textLvlY + sizeTexеHp;
 
   const sizeCoinJump = centerX * 0.06;
+  
   return {
     centerX,
     centerY,

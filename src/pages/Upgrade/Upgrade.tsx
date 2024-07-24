@@ -3,7 +3,7 @@ import ModalRoute from "../../ui/ModalRoute/ModalRoute";
 // import style from "./Upgrage.module.scss";
 import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 import { useEffect, useState } from "react";
-import ArmyList from "../ArmyList/ArmyList";
+import ArmyList from "../../components/ArmyList/ArmyList";
 import { ArmyType } from "../../types/ArmyType";
 
 

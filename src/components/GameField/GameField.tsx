@@ -47,6 +47,7 @@ function GameField() {
   const armyUser = useSelector(getArmy);
   const { tg_id } = useTelegram();
 
+  const [storeMoney, setStoreMoney] = useState(0);
   const [scoreMoney, setScoreMoney] = useState(0);
   const [scoreHp, setScoreHp] = useState(0);
   const [scoreEnergy, setScoreEnergy] = useState(0);
@@ -97,9 +98,9 @@ function GameField() {
     if (armyUser) {
       setArmy(armyUser);
     }
-    if(infoUser) {
-      setScoreMoney(infoUser.money)
-    }
+    // if(infoUser) {
+    //   setScoreMoney(infoUser.money)
+    // }
   }, [armyUser]);
 
 
@@ -107,7 +108,7 @@ function GameField() {
   useEffect(() => {
     if (infoUser) {
       // localStorage.setItem('coin', JSON.stringify(infoUser.money))
-      setScoreMoney(infoUser.money);
+      setStoreMoney(infoUser.money);
       setScoreEnergy(infoUser.energy_now);
       setScoreHp(infoUser.hp_castle_now);
       setEnergyMax(infoUser.energy_start);
@@ -129,6 +130,7 @@ function GameField() {
           energy: scoreEnergy,
           hp: scoreHp,
         });
+        setScoreMoney(0)
       }, 2000);
       return () => clearTimeout(newTimeoutId);
     }
@@ -149,28 +151,20 @@ function GameField() {
     }
   }, [scoreEnergy]);
 
-  // useEffect(() => {
-  //   localStorage.setItem('coin', JSON.stringify(scoreMoney))
-  // }, [scoreMoney]);
-
   useEffect(() => {
       if (intervalCoin) {
         clearInterval(intervalCoin);
       }
       const interval = setInterval(() => {
-        dispatch(coinActions.updateCoin(scoreMoney));
+        dispatch(coinActions.updateCoinSumm(storeMoney));
+        console.log(armyUser?.price_bring_money)
+        setStoreMoney(0)
         clearInterval(interval);
         setIntervalCoin(interval);
       }, 500);
       return () => clearInterval(interval);
   }, [scoreMoney])
 
-  // useEffect(() => {
-  //   const loadCoin = localStorage.getItem('coin')
-  //   if(loadCoin) {
-  //     setScoreMoney(JSON.parse(loadCoin))
-  //   }
-  // }, [infoUser?.money])
 
   //рисуем на холсте
   function draw(ctx: CanvasRenderingContext2D) {
@@ -188,6 +182,7 @@ function GameField() {
       if (isCircleReachedSquare(item, squareX, squareY, sizeCastle)) {
         setScoreHp((prev: any) => prev + item.damage);
         setScoreMoney((prev: any) => prev + item.damage);
+        setStoreMoney((prev: any) => prev + item.damage)
         setCoinJump((prevCoins) => [
           ...prevCoins,
           newObjCoin,
