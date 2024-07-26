@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { useTelegram } from "./provider/telegram/telegram";
 import "./styles/global/App.scss";
 import { Route, Routes } from "react-router-dom";
+import ReferalLink from "./components/ReferalLink/ReferalLink";
 
 
 const Layout = lazy(() => import("./pages/Layout/Layout"));
@@ -21,6 +22,7 @@ function App() {
             <Route path={"leaders"} element={<Upgrade />} />
             <Route path={"airdrop"} element={<Airdrop />} />
             <Route path={"guilds"} element={<Guilds />} />
+            <Route path={"start/:start"} element={<ReferalLink />} />
           </Route>
         </Routes>
       </Suspense>
