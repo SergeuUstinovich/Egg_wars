@@ -157,7 +157,6 @@ function GameField() {
       }
       const interval = setInterval(() => {
         dispatch(coinActions.updateCoinSumm(storeMoney));
-        console.log(armyUser?.price_bring_money)
         setStoreMoney(0)
         clearInterval(interval);
         setIntervalCoin(interval);

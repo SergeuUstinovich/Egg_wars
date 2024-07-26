@@ -30,7 +30,7 @@ function CoinsDiamond() {
       queryFn: () => userInfo(tg_id, userName),
       queryKey: ["info", tg_id],
       enabled: !!tg_id, //&& (hasFetched ? infoUser?.energy_now !== infoUser?.energy_start : true)
-      retry: 0,
+      retry: 1,
       // refetchInterval: 5000,
     },
     queryClient

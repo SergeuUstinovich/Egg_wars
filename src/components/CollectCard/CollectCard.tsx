@@ -17,7 +17,7 @@ function CollectCard() {
             </div>
             <div className={style.progressBar}>
                 <img className={style.value} src={imgValue2} alt="" />
-                <ProgressBar max={10} value={4} />
+                <ProgressBar max={10} value={5} />
                 <img className={style.king} src={imgKing} alt="" />
             </div>
             
