@@ -16,7 +16,7 @@ function App() {
     <>
       <Suspense fallback={<div>Loading</div>}>
         <Routes>
-          <Route path={'*'} element={<Layout />}>
+          <Route path={'/'} element={<Layout />}>
             <Route path={"friends"} element={<div className='friend'>Ntfrf</div>} />
           </Route>
         </Routes>
