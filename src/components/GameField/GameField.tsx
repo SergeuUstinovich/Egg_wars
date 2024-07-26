@@ -35,10 +35,10 @@ export interface circlePositionProps {
 }
 
 export interface coinJumpProps {
-  x: number,
-  y: number,
-  value: number,
-  time: number
+  x: number;
+  y: number;
+  value: number;
+  time: number;
 }
 
 function GameField() {
@@ -47,18 +47,19 @@ function GameField() {
   const armyUser = useSelector(getArmy);
   const { tg_id } = useTelegram();
 
+  const [scoreHpHelper, setScoreHpHelper] = useState<number | null>(null);
   const [storeMoney, setStoreMoney] = useState(0);
   const [scoreMoney, setScoreMoney] = useState(0);
   const [scoreHp, setScoreHp] = useState(0);
   const [scoreEnergy, setScoreEnergy] = useState(0);
-
 
   const [dataLoad, setDataLoad] = useState(false);
   const [intervalCoin, setIntervalCoin] = useState(0);
   const [coinJump, setCoinJump] = useState<coinJumpProps[]>([]);
 
   const [army, setArmy] = useState<ArmyType | undefined>(armyUser);
-  const [energyMax, setEnergyMax] = useState(infoUser?.energy_start);
+  const [energyMax, setEnergyMax] = useState(infoUser?.energy_start || 0);
+  const [hpMax, setHpMax] = useState(infoUser?.hp_castle_start || 0);
 
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
@@ -93,36 +94,56 @@ function GameField() {
     queryClient
   );
   //загрузка актуальных данных
-  //разобраться с деньгами
   useEffect(() => {
     if (armyUser) {
       setArmy(armyUser);
     }
     // if(infoUser) {
-    //   setScoreMoney(infoUser.money)
+    //   setScoreHp(infoUser.hp_castle_now)
     // }
   }, [armyUser]);
 
+  
+
+  const increaseScoreHp = (increment: number) => {
+    if (infoUser) {
+      setScoreHp((prevScoreHp) => {
+        const newScoreHp = prevScoreHp + increment;
+        return newScoreHp > infoUser?.hp_castle_start
+          ? infoUser?.hp_castle_start
+          : newScoreHp;
+      });
+    }
+  };
 
   //загрузка актуальных данных
   useEffect(() => {
     if (infoUser) {
-      // localStorage.setItem('coin', JSON.stringify(infoUser.money))
       setStoreMoney(infoUser.money);
       setScoreEnergy(infoUser.energy_now);
       setScoreHp(infoUser.hp_castle_now);
       setEnergyMax(infoUser.energy_start);
+      setHpMax(infoUser.hp_castle_start);
     }
   }, [dataLoad]);
   //загрузка актуальных данных
   useEffect(() => {
     if (infoUser) {
       setDataLoad(true);
+      setEnergyMax(infoUser.energy_start);
+      setHpMax(infoUser.hp_castle_start);
     }
   }, [infoUser]);
+
+  useEffect(() => {
+    if (infoUser) {
+      setScoreHp(infoUser.hp_castle_now);
+      setScoreEnergy(infoUser.energy_now);
+    }
+  }, [infoUser?.lvl]);
   //отправка после кликов
   useEffect(() => {
-    if(infoUser) {
+    if (infoUser) {
       const newTimeoutId = setTimeout(() => {
         tapTapMutation.mutate({
           tg_id,
@@ -130,11 +151,31 @@ function GameField() {
           energy: scoreEnergy,
           hp: scoreHp,
         });
-        setScoreMoney(0)
+        setScoreMoney(0);
       }, 2000);
       return () => clearTimeout(newTimeoutId);
     }
   }, [scoreHp, scoreMoney]);
+
+  useEffect(() => {
+    if(scoreHpHelper) {
+      tapTapMutation.mutate({
+        tg_id,
+        money: scoreMoney,
+        energy: scoreEnergy,
+        hp: scoreHp,
+      });
+      setScoreMoney(0);
+    }
+  }, [scoreHpHelper]);
+
+  useEffect(() => {
+    if (infoUser) {
+      if (scoreHp >= infoUser.hp_castle_start) {
+        setScoreHpHelper(scoreHp);
+      }
+    }
+  }, [scoreHp]);
 
   //таймер регена энергии
   useEffect(() => {
@@ -152,40 +193,65 @@ function GameField() {
   }, [scoreEnergy]);
 
   useEffect(() => {
-      if (intervalCoin) {
-        clearInterval(intervalCoin);
-      }
-      const interval = setInterval(() => {
-        dispatch(coinActions.updateCoinSumm(storeMoney));
-        setStoreMoney(0)
-        clearInterval(interval);
-        setIntervalCoin(interval);
-      }, 500);
-      return () => clearInterval(interval);
-  }, [scoreMoney])
-
+    if (intervalCoin) {
+      clearInterval(intervalCoin);
+    }
+    const interval = setInterval(() => {
+      dispatch(coinActions.updateCoinSumm(storeMoney));
+      setStoreMoney(0);
+      clearInterval(interval);
+      setIntervalCoin(interval);
+    }, 300);
+    return () => clearInterval(interval);
+  }, [scoreMoney]);
 
   //рисуем на холсте
   function draw(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    const { sizeCastle, sizeBtn, sizeText, squareX, squareY, buttonX, buttonY, textX, textY, sizeTapeX, sizeTapeY, tapeX, tapeY, sizeBgTypeX, sizeBgTypeY, BgTypeX, BgTypeY, sizeTextLvl, textLvlX, textLvlY, sizeTexеHp, textLvlHpY, sizeCoinJump,
+    const {
+      sizeCastle,
+      sizeBtn,
+      sizeText,
+      squareX,
+      squareY,
+      buttonX,
+      buttonY,
+      textX,
+      textY,
+      sizeTapeX,
+      sizeTapeY,
+      tapeX,
+      tapeY,
+      sizeBgTypeX,
+      sizeBgTypeY,
+      BgTypeX,
+      BgTypeY,
+      sizeTextLvl,
+      textLvlX,
+      textLvlY,
+      sizeTexеHp,
+      textLvlHpY,
+      sizeCoinJump,
     } = variable(ctx);
 
     circlePosition.map((item, index) => {
       item.x += item.dx;
       item.y += item.dy;
 
-      const newObjCoin = { x: squareX * 2.4, y: squareY * 3.5, value: item.damage, time: Date.now() }
+      const newObjCoin = {
+        x: squareX * 2.4,
+        y: squareY * 3.5,
+        value: item.damage,
+        time: Date.now(),
+      };
 
       // Проверяем, достиг ли круг квадрата
       if (isCircleReachedSquare(item, squareX, squareY, sizeCastle)) {
-        setScoreHp((prev: any) => prev + item.damage);
+        increaseScoreHp(item.damage);
+        // setScoreHp((prev: any) => prev + );
         setScoreMoney((prev: any) => prev + item.damage);
-        setStoreMoney((prev: any) => prev + item.damage)
-        setCoinJump((prevCoins) => [
-          ...prevCoins,
-          newObjCoin,
-        ]);
+        setStoreMoney((prev: any) => prev + item.damage);
+        setCoinJump((prevCoins) => [...prevCoins, newObjCoin]);
         setCirclePosition((prevPositions) =>
           prevPositions.filter((_, i) => i !== index)
         );
@@ -193,13 +259,37 @@ function GameField() {
         drawCircle(ctx, item.x, item.y, 10, item.color);
       }
     });
-    
+
     //ленточка лвл
     if (imageTape) {
-      drawTape(ctx, imageTape, BgTypeX, BgTypeY, sizeBgTypeX, sizeBgTypeY, tapeX, tapeY, sizeTapeX, sizeTapeY
+      drawTape(
+        ctx,
+        imageTape,
+        BgTypeX,
+        BgTypeY,
+        sizeBgTypeX,
+        sizeBgTypeY,
+        tapeX,
+        tapeY,
+        sizeTapeX,
+        sizeTapeY
       );
-      drawTextTape(ctx, sizeTextLvl, textLvlX, textLvlY, `Level ${infoUser?.lvl}`, "white");
-      drawTextTape(ctx, sizeTexеHp, textLvlX, textLvlHpY, `${scoreHp.toLocaleString("ru-RU")} / ${infoUser?.hp_castle_start.toLocaleString("ru-RU")}`, "white");
+      drawTextTape(
+        ctx,
+        sizeTextLvl,
+        textLvlX,
+        textLvlY,
+        `Level ${infoUser?.lvl}`,
+        "white"
+      );
+      drawTextTape(
+        ctx,
+        sizeTexеHp,
+        textLvlX,
+        textLvlHpY,
+        `${scoreHp.toLocaleString("ru-RU")} / ${hpMax?.toLocaleString("ru-RU")}`,
+        "white"
+      );
     }
     //замок
     if (imageCastle) {
@@ -209,9 +299,9 @@ function GameField() {
       const elapsedTime = Date.now() - coin.time;
       const rise = (50 * elapsedTime) / 500;
       ctx.font = `${sizeCoinJump}px PassionOne`;
-      ctx.strokeStyle = 'black'; 
-      ctx.lineWidth = 2; 
-      ctx.fillStyle = 'Yellow';
+      ctx.strokeStyle = "black";
+      ctx.lineWidth = 2;
+      ctx.fillStyle = "Yellow";
       ctx.strokeText(`+ ${coin.value}`, coin.x, coin.y - rise);
       ctx.fillText(`+ ${coin.value}`, coin.x, coin.y - rise);
       if (elapsedTime > 500) {
@@ -224,7 +314,16 @@ function GameField() {
       const progress = scoreEnergy / progressEnergyMax;
       drawBtn(ctx, buttonX, buttonY, sizeBtn, imageBtn, btnScale, progress);
     }
-    drawText(ctx, sizeText, textX, textY, `${scoreEnergy.toLocaleString("ru-RU")} / ${energyMax?.toLocaleString("ru-RU")}`, "black");
+    drawText(
+      ctx,
+      sizeText,
+      textX,
+      textY,
+      `${scoreEnergy.toLocaleString("ru-RU")} / ${energyMax?.toLocaleString(
+        "ru-RU"
+      )}`,
+      "black"
+    );
   }
   //клик кнопки на поле(мультитап)
   useEffect(() => {

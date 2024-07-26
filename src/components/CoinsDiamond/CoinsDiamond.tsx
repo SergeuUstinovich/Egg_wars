@@ -29,12 +29,20 @@ function CoinsDiamond() {
     {
       queryFn: () => userInfo(tg_id, userName),
       queryKey: ["info", tg_id],
-      enabled: !!tg_id, //&& (hasFetched ? infoUser?.energy_now !== infoUser?.energy_start : true)
+      enabled: !!tg_id, //&& (hasFetched ? infoUser?._now !== infoUser?.energy_start : true)
       retry: 1,
       // refetchInterval: 5000,
     },
     queryClient
   );
+
+
+// Используем useEffect для отслеживания изменений в HP замка
+// useEffect(() => {
+//   if (infoUser && infoUser.hp_castle_now >= infoUser.hp_castle_start) {
+//     infoQuery.refetch();
+//   }
+// }, [infoUser]);
 
   useEffect(() => {
     dispatch(coinActions.addCoinStore(infoQuery.data));
