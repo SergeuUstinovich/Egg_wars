@@ -241,8 +241,8 @@ function GameField() {
       item.y += item.dy;
 
       const newObjCoin = {
-        x: squareX * 2.4,
-        y: squareY * 3.5,
+        x: squareX * 2,
+        y: squareY * 2,
         value: item.damage,
         time: Date.now(),
       };
@@ -258,7 +258,7 @@ function GameField() {
           prevPositions.filter((_, i) => i !== index)
         );
       } else {
-        drawCircle(ctx, item.x, item.y, 10, item.color);
+        drawCircle(ctx, item.x, item.y, 7, item.color);
       }
     });
 
