@@ -16,6 +16,9 @@ function Layout() {
       </header>
       <main className={style.main}>
         <GameField />
+        <button className={style.tasks}>Tasks</button>
+        <button className={style.upgrades}>Upgrades</button>
+        <button className={style.boosters}>Boosters</button>
         <Outlet />
       </main>
       <footer className={style.footers}>
