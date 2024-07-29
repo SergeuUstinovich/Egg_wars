@@ -43,7 +43,7 @@ function ArmyList({ army }: ArmyList) {
     queryClient
   );
 
-  const handleUpBring = (id_warrior: number) => {
+  const handleUpDamage = (id_warrior: number) => {
     upDamageMutate.mutate({ tg_id, id_warrior });
   };
 
@@ -73,14 +73,14 @@ function ArmyList({ army }: ArmyList) {
                   )}
                 </div>
                 <div>
-                  <p>{item.lvl_bring_money} damage lvl</p>
-                  <p>{item.bring_money} damage</p>
+                  <p>{item.lvl_damage} damage lvl</p>
+                  <p>{item.damage} damage</p>
                   {infoUser && (
                     <button
-                      onClick={() => handleUpBring(item.id_warrior)}
-                      disabled={item.price_bring_money > infoUser?.money}
+                      onClick={() => handleUpDamage(item.id_warrior)}
+                      disabled={item.price_damage > infoUser?.money}
                     >
-                      {item.price_bring_money} coin
+                      {item.price_damage} coin
                     </button>
                   )}
                 </div>

@@ -179,16 +179,18 @@ function GameField() {
 
   //таймер регена энергии
   useEffect(() => {
-    if (energyMax) {
-      const interval = setTimeout(() => {
-        if (scoreEnergy < energyMax) {
-          setScoreEnergy((prevEnergy) => prevEnergy + 1);
+    if(infoUser) {
+      if (energyMax) {
+        const interval = setTimeout(() => {
+          if (scoreEnergy < energyMax) {
+            setScoreEnergy((prevEnergy) => prevEnergy + infoUser.recharge_energy);
+          }
+        }, 1000);
+        if (scoreEnergy > energyMax) {
+          setScoreEnergy(energyMax);
         }
-      }, 1000);
-      if (scoreEnergy > energyMax) {
-        setScoreEnergy(energyMax);
+        return () => clearTimeout(interval);
       }
-      return () => clearTimeout(interval);
     }
   }, [scoreEnergy]);
 

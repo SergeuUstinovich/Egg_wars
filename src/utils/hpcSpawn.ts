@@ -33,7 +33,7 @@ export function addUnitPerson(
     dx,
     dy,
     color: randomPerson.name, // Временно
-    damage: randomPerson.bring_money,
+    damage: randomPerson.damage,
     img: randomPerson.image,
   };
 }

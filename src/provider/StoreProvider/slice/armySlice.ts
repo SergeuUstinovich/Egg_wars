@@ -9,16 +9,6 @@ export const armySlice = createSlice({
     reducers: {
         addArmyStore: (state, action: PayloadAction<ArmyType>) => {
             state.armyUser = action.payload
-        },
-        updateArmyPriceBring: (state, action: PayloadAction<number>) => {
-            if(state.armyUser) {
-                state.armyUser.price_bring_money = action.payload
-            }  
-        },
-        updateArmyLvlBring: (state, action: PayloadAction<number>) => {
-            if(state.armyUser) {
-                state.armyUser.lvl_bring_money = action.payload
-            }  
         }
     }
 })

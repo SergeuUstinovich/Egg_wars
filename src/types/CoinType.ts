@@ -5,6 +5,7 @@ export interface CoinType {
     energy_start: number
     hp_castle_start: number
     lvl: number
+    recharge_energy: number
 }
 
 export interface CoinScheme {
