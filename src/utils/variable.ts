@@ -2,7 +2,7 @@ export function variable(ctx: CanvasRenderingContext2D) {
   const centerX = ctx.canvas.width / 2;
   const centerY = ctx.canvas.height / 2;
 
-  const sizeCastle = centerX * 0.6;
+  const sizeCastle = centerX * 0.5;
   const squareX = centerX / 2 - sizeCastle / 2;
   const squareY = centerY / 2.4 - sizeCastle;
 
@@ -12,12 +12,12 @@ export function variable(ctx: CanvasRenderingContext2D) {
 
   const sizeText = centerX * 0.04;
   const textX = buttonX + sizeBtn / 2;
-  const textY = buttonY + sizeBtn / 3.2;
+  const textY = buttonY + sizeBtn / 3.5;
 
   const sizeTapeX = centerX * 0.99;
   const sizeTapeY = centerY * 0.08;
   const tapeX = centerX / 1.98 - sizeTapeX / 2;
-  const tapeY = centerY / 11.1 - sizeTapeY;
+  const tapeY = centerY / 12.6 - sizeTapeY;
 
   const sizeBgTypeX = centerX;
   const sizeBgTypeY = centerY * 0.09;
@@ -25,8 +25,8 @@ export function variable(ctx: CanvasRenderingContext2D) {
   const BgTypeY = centerY / 12.5 - sizeTapeY;
 
   const sizeTextLvl = centerX * 0.05;
-  const textLvlX = BgTypeX + sizeBgTypeX / 2;
-  const textLvlY = BgTypeY + sizeTextLvl + 2;
+  const textLvlX = tapeX + sizeBgTypeX / 2;
+  const textLvlY = tapeY + sizeTextLvl - 2;
 
   const sizeTexеHp = centerX * 0.036;
   const textLvlHpY = textLvlY + sizeTexеHp;

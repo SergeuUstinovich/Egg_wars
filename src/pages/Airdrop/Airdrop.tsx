@@ -4,7 +4,7 @@ import style from "./Airdrop.module.scss";
 function Airdrop() {
   return (
     <ModalRoute>
-      <div className={style.tes}>текст</div>
+      <div className={style.tes}>Airdrop</div>
     </ModalRoute>
   );
 }

@@ -4,7 +4,7 @@ import style from "./Guilds.module.scss";
 function Guilds() {
   return (
     <ModalRoute>
-      <div className={style.tes}>текст</div>
+      <div className={style.tes}>Guilds</div>
     </ModalRoute>
   );
 }
