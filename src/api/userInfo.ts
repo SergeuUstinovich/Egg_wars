@@ -67,7 +67,7 @@ export function referalLink(tg_id: string) {
     .catch(error => console.log("информация referalLink" + error))
 }
 
-export function addFriends(tg_id: string, referral_id: string) {
+export function addFriends(tg_id: string, referral_id: string | undefined) {
     return axios.get(`${api_url}/main/completeReferral/${tg_id}/${referral_id}/`)
     .then(response => {
         const data  = response.data

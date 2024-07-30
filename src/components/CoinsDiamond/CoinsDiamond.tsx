@@ -18,7 +18,7 @@ function CoinsDiamond() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
   const { tg_id, userName } = useTelegram();
-  const  start  = useLocation();
+  
 
   const infoQuery = useQuery(
     {
@@ -52,18 +52,6 @@ function CoinsDiamond() {
     },
     queryClient
   );
-
-    const addFriendQuery = useQuery({
-        queryKey: ['friend'],
-        queryFn: () => addFriends(tg_id, start.pathname),
-        enabled: !!tg_id && !!start
-    }, queryClient)
-
-    // useEffect(() => {
-    //     if(start.pathname) {
-            
-    //     }
-    // }, [start])
 
   useEffect(() => {
     dispatch(armyActions.addArmyStore(armyQuery.data));
