@@ -8,7 +8,8 @@ export const useTelegram = () => {
   const tg = window.Telegram.WebApp;
   // const userName = tg?.initDataUnsafe?.user?.username;
   // const tg_id = tg?.initDataUnsafe?.user?.id
-  const tg_id = '123456'
+  const tg_id = '1234567'
   const userName = 'Serge'
-  return { tg, userName, tg_id };
+  const refId = '7654321'
+  return { tg, userName, tg_id, refId };
 };

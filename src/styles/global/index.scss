@@ -12,7 +12,7 @@ html {
   }
   
   body {
-    font-family: 'PassionOne', Arial, sans-serif;
+    font-family: PassionOne, Arial, sans-serif;
     margin: 0;
     font-weight: 400;
     min-width: 320px;
@@ -26,6 +26,7 @@ html {
     // --modal-z-index: 10;
     // color: #1fbcff;
     // // // Цвета из Фигмы
+    --font-family: 'PassionOne';
     --progressBar: #8aca27;
     --text-stroke-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     --outLine-invPrem: #ffcc47;

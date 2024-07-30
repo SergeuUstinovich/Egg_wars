@@ -16,14 +16,7 @@ import { armyActions } from "../../provider/StoreProvider/slice/armySlice";
 function CoinsDiamond() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
-  const { tg_id, userName, tg } = useTelegram();
-
-  const habdle = () => { //перессылка
-    const link = //?url= тут присваиваем нашу реферальную ссылку
-      "https://t.me/share/url?url=https://t.me/EggWarsTest_bot&text={опциональный_текст}";
-    tg.openTelegramLink(link);
-  };
-  // referalLink(tg_id)
+  const { tg_id, userName } = useTelegram();
 
   const infoQuery = useQuery(
     {

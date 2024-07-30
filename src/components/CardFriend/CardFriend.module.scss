@@ -1,0 +1,89 @@
+.blockFriend {
+    background-image: url('../../assets/img/panel_fr.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+
+    .progress {
+        max-width: 154px;
+        width: 100%;
+        margin-right: 12px;
+
+        .cardFrBar {
+            background: rgba(0, 0, 0, 0.6);
+            border: 0.63px solid #000;
+            height: 6px;
+
+            .cardFrBarFill {
+                border: 1px solid rgba(255, 255, 255, 0.6);
+                border-radius: 2px;
+            }
+        }
+    }
+
+    .img {
+        width: 40px;
+        height: 40px;
+        display: block;
+        margin-right: 13px;
+    }
+
+    .nameFr {
+        padding-left: 1px;
+        font-size: 13px;
+        line-height: 78%;
+        color: var(--white);
+        text-shadow: var(--text-stroke-shadow);
+        margin-bottom: 3px;
+    }
+
+    .coinBar {
+        padding-left: 1px;
+        font-size: 9px;
+        line-height: 112%;
+        color: var(--color-text-primary);
+        text-shadow: var(--text-stroke-shadow);
+        margin-bottom: 4px;
+    }
+
+    .btnFriend {
+        max-width: 78px;
+        width: 100%;
+        max-height: 40px;
+        height: 100%;
+        border-radius: 8px;
+        padding-top: 3px;
+        border: 3px solid rgba(255, 255, 255, 0.6);
+        background: linear-gradient(180deg, #fcc125 0%, #f69d18 100%);
+
+        &:disabled {
+            background: linear-gradient(180deg, #b4b4b4 0%, #979797 100%);
+        }
+
+        .btnDescr {
+            text-shadow: var(--text-stroke-shadow);
+            font-size: 13px;
+            line-height: 97%;
+            color: var(--white);
+        }
+
+        .coinTake {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coin {
+            text-shadow: var(--text-stroke-shadow);
+            font-size: 13px;
+            line-height: 97%;
+            color: var(--white);
+        }
+    }
+
+    .btnClassFr {
+        background: linear-gradient(180deg, #bce93a 0%, #7ac021 100%);
+    }
+}

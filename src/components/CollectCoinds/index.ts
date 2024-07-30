@@ -1,1 +1,1 @@
-export * from './CollectCoinds.tsx'
+export * from './CollectCoins.tsx'

@@ -61,9 +61,44 @@ export function upSpeed(tg_id: string, id_warrior: number) {
 export function referalLink(tg_id: string) {
     return axios.get(`${api_url}/main/generate_link/${tg_id}/`)
     .then(response => {
-        const data  = response.data
+        const data  = response.data.ref_link
         return data
     })
-    .catch(error => console.log("информация infoArmy" + error))
+    .catch(error => console.log("информация referalLink" + error))
+}
+
+export function addFriends(tg_id: string, referral_id: string) {
+    return axios.get(`${api_url}/main/completeReferral/${tg_id}/${referral_id}/`)
+    .then(response => {
+        const data  = response.data
+        return data
+        
+    })
+    .catch(error => error.Error)
+}
+
+export function listFriends(tg_id: string) {
+    return axios.post(`${api_url}/main/all_friends/`, {
+        tg_id
+    })
+    .then(response => {
+        const data  = response.data
+        return data
+        
+    })
+    .catch(error => error.Error)
+}
+
+export function bonusTake(tg_id: string, referral_system_id: number) {
+    return axios.post(`${api_url}/main/taking_bonus/`, {
+        tg_id,
+        referral_system_id
+    })
+    .then(response => {
+        const data  = response.data
+        return data
+        
+    })
+    .catch(error => error.Error)
 }
 

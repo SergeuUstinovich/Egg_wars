@@ -28,7 +28,7 @@ function App() {
             <Route path={"upgrades"} element={<Upgrade />} />
             <Route path={"tasks"} element={<Tasks />} />
             <Route path={"boosters"} element={<Boosters />} />
-            <Route path={"start/:start"} element={<ReferalLink />} />
+            <Route path={"/:start"} element={<ReferalLink />} />
           </Route>
         </Routes>
       </Suspense>
