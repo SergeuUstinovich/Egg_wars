@@ -7,16 +7,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { useTelegram } from "../../provider/telegram/telegram";
 import { useQuery } from "@tanstack/react-query";
-import { infoArmy, userInfo } from "../../api/userInfo";
+import { addFriends, infoArmy, userInfo } from "../../api/userInfo";
 import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
 import { useEffect } from "react";
 import { armyActions } from "../../provider/StoreProvider/slice/armySlice";
+import { useLocation } from "react-router-dom";
 
 function CoinsDiamond() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
   const { tg_id, userName } = useTelegram();
+  const  start  = useLocation();
 
   const infoQuery = useQuery(
     {
@@ -50,6 +52,18 @@ function CoinsDiamond() {
     },
     queryClient
   );
+
+    const addFriendQuery = useQuery({
+        queryKey: ['friend'],
+        queryFn: () => addFriends(tg_id, start.pathname),
+        enabled: !!tg_id && !!start
+    }, queryClient)
+
+    // useEffect(() => {
+    //     if(start.pathname) {
+            
+    //     }
+    // }, [start])
 
   useEffect(() => {
     dispatch(armyActions.addArmyStore(armyQuery.data));
