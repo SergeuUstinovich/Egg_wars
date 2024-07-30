@@ -22,6 +22,9 @@ function CardFriend({ name, referral_system_id }: FriendsType) {
     {
       mutationFn: (data: { tg_id: string; referral_system_id: number }) =>
         bonusTake(data.tg_id, data.referral_system_id),
+      onSuccess: () => {
+        queryClient.invalidateQueries({queryKey: ["info", tg_id]})
+      }
     },
     queryClient
   );

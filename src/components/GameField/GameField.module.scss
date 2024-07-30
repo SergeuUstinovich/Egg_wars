@@ -1,0 +1,64 @@
+.blockField {
+    position: relative;
+    height: 100vh;
+}
+
+.btnTap {
+    font-family: 'PassionOne', Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    background-image: url('../../assets//img//btn-tap.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    max-width: 163px;
+    width: 100%;
+    max-height: 163px;
+    height: 100%;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s; 
+    
+
+    &:active {
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    
+
+    .textEnergy {
+        position: absolute;
+        font-size: 14px;
+        line-height: 64%;
+        color: var(--color-text);
+        top: 26%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.progress {
+    padding: 4.5px;
+    width: 96%;
+    height: 96%;
+    margin-top: 3px;
+}
+
+@media (min-width: 360px) {
+    .btnTap {
+        position: absolute;
+        max-width: 183px;
+        max-height: 183px; 
+    }
+}
+
+@media (min-width: 400px) {
+    .btnTap {
+        position: absolute;
+        max-width: 203px;
+        max-height: 203px; 
+    }
+}

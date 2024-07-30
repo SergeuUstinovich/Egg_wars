@@ -1,20 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import style from "./GameField.module.scss";
 import Canvas from "../Canvas/Canvas";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import useImage from "../../utils/useImage";
 import imageCasltes from "../../assets/img/casle-lvl-1.png";
-import imageBtns from "../../assets/img/btn-tap.png";
 import imageTapes from "../../assets/img/level_tape.png";
 import useCanvas from "../../utils/useCanvas";
 import { variable } from "../../utils/variable";
 import {
   drawCircle,
-  drawText,
   drawTextTape,
   isCircleReachedSquare,
 } from "../../utils/drawCanvas";
-import { drawBtn, drawTape } from "../../utils/drawImages";
+import { drawTape } from "../../utils/drawImages";
 import { addUnitPerson } from "../../utils/hpcSpawn";
 import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 import { useMutation } from "@tanstack/react-query";
@@ -23,6 +23,7 @@ import { queryClient } from "../../api/queryClient";
 import { useTelegram } from "../../provider/telegram/telegram";
 import { coinActions } from "../../provider/StoreProvider";
 import { ArmyType } from "../../types/ArmyType";
+
 
 export interface circlePositionProps {
   x: number;
@@ -60,14 +61,12 @@ function GameField() {
   const [army, setArmy] = useState<ArmyType | undefined>(armyUser);
   const [energyMax, setEnergyMax] = useState(infoUser?.energy_start || 0);
   const [hpMax, setHpMax] = useState(infoUser?.hp_castle_start || 0);
-
+  const percentage = (scoreEnergy / energyMax) * 100;
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
 
-  const [btnScale, setBtnScale] = useState(1);
   const imageCastle = useImage(imageCasltes);
-  const imageBtn = useImage(imageBtns);
   const imageTape = useImage(imageTapes);
   //отрисовка в канвасе
   const canvasRef = useRef<ElementRef<"canvas">>(null);
@@ -98,12 +97,7 @@ function GameField() {
     if (armyUser) {
       setArmy(armyUser);
     }
-    // if(infoUser) {
-    //   setScoreHp(infoUser.hp_castle_now)
-    // }
   }, [armyUser]);
-
-  
 
   const increaseScoreHp = (increment: number) => {
     if (infoUser) {
@@ -158,7 +152,7 @@ function GameField() {
   }, [scoreHp, scoreMoney]);
 
   useEffect(() => {
-    if(scoreHpHelper) {
+    if (scoreHpHelper) {
       tapTapMutation.mutate({
         tg_id,
         money: scoreMoney,
@@ -179,11 +173,13 @@ function GameField() {
 
   //таймер регена энергии
   useEffect(() => {
-    if(infoUser) {
+    if (infoUser) {
       if (energyMax) {
         const interval = setTimeout(() => {
           if (scoreEnergy < energyMax) {
-            setScoreEnergy((prevEnergy) => prevEnergy + infoUser.recharge_energy);
+            setScoreEnergy(
+              (prevEnergy) => prevEnergy + infoUser.recharge_energy
+            );
           }
         }, 1000);
         if (scoreEnergy > energyMax) {
@@ -212,14 +208,8 @@ function GameField() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     const {
       sizeCastle,
-      sizeBtn,
-      sizeText,
       squareX,
       squareY,
-      buttonX,
-      buttonY,
-      textX,
-      textY,
       sizeTapeX,
       sizeTapeY,
       tapeX,
@@ -250,7 +240,6 @@ function GameField() {
       // Проверяем, достиг ли круг квадрата
       if (isCircleReachedSquare(item, squareX, squareY, sizeCastle)) {
         increaseScoreHp(item.damage);
-        // setScoreHp((prev: any) => prev + );
         setScoreMoney((prev: any) => prev + item.damage);
         setStoreMoney((prev: any) => prev + item.damage);
         setCoinJump((prevCoins) => [...prevCoins, newObjCoin]);
@@ -289,7 +278,9 @@ function GameField() {
         sizeTexеHp,
         textLvlX,
         textLvlHpY,
-        `${scoreHp.toLocaleString("ru-RU")} / ${hpMax?.toLocaleString("ru-RU")}`,
+        `${scoreHp.toLocaleString("ru-RU")} / ${hpMax?.toLocaleString(
+          "ru-RU"
+        )}`,
         "white"
       );
     }
@@ -310,68 +301,41 @@ function GameField() {
         setCoinJump((prevCoins) => prevCoins.filter((_, i) => i !== index));
       }
     });
-    //кнопка + прогрессбар
-    if (imageBtn) {
-      const progressEnergyMax = energyMax ? energyMax : 0;
-      const progress = scoreEnergy / progressEnergyMax;
-      drawBtn(ctx, buttonX, buttonY, sizeBtn, imageBtn, btnScale, progress);
-    }
-    drawText(
-      ctx,
-      sizeText,
-      textX,
-      textY,
-      `${scoreEnergy.toLocaleString("ru-RU")} / ${energyMax?.toLocaleString(
-        "ru-RU"
-      )}`,
-      "black"
-    );
   }
-  //клик кнопки на поле(мультитап)
-  useEffect(() => {
-    if (ctx) {
-      const { centerX, centerY, sizeBtn, buttonX, buttonY } = variable(ctx);
+  
+  const handleTouchStart = () => {
+    if(ctx) {
+      const { centerX, centerY } = variable(ctx);
       const canvas = ctx?.canvas;
-      if (canvas) {
-        const handleTouchStart = (e: TouchEvent) => {
-          const rect = canvas.getBoundingClientRect();
-          for (let i = 0; i < e.touches.length; i++) {
-            const x = e.touches[i].clientX - rect.left;
-            const y = e.touches[i].clientY - rect.top;
-            if (
-              x >= buttonX &&
-              x <= buttonX + sizeBtn &&
-              y >= buttonY &&
-              y <= buttonY + sizeBtn
-            ) {
-              if (scoreEnergy > 0) {
-                const newCircle = addUnitPerson(centerX, centerY, army);
-                setCirclePosition((prevPositions) => [
-                  ...prevPositions,
-                  newCircle,
-                ]);
-                setScoreEnergy((prev: any) => prev - 1);
-                setBtnScale(0.9);
-                const timerId = setTimeout(() => setBtnScale(1), 50);
-                return () => clearTimeout(timerId);
-              }
-            }
-          }
-        };
-        canvas.addEventListener("touchstart", handleTouchStart, {
-          passive: true,
-        });
-        return () => {
-          canvas.removeEventListener("touchstart", handleTouchStart);
-        };
+      if(canvas) {
+        if (scoreEnergy > 0) {
+          const newCircle = addUnitPerson(centerX, centerY, army);
+          setCirclePosition((prevPositions) => [
+            ...prevPositions,
+            newCircle,
+          ]);
+          setScoreEnergy((prev: any) => prev - 1);
+        }
       }
     }
-  }, [addUnitPerson, ctx, scoreEnergy, army]);
+  }  
 
   return (
-    <>
+    <div className={style.blockField}>
       <Canvas ref={canvasRef} />
-    </>
+      <button onTouchStart={handleTouchStart} className={style.btnTap}>
+        <CircularProgressbar
+          className={style.progress}
+          value={percentage}
+          strokeWidth={5}
+          counterClockwise
+          styles={buildStyles({
+            pathColor: "#1fbcff",
+          })}
+        />
+        <p className={style.textEnergy}>{`${scoreEnergy.toLocaleString("ru-RU")} / ${energyMax?.toLocaleString("ru-RU")}`}</p>
+      </button>
+    </div>
   );
 }
 

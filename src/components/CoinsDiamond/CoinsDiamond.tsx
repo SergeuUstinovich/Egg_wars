@@ -23,19 +23,11 @@ function CoinsDiamond() {
     {
       queryFn: () => userInfo(tg_id, userName),
       queryKey: ["info", tg_id],
-      enabled: !!tg_id, //&& (hasFetched ? infoUser?._now !== infoUser?.energy_start : true)
+      enabled: !!tg_id,
       retry: 1,
-      // refetchInterval: 5000,
     },
     queryClient
   );
-
-  // Используем useEffect для отслеживания изменений в HP замка
-  // useEffect(() => {
-  //   if (infoUser && infoUser.hp_castle_now >= infoUser.hp_castle_start) {
-  //     infoQuery.refetch();
-  //   }
-  // }, [infoUser]);
 
   useEffect(() => {
     dispatch(coinActions.addCoinStore(infoQuery.data));
@@ -56,10 +48,10 @@ function CoinsDiamond() {
   }, [armyQuery.data]);
 
   const query = new URLSearchParams(useLocation().search);
-  const startParam = query.get("start");
+  const startParam = query.get("id");
   const [idRef, setIdRef] = useState("");
 
-  const addFriendQuery = useQuery(
+  useQuery(
     {
       queryKey: ["friend"],
       queryFn: () => addFriends(tg_id, idRef),
@@ -73,10 +65,6 @@ function CoinsDiamond() {
       setIdRef(startParam);
     }
   }, [startParam]);
-
-  // useEffect(() => {
-  //   console.log(idRef);
-  // }, [idRef]);
 
   return (
     <div className={style.coinBlock}>
