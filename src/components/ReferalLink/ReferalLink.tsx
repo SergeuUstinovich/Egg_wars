@@ -1,36 +1,43 @@
-import { useParams } from "react-router-dom";
-import ModalRoute from "../../ui/ModalRoute/ModalRoute";
-import style from'./ReferalLink.module.scss'
-import { useQuery } from "@tanstack/react-query";
-import { useTelegram } from "../../provider/telegram/telegram";
-import { addFriends } from "../../api/userInfo";
-import { queryClient } from "../../api/queryClient";
-import { useEffect } from "react";
+// import { useLocation, useParams } from "react-router-dom";
+// import ModalRoute from "../../ui/ModalRoute/ModalRoute";
+// import style from'./ReferalLink.module.scss'
+// import { useQuery } from "@tanstack/react-query";
+// import { useTelegram } from "../../provider/telegram/telegram";
+// import { addFriends } from "../../api/userInfo";
+// import { queryClient } from "../../api/queryClient";
+// import { useEffect, useState } from "react";
 
-function ReferalLink() {
-    const { tg_id } = useTelegram();
-    const { start } = useParams();
+// function ReferalLink() {
+//     const { tg_id } = useTelegram();
+//     let query = new URLSearchParams(useLocation().search);
+//     console.log(query)
+//     let startParam = query.get('start');
+//     const [idRef, setIdRef] = useState('')
 
 
-    const addFriendQuery = useQuery({
-        queryKey: ['friend'],
-        queryFn: () => addFriends(tg_id, start),
-        enabled: !!tg_id && !!start
-    }, queryClient)
+//     const addFriendQuery = useQuery({
+//         queryKey: ['friend'],
+//         queryFn: () => addFriends(tg_id, idRef),
+//         enabled: !!tg_id && !!idRef
+//     }, queryClient)
 
-// useEffect(() => {
-//     if(start.pathname) {
+//     useEffect(() => {
+//         if(startParam) {
+//             setIdRef(startParam)
+//         }
+//     }, [startParam])
+
+//     useEffect(() => {
+//         console.log(idRef)
+//     }, [idRef])
+
+//     return (
+//         <ModalRoute>
+//             <div className={style.color}>Реферал: {idRef}</div>
+//             {/* {addFriendQuery.error && (<div className={style.color}>{addFriendQuery.error.message}</div>)} */}
+//          </ModalRoute> 
         
-//     }
-// }, [start])
+//     )
+// }
 
-    return (
-        <ModalRoute>
-            <div className={style.color}>Реферал: {start}</div>
-            {/* {addFriendQuery.error && (<div className={style.color}>{addFriendQuery.error.message}</div>)} */}
-         </ModalRoute> 
-        
-    )
-}
-
-export default ReferalLink
+// export default ReferalLink

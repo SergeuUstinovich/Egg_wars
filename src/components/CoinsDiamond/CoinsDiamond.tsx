@@ -10,7 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import { addFriends, infoArmy, userInfo } from "../../api/userInfo";
 import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { armyActions } from "../../provider/StoreProvider/slice/armySlice";
 import { useLocation } from "react-router-dom";
 
@@ -18,7 +18,6 @@ function CoinsDiamond() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
   const { tg_id, userName } = useTelegram();
-  
 
   const infoQuery = useQuery(
     {
@@ -31,13 +30,12 @@ function CoinsDiamond() {
     queryClient
   );
 
-
-// Используем useEffect для отслеживания изменений в HP замка
-// useEffect(() => {
-//   if (infoUser && infoUser.hp_castle_now >= infoUser.hp_castle_start) {
-//     infoQuery.refetch();
-//   }
-// }, [infoUser]);
+  // Используем useEffect для отслеживания изменений в HP замка
+  // useEffect(() => {
+  //   if (infoUser && infoUser.hp_castle_now >= infoUser.hp_castle_start) {
+  //     infoQuery.refetch();
+  //   }
+  // }, [infoUser]);
 
   useEffect(() => {
     dispatch(coinActions.addCoinStore(infoQuery.data));
@@ -56,6 +54,29 @@ function CoinsDiamond() {
   useEffect(() => {
     dispatch(armyActions.addArmyStore(armyQuery.data));
   }, [armyQuery.data]);
+
+  const query = new URLSearchParams(useLocation().search);
+  const startParam = query.get("start");
+  const [idRef, setIdRef] = useState("");
+
+  const addFriendQuery = useQuery(
+    {
+      queryKey: ["friend"],
+      queryFn: () => addFriends(tg_id, idRef),
+      enabled: !!tg_id && !!idRef,
+    },
+    queryClient
+  );
+
+  useEffect(() => {
+    if (startParam) {
+      setIdRef(startParam);
+    }
+  }, [startParam]);
+
+  // useEffect(() => {
+  //   console.log(idRef);
+  // }, [idRef]);
 
   return (
     <div className={style.coinBlock}>
