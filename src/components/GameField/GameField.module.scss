@@ -1,6 +1,7 @@
 .blockField {
     position: relative;
     height: 100vh;
+    background-color: transparent;
 }
 
 .btnTap {
@@ -21,9 +22,13 @@
     bottom: 5%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: transform 0.1s; 
+    transition: transform 0.1s;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     
-
     &:active {
         transform: translate(-50%, -50%) scale(0.9);
     }
@@ -45,6 +50,7 @@
     width: 96%;
     height: 96%;
     margin-top: 3px;
+    background: transparent;
 }
 
 @media (min-width: 360px) {
