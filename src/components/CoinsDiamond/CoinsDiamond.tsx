@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { useTelegram } from "../../provider/telegram/telegram";
 import { useQuery } from "@tanstack/react-query";
-import { infoArmy, referalLink, userInfo } from "../../api/userInfo";
+import { infoArmy, userInfo } from "../../api/userInfo";
 import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
 import { useEffect } from "react";
