@@ -7,13 +7,20 @@ import { addFriends } from "../../api/userInfo";
 import { queryClient } from "../../api/queryClient";
 
 function ReferalLink() {
-    const { tg_id, refId } = useTelegram();
+    const { tg_id } = useTelegram();
     const { start } = useParams();
 
     const addFriendQuery = useQuery({
         queryKey: ['friend'],
-        queryFn: () => addFriends(tg_id, refId),
-        enabled: !!tg_id && !!refId
+        queryFn: () => {
+            if (typeof tg_id === 'string' && typeof start === 'string') {
+                return addFriends(tg_id, start);
+            } else {
+                // Вы можете обработать эту ситуацию по-своему. Например, вы можете вернуть ошибку или значение по умолчанию.
+                throw new Error('tg_id or start is not a string');
+            }
+        },
+        enabled: !!tg_id && !!start
     }, queryClient)
 
     return (
