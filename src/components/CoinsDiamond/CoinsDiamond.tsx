@@ -18,6 +18,7 @@ function CoinsDiamond() {
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
   const { tg_id, userName } = useTelegram();
+  const [success, setSuccess] = useState(false)
 
   const infoQuery = useQuery(
     {
@@ -30,6 +31,9 @@ function CoinsDiamond() {
   );
 
   useEffect(() => {
+    if(infoQuery.data) {
+      setSuccess(true)
+    }
     dispatch(coinActions.addCoinStore(infoQuery.data));
   }, [infoQuery.data]);
 
@@ -37,8 +41,8 @@ function CoinsDiamond() {
     {
       queryFn: () => infoArmy(tg_id),
       queryKey: ["army", tg_id],
-      enabled: !!tg_id,
-      retry: 0,
+      enabled: !!tg_id && success,
+      retry: 2,
     },
     queryClient
   );
