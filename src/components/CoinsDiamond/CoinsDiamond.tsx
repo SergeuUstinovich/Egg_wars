@@ -53,7 +53,7 @@ function CoinsDiamond() {
 
   const query = new URLSearchParams(useLocation().search);
   const startParam = query.get("id");
-  const [idRef, setIdRef] = useState("");
+  const [idRef, setIdRef] = useState<string>();
 
   useQuery(
     {

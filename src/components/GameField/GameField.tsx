@@ -87,6 +87,7 @@ function GameField() {
             queryClient.invalidateQueries({ queryKey: ["info", tg_id] });
           }
         }
+        setScoreMoney(0);
         dispatch(coinActions.updateCoinStore(data));
       },
     },
@@ -159,7 +160,6 @@ function GameField() {
         energy: scoreEnergy,
         hp: scoreHp,
       });
-      setScoreMoney(0);
     }
   }, [scoreHpHelper]);
 
