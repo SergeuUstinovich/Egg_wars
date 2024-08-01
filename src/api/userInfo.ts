@@ -1,4 +1,5 @@
 import axios from "axios";
+import { validateError } from "../helpers/validateError";
 
 const api_url = import.meta.env.MODE === 'development' ? '/api' : import.meta.env.VITE_API_BASE_URL;
 
@@ -70,11 +71,11 @@ export function referalLink(tg_id: string) {
 export function addFriends(tg_id: string, referral_id: string | undefined) {
     return axios.get(`${api_url}/main/completeReferral/${tg_id}/${referral_id}/`)
     .then(response => {
-        const data  = response.data
+        const data  = response.data.success
         return data
         
     })
-    .catch(error => error.Error)
+    .catch(validateError)
 }
 
 export function listFriends(tg_id: string) {

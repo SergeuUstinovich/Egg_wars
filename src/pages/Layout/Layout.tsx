@@ -7,12 +7,17 @@ import BtnGemaField from "../../components/BtnGemaField/BtnGemaField";
 import imgTasks from '../../assets/img/tasks.png'
 import imgUpgrades from '../../assets/img/upgrades.png'
 import imgBoosters from '../../assets/img/boosters.png'
+import { Toaster } from "react-hot-toast";
 
 
 function Layout() {
   return (
     <>
       <header className={style.headers}>
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+        />
         <CoinsDiamond />
       </header>
       <main className={style.main}>

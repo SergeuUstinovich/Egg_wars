@@ -72,7 +72,7 @@ function CardFriend({ name, referral_system_id }: FriendsType) {
         <p className={style.btnDescr}>Collect NOW</p>
         <div className={style.coinTake}>
           <img src={coinFr} alt="" />
-          <p className={style.coin}>0</p>
+          <p className={style.coin}>10 000</p>
         </div>
       </Button>
     </div>

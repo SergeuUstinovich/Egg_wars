@@ -13,6 +13,7 @@ import { queryClient } from "../../api/queryClient";
 import { useEffect, useState } from "react";
 import { armyActions } from "../../provider/StoreProvider/slice/armySlice";
 import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function CoinsDiamond() {
   const dispatch = useDispatch();
@@ -55,11 +56,12 @@ function CoinsDiamond() {
   const startParam = query.get("id");
   const [idRef, setIdRef] = useState<string>();
 
-  useQuery(
+  const queryFriends = useQuery(
     {
       queryKey: ["friend"],
       queryFn: () => addFriends(tg_id, idRef),
       enabled: !!tg_id && !!idRef,
+      retry: 1
     },
     queryClient
   );
@@ -69,6 +71,15 @@ function CoinsDiamond() {
       setIdRef(startParam);
     }
   }, [startParam]);
+
+  useEffect(() => {
+    // if(queryFriends.error) {
+    //   toast.error(queryFriends.error?.message)
+    // }
+    if(queryFriends.data) {
+      toast.success(queryFriends.data)
+    }
+  }, [queryFriends.data])
 
   return (
     <div className={style.coinBlock}>
