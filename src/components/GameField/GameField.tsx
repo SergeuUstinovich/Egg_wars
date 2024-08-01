@@ -153,6 +153,7 @@ function GameField() {
         energy: scoreEnergy,
         hp: scoreHp,
       });
+      setScoreMoney(0);
     }
   }, [scoreHpHelper]);
 

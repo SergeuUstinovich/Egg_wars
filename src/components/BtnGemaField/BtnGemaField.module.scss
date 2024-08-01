@@ -30,3 +30,25 @@
     }
  
 }
+
+@media (min-width: 340px) {
+    .BtnField {
+        width: 55px;
+        height: 50px;
+
+        .link {
+            padding-top: 30px;
+    
+            .img{
+                position: absolute;
+                top: -12px;
+                left: 4.5px;
+            }
+    
+            .text {
+                font-size: 13px;
+            }
+        }
+    
+    }
+}
