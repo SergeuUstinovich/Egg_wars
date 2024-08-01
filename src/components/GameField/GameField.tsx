@@ -231,8 +231,8 @@ function GameField() {
       item.y += item.dy;
 
       const newObjCoin = {
-        x: squareX * 2,
-        y: squareY * 2,
+        x: item.x,
+        y: item.y,
         value: item.damage,
         time: Date.now(),
       };
