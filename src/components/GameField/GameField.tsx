@@ -17,7 +17,7 @@ import { queryClient } from "../../api/queryClient";
 import { useTelegram } from "../../provider/telegram/telegram";
 import { coinActions } from "../../provider/StoreProvider";
 import { ArmyType } from "../../types/ArmyType";
-
+import { coinUp } from "../../utils/drawImages";
 
 export interface circlePositionProps {
   x: number;
@@ -131,6 +131,7 @@ function GameField() {
   }, [infoUser?.lvl]);
   //отправка после кликов
   useEffect(() => {
+    
     if (infoUser) {
       const newTimeoutId = setTimeout(() => {
         tapTapMutation.mutate({
@@ -139,7 +140,6 @@ function GameField() {
           energy: scoreEnergy,
           hp: scoreHp,
         });
-        setScoreMoney(0);
       }, 2000);
       return () => clearTimeout(newTimeoutId);
     }
@@ -199,12 +199,7 @@ function GameField() {
   //рисуем на холсте
   function draw(ctx: CanvasRenderingContext2D) {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    const {
-      sizeCastle,
-      squareX,
-      squareY,
-      sizeCoinJump,
-    } = variable(ctx);
+    const { sizeCastle, squareX, squareY } = variable(ctx);
 
     circlePosition.map((item, index) => {
       item.x += item.dx;
@@ -234,43 +229,38 @@ function GameField() {
     if (imageCastle) {
       ctx.drawImage(imageCastle, squareX, squareY, sizeCastle, sizeCastle);
     }
+    //прыгающие монеты
     coinJump.forEach((coin, index) => {
       const elapsedTime = Date.now() - coin.time;
       const rise = (50 * elapsedTime) / 500;
-      ctx.font = `${sizeCoinJump}px PassionOne`;
-      ctx.strokeStyle = "black";
-      ctx.lineWidth = 2;
-      ctx.fillStyle = "Yellow";
-      ctx.strokeText(`+ ${coin.value}`, coin.x, coin.y - rise);
-      ctx.fillText(`+ ${coin.value}`, coin.x, coin.y - rise);
+      coinUp(ctx, coin, rise)
       if (elapsedTime > 500) {
         setCoinJump((prevCoins) => prevCoins.filter((_, i) => i !== index));
       }
     });
   }
-  
+
   const handleTouchStart = () => {
-    if(ctx) {
+    if (ctx) {
       const { centerX, centerY } = variable(ctx);
       const canvas = ctx?.canvas;
-      if(canvas) {
+      if (canvas) {
         if (scoreEnergy > 0) {
           const newCircle = addUnitPerson(centerX, centerY, army);
-          setCirclePosition((prevPositions) => [
-            ...prevPositions,
-            newCircle,
-          ]);
+          setCirclePosition((prevPositions) => [...prevPositions, newCircle]);
           setScoreEnergy((prev: any) => prev - 1);
         }
       }
     }
-  }  
+  };
 
   return (
     <div className={style.blockField}>
       <div className={style.infoLvlHp}>
         <p className={style.lvl}>Level {infoUser?.lvl}</p>
-        <p className={style.hpCastle}>{scoreHp.toLocaleString("ru-RU")} / {hpMax?.toLocaleString("ru-RU")}</p>
+        <p className={style.hpCastle}>
+          {scoreHp.toLocaleString("ru-RU")} / {hpMax?.toLocaleString("ru-RU")}
+        </p>
       </div>
       <Canvas ref={canvasRef} />
       <button onTouchStart={handleTouchStart} className={style.btnTap}>
@@ -283,7 +273,9 @@ function GameField() {
             pathColor: "#1fbcff",
           })}
         />
-        <p className={style.textEnergy}>{`${scoreEnergy.toLocaleString("ru-RU")} / ${energyMax?.toLocaleString("ru-RU")}`}</p>
+        <p className={style.textEnergy}>{`${scoreEnergy.toLocaleString(
+          "ru-RU"
+        )} / ${energyMax?.toLocaleString("ru-RU")}`}</p>
       </button>
     </div>
   );

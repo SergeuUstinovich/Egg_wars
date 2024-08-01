@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import "./styles/global/App.scss";
 import { Route, Routes } from "react-router-dom";
+import { useTelegram } from "./provider/telegram/telegram";
 
 
 const Layout = lazy(() => import("./pages/Layout/Layout"));
@@ -13,6 +14,8 @@ const Tasks = lazy(() => import("./pages/Tasks/Tasks"));
 const Boosters = lazy(() => import("./pages/Boosters/Boosters"));
 
 function App() {
+  useTelegram().tg.expand();
+  useTelegram().tg.setHeaderColor("#000", "#fff");
   return (
     <>
       <Suspense fallback={<div>Loading</div>}>
