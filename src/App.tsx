@@ -1,8 +1,6 @@
 import { lazy, Suspense } from "react";
-import { useTelegram } from "./provider/telegram/telegram";
 import "./styles/global/App.scss";
 import { Route, Routes } from "react-router-dom";
-// import ReferalLink from "./components/ReferalLink/ReferalLink";
 
 
 const Layout = lazy(() => import("./pages/Layout/Layout"));
@@ -15,7 +13,6 @@ const Tasks = lazy(() => import("./pages/Tasks/Tasks"));
 const Boosters = lazy(() => import("./pages/Boosters/Boosters"));
 
 function App() {
-  useTelegram().tg.expand();
   return (
     <>
       <Suspense fallback={<div>Loading</div>}>
@@ -28,9 +25,7 @@ function App() {
             <Route path={"upgrades"} element={<Upgrade />} />
             <Route path={"tasks"} element={<Tasks />} />
             <Route path={"boosters"} element={<Boosters />} />
-            {/* <Route path={":id"} element={<ReferalLink />} /> */}
           </Route>
-          
         </Routes>
       </Suspense>
     </>
