@@ -6,15 +6,9 @@ import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import useImage from "../../utils/useImage";
 import imageCasltes from "../../assets/img/casle-lvl-1.png";
-import imageTapes from "../../assets/img/level_tape.png";
 import useCanvas from "../../utils/useCanvas";
 import { variable } from "../../utils/variable";
-import {
-  drawCircle,
-  drawTextTape,
-  isCircleReachedSquare,
-} from "../../utils/drawCanvas";
-import { drawTape } from "../../utils/drawImages";
+import { drawCircle, isCircleReachedSquare } from "../../utils/drawCanvas";
 import { addUnitPerson } from "../../utils/hpcSpawn";
 import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 import { useMutation } from "@tanstack/react-query";
@@ -67,7 +61,6 @@ function GameField() {
   );
 
   const imageCastle = useImage(imageCasltes);
-  const imageTape = useImage(imageTapes);
   //отрисовка в канвасе
   const canvasRef = useRef<ElementRef<"canvas">>(null);
   let ctx = canvasRef.current?.getContext("2d");
@@ -210,19 +203,6 @@ function GameField() {
       sizeCastle,
       squareX,
       squareY,
-      sizeTapeX,
-      sizeTapeY,
-      tapeX,
-      tapeY,
-      sizeBgTypeX,
-      sizeBgTypeY,
-      BgTypeX,
-      BgTypeY,
-      sizeTextLvl,
-      textLvlX,
-      textLvlY,
-      sizeTexеHp,
-      textLvlHpY,
       sizeCoinJump,
     } = variable(ctx);
 
@@ -250,40 +230,6 @@ function GameField() {
         drawCircle(ctx, item.x, item.y, 7, item.color);
       }
     });
-
-    //ленточка лвл
-    if (imageTape) {
-      drawTape(
-        ctx,
-        imageTape,
-        BgTypeX,
-        BgTypeY,
-        sizeBgTypeX,
-        sizeBgTypeY,
-        tapeX,
-        tapeY,
-        sizeTapeX,
-        sizeTapeY
-      );
-      drawTextTape(
-        ctx,
-        sizeTextLvl,
-        textLvlX,
-        textLvlY,
-        `Level ${infoUser?.lvl}`,
-        "white"
-      );
-      drawTextTape(
-        ctx,
-        sizeTexеHp,
-        textLvlX,
-        textLvlHpY,
-        `${scoreHp.toLocaleString("ru-RU")} / ${hpMax?.toLocaleString(
-          "ru-RU"
-        )}`,
-        "white"
-      );
-    }
     //замок
     if (imageCastle) {
       ctx.drawImage(imageCastle, squareX, squareY, sizeCastle, sizeCastle);
@@ -322,6 +268,10 @@ function GameField() {
 
   return (
     <div className={style.blockField}>
+      <div className={style.infoLvlHp}>
+        <p className={style.lvl}>Level {infoUser?.lvl}</p>
+        <p className={style.hpCastle}>{scoreHp.toLocaleString("ru-RU")} / {hpMax?.toLocaleString("ru-RU")}</p>
+      </div>
       <Canvas ref={canvasRef} />
       <button onTouchStart={handleTouchStart} className={style.btnTap}>
         <CircularProgressbar
