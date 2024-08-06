@@ -3,8 +3,9 @@ export interface FriendsType {
     lvl: number
     person_id: number
     referral_system_id: number
+    flag: boolean
 }
 
 export interface FriendsScheme {
-    friends?: FriendsType
+    friends?: FriendsType[]
 }

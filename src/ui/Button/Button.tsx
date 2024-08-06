@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes } from "react";
 import "./Button.scss";
-// import { LoaderButton } from "../Loader/LoaderButton";
 import { classNames } from "../../utils/classNames";
+import { LoaderButton } from "../LoaderButton";
 
 interface IButtonProps extends HTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
@@ -28,8 +28,7 @@ export const Button: FC<IButtonProps> = ({
       data-kind={kind}
       {...props}
     >
-      {children}
-      {/* {isLoading ? <LoaderButton /> : children} */}
+      {isLoading ? <LoaderButton /> : children}
     </button>
   );
 };

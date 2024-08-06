@@ -7,15 +7,17 @@ import { useEffect, useState } from "react";
 import { classNames } from "../../utils/classNames";
 import { FriendsType } from "../../types/FriendsType";
 import { useMutation } from "@tanstack/react-query";
-import { bonusTake } from "../../api/userInfo";
 import { useTelegram } from "../../provider/telegram/telegram";
 import { queryClient } from "../../api/queryClient";
+import { bonusTake } from "../../api/friendApi";
+import toast from "react-hot-toast";
 
-function CardFriend({ name, referral_system_id }: FriendsType) {
+function CardFriend({ name, referral_system_id, flag }: FriendsType) {
   const { tg_id } = useTelegram();
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [btnClassFr, setBtnClassFr] = useState(false);
-  const value = 4;
+  const [nowMax, setNowMax] = useState('NOW');
+  const value = 5;
   const max = 10;
 
   const mutateBonusTake = useMutation(
@@ -23,7 +25,11 @@ function CardFriend({ name, referral_system_id }: FriendsType) {
       mutationFn: (data: { tg_id: string; referral_system_id: number }) =>
         bonusTake(data.tg_id, data.referral_system_id),
       onSuccess: () => {
-        queryClient.invalidateQueries({queryKey: ["info", tg_id]})
+        queryClient.invalidateQueries({ queryKey: ["info", tg_id] });
+        queryClient.invalidateQueries({ queryKey: ["listFr"] });
+      },
+      onError: (data) => {
+        toast.error(data.message)
       }
     },
     queryClient
@@ -40,8 +46,10 @@ function CardFriend({ name, referral_system_id }: FriendsType) {
       setBtnDisabled(false);
     }
     if (value >= max) {
+      setNowMax('MAX')
       setBtnClassFr(true);
     } else {
+      setNowMax('NOW')
       setBtnClassFr(false);
     }
   }, [value]);
@@ -49,32 +57,50 @@ function CardFriend({ name, referral_system_id }: FriendsType) {
   const mods = {
     [style.btnClassFr]: btnClassFr,
   };
+  const mod = {
+    [style.btnClaim]: true,
+  };
 
   return (
     <div className={style.blockFriend}>
       <img className={style.img} src={avatar} alt="" />
       <div className={style.progress}>
         <p className={style.nameFr}>{name}</p>
-        <p className={style.coinBar}>20 000 / 30 000</p>
-        <ProgressBar
-          value={value}
-          max={max}
-          className={style.cardFrBar}
-          classNamefill={style.cardFrBarFill}
-          colorFill="#f7a31a"
-        />
+        {!flag && (
+          <>
+            <p className={style.coinBar}>20 000 / 30 000</p>
+            <ProgressBar
+              value={value}
+              max={max}
+              className={style.cardFrBar}
+              classNamefill={style.cardFrBarFill}
+              colorFill="#f7a31a"
+            />
+          </>
+        )}
       </div>
-      <Button
-        onClick={handleBonusTake}
-        className={classNames(style.btnFriend, mods, [])}
-        isDisabled={btnDisabled}
-      >
-        <p className={style.btnDescr}>Collect NOW</p>
-        <div className={style.coinTake}>
-          <img src={coinFr} alt="" />
-          <p className={style.coin}>10 000</p>
-        </div>
-      </Button>
+      {flag ? (
+        <Button
+          onClick={handleBonusTake}
+          className={classNames(style.btnFriend, mod, [])}
+          isLoading={mutateBonusTake.isPending}
+        >
+          <p className={style.btnDescrClaim}>Claim bonus</p>
+        </Button>
+      ) : (
+        <Button
+          // onClick={handleBonusTake}
+          className={classNames(style.btnFriend, mods, [])}
+          isDisabled={btnDisabled}
+          // isLoading={mutateBonusTake.isPending}
+        >
+          <p className={style.btnDescr}>Collect {nowMax}</p>
+          <div className={style.coinTake}>
+            <img src={coinFr} alt="" />
+            <p className={style.coin}>10 000</p>
+          </div>
+        </Button>
+      )}
     </div>
   );
 }

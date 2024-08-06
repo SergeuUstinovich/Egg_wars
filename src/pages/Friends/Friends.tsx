@@ -1,23 +1,20 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import CopySvg from "../../assets/svg/CopySvg/CopySvg";
-import CollectCard from "../../components/CollectCard/CollectCard";
 import CollectCoins from "../../components/CollectCoinds/CollectCoins";
-import InviteFriend from "../../components/InviteFriend/InviteFriend";
 import { useTelegram } from "../../provider/telegram/telegram";
 import { Button } from "../../ui/Button";
 import ModalRoute from "../../ui/ModalRoute/ModalRoute";
 import style from "./Friends.module.scss";
 import { queryClient } from "../../api/queryClient";
-import { listFriends, referalLink } from "../../api/userInfo";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { FriendsType } from "../../types/FriendsType";
+import toast from "react-hot-toast";
+import { infoBonus, listFriends, referalLink } from "../../api/friendApi";
+import CollectFriend from "../../components/CollectFriend/CollectFriend";
 
 function Friends() {
   const { tg_id, tg } = useTelegram();
   const [refLink, setRefLink] = useState();
-  const friend = useLocation();
-  const [listFriend, setListFriend] = useState<FriendsType[]>([]);
+  const [friendList, setFriendList] = useState([]);
 
   const referalQuery = useQuery(
     {
@@ -44,35 +41,40 @@ function Friends() {
     try {
       if (refLink) {
         await navigator.clipboard.writeText(refLink);
-        console.log("Ссылка скопирована");
+        toast.success('Ссылка скопирована в буфер обмена')
       }
     } catch (err) {
-      console.error("Ошибка при копировании", err);
+      toast.error('Ошибка при копировании')
     }
   };
-
-  const listFrieds = useMutation(
+  const queruListFriend = useQuery(
     {
-      mutationFn: (data: { tg_id: string }) => listFriends(data.tg_id),
-      onSuccess: (data) => {
-        setListFriend(data);
-      },
+      queryFn: () => listFriends(tg_id),
+      queryKey: ["listFr"],
+      enabled: !!tg_id,
     },
     queryClient
   );
 
   useEffect(() => {
-    if (friend.pathname === "/friends") {
-      listFrieds.mutate({ tg_id });
+    if(queruListFriend.data) {
+      setFriendList(queruListFriend.data);
     }
-  }, []);
+  }, [queruListFriend.data]);
+
+  const queryInfoBonus = useQuery(
+    {
+      queryKey: ["infoBonus"],
+      queryFn: () => infoBonus(tg_id),
+    },
+    queryClient
+  );
 
   return (
     <ModalRoute>
       <div className={style.friend}>
-        <InviteFriend />
-        <CollectCard />
-        <CollectCoins friends={listFriend} />
+        <CollectFriend bonuses={queryInfoBonus.data} />
+        <CollectCoins friends={friendList} />
         <div className={style.btnForward}>
           <Button onClick={handleRefLink} className={style.infiteFr}>
             Invite Friend

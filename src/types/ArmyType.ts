@@ -7,6 +7,8 @@ export interface ArmyType {
     price_speed: number,
     lvl_damage: number,
     price_damage: number,
+    cards: number,
+    max_cards: number,
     image: string
 }
 

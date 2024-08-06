@@ -4,8 +4,9 @@ import cards_king from "../../assets/img/Cards_king.png";
 import cards_value from "../../assets/img/cards_value.png";
 import cards_gold from "../../assets/img/Cards_gold.png";
 import CategoriesTitle from "../CategoriesTitle/CategoriesTitle";
+import { Bonuses } from "../../types/BonusFriend";
 
-function InviteFriend() {
+function InviteFriend({Info_prime_bonus, Info_ordinary_bonus}:Bonuses) {
   return (
     <div className={style.friendInv}>
       <CategoriesTitle title="Invite Friends" />
@@ -18,12 +19,12 @@ function InviteFriend() {
               <img className={style.imgCard} src={cards_king} alt="" />
               <div className={style.card_value}>
                 <img src={cards_value} alt="" />
-                <span className={`${style.descr} ${style.span}`}>2</span>
+                <span className={`${style.descr} ${style.span}`}>{Info_prime_bonus?.cards}</span>
               </div>
             </div>
             <div className={style.cardCoin}>
               <img className={style.imgCard} src={cards_gold} alt="" />
-              <p className={`${style.descr} ${style.span}`}>+50 000</p>
+              <p className={`${style.descr} ${style.span}`}>+{Info_prime_bonus?.money.toLocaleString('ru-RU')}</p>
             </div>
           </div>
         </div>
@@ -35,12 +36,12 @@ function InviteFriend() {
                 <img className={style.imgCard} src={cards_king} alt="" />
                 <div className={style.card_value}>
                   <img src={cards_value} alt="" />
-                  <span className={`${style.descr} ${style.span}`}>2</span>
+                  <span className={`${style.descr} ${style.span}`}>{Info_ordinary_bonus?.cards}</span>
                 </div>
               </div>
               <div className={style.cardCoin}>
                 <img className={style.imgCard} src={cards_gold} alt="" />
-                <p className={`${style.descr} ${style.span}`}>+50 000</p>
+                <p className={`${style.descr} ${style.span}`}>+{Info_ordinary_bonus?.money.toLocaleString('ru-RU')}</p>
               </div>
             </div>
           </div>

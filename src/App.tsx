@@ -16,6 +16,7 @@ const Boosters = lazy(() => import("./pages/Boosters/Boosters"));
 function App() {
   useTelegram().tg.expand();
   useTelegram().tg.setHeaderColor("#000", "#fff");
+  useTelegram().tg.disableVerticalSwipes()
   return (
     <>
       <Suspense fallback={<div>Loading</div>}>

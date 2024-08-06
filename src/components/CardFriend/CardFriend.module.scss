@@ -69,6 +69,14 @@
             color: var(--white);
         }
 
+        .btnDescrClaim {
+            text-shadow: var(--text-stroke-shadow);
+            font-size: 13px;
+            line-height: 97%;
+            color: var(--white);
+            padding: 9px 0;
+        }
+
         .coinTake {
             display: flex;
             align-items: center;
@@ -84,6 +92,9 @@
     }
 
     .btnClassFr {
+        background: linear-gradient(180deg, #bce93a 0%, #7ac021 100%);
+    }
+    .btnClaim {
         background: linear-gradient(180deg, #bce93a 0%, #7ac021 100%);
     }
 }

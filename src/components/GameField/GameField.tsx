@@ -153,7 +153,6 @@ function GameField() {
         energy: scoreEnergy,
         hp: scoreHp,
       });
-      setScoreMoney(0);
     }
   }, [scoreHpHelper]);
 
@@ -206,6 +205,11 @@ function GameField() {
       item.x += item.dx;
       item.y += item.dy;
 
+      // // Добавляем эффект прыжков
+      // const jumpHeight = 20; // высота прыжка
+      // const frequency = 0.005; // уменьшенная частота прыжков
+      // const offsetY = Math.sin(Date.now() * frequency + index) * jumpHeight;
+
       const newObjCoin = {
         x: item.x,
         y: item.y,
@@ -223,6 +227,12 @@ function GameField() {
           prevPositions.filter((_, i) => i !== index)
         );
       } else {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.beginPath();
+        ctx.ellipse(item.x, item.y + 7, 7, 2, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Рисуем кружок с учетом прыжка
         drawCircle(ctx, item.x, item.y, 7, item.color);
       }
     });

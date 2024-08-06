@@ -22,8 +22,6 @@ export function addUnitPerson(
           canvasH / 7,
           canvasH / 1.8 + 200
         );
-  // третий варик
-  // const position = generateRandomPosition(30, canvasW - 30, canvasH / 1.6, canvasH - 100);
 
   const dx = (canvasW / 2 - position.x) / (randomPerson.speed * 60);
   const dy = (canvasH / 3 - position.y) / (randomPerson.speed * 60);
