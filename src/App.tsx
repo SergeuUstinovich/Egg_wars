@@ -7,6 +7,7 @@ import GameField from "./components/GameField/GameField";
 
 function App() {
   const {tg} = useTelegram()
+  useTelegram().tg.disableVerticalSwipes()
   useEffect(() => {
     tg.ready();
     tg.expand();
