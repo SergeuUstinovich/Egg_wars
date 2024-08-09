@@ -1,5 +1,6 @@
 import { generateRandomPosition } from "./getRandomCoordinate";
 import { ArmyType } from "../types/ArmyType";
+import { v4 } from 'uuid';
 
 export function addUnitPerson(
   canvasW: number,
@@ -33,5 +34,6 @@ export function addUnitPerson(
     color: randomPerson.name, // Временно
     damage: randomPerson.damage,
     img: randomPerson.image,
+    id: v4()
   };
 }

@@ -18,6 +18,7 @@ import { useTelegram } from "../../provider/telegram/telegram";
 import { coinActions } from "../../provider/StoreProvider";
 import { ArmyType } from "../../types/ArmyType";
 import { coinUp } from "../../utils/drawImages";
+import { v4 } from "uuid";
 
 export interface circlePositionProps {
   x: number;
@@ -27,6 +28,7 @@ export interface circlePositionProps {
   damage: number;
   color: string;
   img: string;
+  id: string;
 }
 
 export interface coinJumpProps {
@@ -34,6 +36,7 @@ export interface coinJumpProps {
   y: number;
   value: number;
   time: number;
+  id: string;
 }
 
 function GameField() {
@@ -201,7 +204,7 @@ function GameField() {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     const { sizeCastle, squareX, squareY } = variable(ctx);
 
-    circlePosition.map((item, index) => {
+    circlePosition.map((item) => {
       item.x += item.dx;
       item.y += item.dy;
 
@@ -209,12 +212,12 @@ function GameField() {
       // const jumpHeight = 20; // высота прыжка
       // const frequency = 0.005; // уменьшенная частота прыжков
       // const offsetY = Math.sin(Date.now() * frequency + index) * jumpHeight;
-
       const newObjCoin = {
         x: item.x,
         y: item.y,
         value: item.damage,
         time: Date.now(),
+        id: v4()
       };
 
       // Проверяем, достиг ли круг квадрата
@@ -223,8 +226,9 @@ function GameField() {
         setScoreMoney((prev: any) => prev + item.damage);
         setStoreMoney((prev: any) => prev + item.damage);
         setCoinJump((prevCoins) => [...prevCoins, newObjCoin]);
+        const idToRemove = item.id;
         setCirclePosition((prevPositions) =>
-          prevPositions.filter((_, i) => i !== index)
+          prevPositions.filter((item) => item.id !== idToRemove)
         );
       } else {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
@@ -241,12 +245,13 @@ function GameField() {
       ctx.drawImage(imageCastle, squareX, squareY, sizeCastle, sizeCastle);
     }
     //прыгающие монеты
-    coinJump.forEach((coin, index) => {
+    coinJump.forEach((coin) => {
       const elapsedTime = Date.now() - coin.time;
       const rise = (50 * elapsedTime) / 500;
       coinUp(ctx, coin, rise)
       if (elapsedTime > 500) {
-        setCoinJump((prevCoins) => prevCoins.filter((_, i) => i !== index));
+        const idToRemove = coin.id;
+        setCoinJump((prevCoins) => prevCoins.filter((item) => item.id !== idToRemove));
       }
     });
   }
