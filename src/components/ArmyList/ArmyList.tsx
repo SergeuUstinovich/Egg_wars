@@ -25,7 +25,7 @@ function ArmyList({ army }: ArmyList) {
         {army &&
           army.map((item) => (
             <li key={item.id_warrior}>
-              <Button onClick={handleOpenArmy}>
+              <Button className={style.upgradeLink} onClick={handleOpenArmy}>
                 <img src={item.image} alt={item.name} />
               </Button>
             </li>

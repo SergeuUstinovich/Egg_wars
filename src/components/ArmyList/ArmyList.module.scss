@@ -15,8 +15,15 @@
 }
 
 .upgradeList {
+    padding: 11px 9px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.upgradeLink {
+    width: 68px;
+    height: 98px;
 }
 
 .upgradeItem {
