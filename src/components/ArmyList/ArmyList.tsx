@@ -1,7 +1,6 @@
 import style from "./ArmyList.module.scss";
 import { ArmyType } from "../../types/ArmyType";
 import { Button } from "../../ui/Button";
-import { useState } from "react";
 import upgradeIcon from "../../assets/img/upgradeTitle.png";
 
 interface ArmyList {
@@ -9,12 +8,6 @@ interface ArmyList {
 }
 
 function ArmyList({ army }: ArmyList) {
-  const [isOpenArmy, setIsOpenArmy] = useState(false);
-
-  const handleOpenArmy = () => {
-    setIsOpenArmy(true);
-  };
-
   return (
     <div className={style.upgradeBlock}>
       <h2 className={style.upgradeTitle}>
@@ -25,7 +18,7 @@ function ArmyList({ army }: ArmyList) {
         {army &&
           army.map((item) => (
             <li key={item.id_warrior}>
-              <Button className={style.upgradeLink} onClick={handleOpenArmy}>
+              <Button className={style.upgradeLink}>
                 <img src={item.image} alt={item.name} />
               </Button>
             </li>
