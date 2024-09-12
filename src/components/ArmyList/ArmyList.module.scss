@@ -1,4 +1,24 @@
 .upgradeBlock {
-    color: var(--white);
     margin-bottom: 9%;
+    color: var(--white);
+    background-color: var(--bg-upgrades);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.upgradeTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-text-stroke: 1px #000;
+    font-size: 18px;
+}
+
+.upgradeList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.upgradeItem {
+    height: 210px;
 }

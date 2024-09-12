@@ -1,0 +1,13 @@
+.upgradeBarList {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+
+.upgradeBarItem {
+    padding: 8px 25px;
+    display: inline-block;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: var(--bg-navbar);
+}
