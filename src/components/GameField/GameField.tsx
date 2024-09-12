@@ -55,7 +55,7 @@ function GameField() {
   const [intervalCoin, setIntervalCoin] = useState(0);
   const [coinJump, setCoinJump] = useState<coinJumpProps[]>([]);
 
-  const [army, setArmy] = useState<ArmyType | undefined>(armyUser);
+  const [army, setArmy] = useState<ArmyType[] | undefined>(armyUser);
   const [energyMax, setEnergyMax] = useState(infoUser?.energy_start || 0);
   const [hpMax, setHpMax] = useState(infoUser?.hp_castle_start || 0);
   const percentage = (scoreEnergy / energyMax) * 100;

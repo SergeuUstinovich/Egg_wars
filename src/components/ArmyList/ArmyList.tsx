@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useTelegram } from "../../provider/telegram/telegram";
-import { ArmyType } from "../../types/ArmyType";
+import { ArmyScheme } from "../../types/ArmyType";
 import style from "./ArmyList.module.scss";
 import { upDamage, upSpeed } from "../../api/userInfo";
 import { useMutation } from "@tanstack/react-query";
@@ -8,11 +8,8 @@ import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 
-interface ArmyList {
-  army?: ArmyType[];
-}
 
-function ArmyList({ army }: ArmyList) {
+function ArmyList({ armyUser }: ArmyScheme) {
   const { tg_id } = useTelegram();
   const dispatch = useDispatch();
   const infoUser = useSelector(getCoin);
@@ -54,8 +51,8 @@ function ArmyList({ army }: ArmyList) {
   return (
     <div className={style.upgradeBlock}>
       <ul>
-        {army &&
-          army.map((item) => (
+        {armyUser &&
+          armyUser.map((item) => (
             <li key={item.id_warrior}>
                 <img src={item.image} alt={item.name} />
               <div>

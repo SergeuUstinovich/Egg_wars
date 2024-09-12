@@ -7,7 +7,7 @@ export const armySlice = createSlice({
     name: 'army',
     initialState,
     reducers: {
-        addArmyStore: (state, action: PayloadAction<ArmyType>) => {
+        addArmyStore: (state, action: PayloadAction<ArmyType[]>) => {
             state.armyUser = action.payload
         }
     }

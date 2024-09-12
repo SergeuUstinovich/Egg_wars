@@ -14,5 +14,5 @@ export interface ArmyType {
 }
 
 export interface ArmyScheme {
-    armyUser?: ArmyType
+    armyUser?: ArmyType[];
 }

@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 export function addUnitPerson(
   canvasW: number,
   canvasH: number,
-  armyUser: ArmyType | undefined
+  armyUser: ArmyType[] | undefined
 ) {
   const randomSide = Math.random();
   if (!Array.isArray(armyUser)) {
