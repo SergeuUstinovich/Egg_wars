@@ -6,19 +6,18 @@ import { useEffect, useState } from "react";
 import ArmyList from "../../components/ArmyList/ArmyList";
 import { ArmyType } from "../../types/ArmyType";
 
-
 function Upgrade() {
   const armyUser = useSelector(getArmy);
-  const [army, setArmy] = useState<ArmyType[]>()
+  const [army, setArmy] = useState<ArmyType[]>();
 
   useEffect(() => {
-    if(Array.isArray(armyUser)) {
-        if(armyUser) {
-            setArmy(armyUser)
-        }
+    if (Array.isArray(armyUser)) {
+      if (armyUser) {
+        setArmy(armyUser);
+      }
     }
-  }, [armyUser])
-  
+  }, [armyUser]);
+
   return (
     <ModalRoute>
       <ArmyList army={army} />

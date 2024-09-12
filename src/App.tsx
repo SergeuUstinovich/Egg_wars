@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import "./styles/global/App.scss";
 import { Route, Routes } from "react-router-dom";
 import { useTelegram } from "./provider/telegram/telegram";
+import { ArmyItem } from "./components/ArmyList/ArmyItem";
+import ArmyList from "./components/ArmyList/ArmyList";
 
 const Layout = lazy(() => import("./pages/Layout/Layout"));
 const Upgrade = lazy(() => import("./pages/Upgrade/Upgrade"));
@@ -25,8 +27,8 @@ function App() {
             <Route path={"leaders"} element={<Leaders />} />
             <Route path={"airdrop"} element={<Airdrop />} />
             <Route path={"guilds"} element={<Guilds />} />
-            <Route path={"upgrades"} element={<Upgrade />}>
-              <Route index path={"army"} />
+            <Route path={"/upgrades"} element={<Upgrade />}>
+              <Route path={"unit/:id"} element={<ArmyItem />} />
               <Route path={"passive"} />
               <Route path={"special"} />
             </Route>

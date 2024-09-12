@@ -1,7 +1,7 @@
 import style from "./ArmyList.module.scss";
 import { ArmyType } from "../../types/ArmyType";
-import { Button } from "../../ui/Button";
 import upgradeIcon from "../../assets/img/upgradeTitle.png";
+import { Link, Outlet } from "react-router-dom";
 
 interface ArmyList {
   army?: ArmyType[];
@@ -18,12 +18,16 @@ function ArmyList({ army }: ArmyList) {
         {army &&
           army.map((item) => (
             <li key={item.id_warrior}>
-              <Button className={style.upgradeLink}>
+              <Link
+                to={`unit/${item.id_warrior}`}
+                className={style.upgradeLink}
+              >
                 <img src={item.image} alt={item.name} />
-              </Button>
+              </Link>
             </li>
           ))}
       </ul>
+      <Outlet />
     </div>
   );
 }

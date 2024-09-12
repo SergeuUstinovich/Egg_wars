@@ -6,16 +6,34 @@ import { useMutation } from "@tanstack/react-query";
 import { upDamage, upSpeed } from "../../api/userInfo";
 import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
-import { ArmyType } from "../../types/ArmyType";
+import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
+import { useParams } from "react-router-dom";
 
-interface ArmyList {
-  army?: ArmyType[];
-}
-
-export const ArmyItem = ({ army }: ArmyList) => {
+export const ArmyItem = () => {
+  // const [unitArr, setUnitArr] = useState<ArmyType[]>();
+  // const [unit, setUnit] = useState<ArmyType>();
   const infoUser = useSelector(getCoin);
   const { tg_id } = useTelegram();
   const dispatch = useDispatch();
+  const armyUser = useSelector(getArmy);
+  const { id } = useParams();
+
+  if (armyUser === undefined) {
+    return null;
+  }
+  const unit = armyUser.find((item) => item.id_warrior === Number(id));
+
+  // useEffect(() => {
+  //   if (armyUser) {
+  //     setUnitArr(armyUser);
+  //   }
+  // }, [armyUser]);
+
+  // useEffect(() => {
+  //   if (unitArr) {
+  //     setUnit(unitArr.find((item) => item.id_warrior === Number(id)));
+  //   }
+  // }, [unitArr]);
 
   const upDamageMutate = useMutation(
     {
@@ -53,36 +71,35 @@ export const ArmyItem = ({ army }: ArmyList) => {
 
   return (
     <div className={style.upgradeItem}>
-      {army &&
-        army.map((item) => (
+      {unit && (
+        <div>
+          <p>{unit.name} warrior</p>
           <div>
-            <p>{item.name} warrior</p>
-            <div>
-              <p>{item.lvl_speed} speed lvl</p>
-              <p>{item.speed} sec</p>
-              {infoUser && (
-                <button
-                  onClick={() => handleUpSpeed(item.id_warrior)}
-                  disabled={item.price_speed > infoUser.money}
-                >
-                  {item.price_speed} coin
-                </button>
-              )}
-            </div>
-            <div>
-              <p>{item.lvl_damage} damage lvl</p>
-              <p>{item.damage} damage</p>
-              {infoUser && (
-                <button
-                  onClick={() => handleUpDamage(item.id_warrior)}
-                  disabled={item.price_damage > infoUser?.money}
-                >
-                  {item.price_damage} coin
-                </button>
-              )}
-            </div>
+            <p>{unit.lvl_speed} speed lvl</p>
+            <p>{unit.speed} sec</p>
+            {infoUser && (
+              <button
+                onClick={() => handleUpSpeed(unit.id_warrior)}
+                disabled={unit.price_speed > infoUser.money}
+              >
+                {unit.price_speed} coin
+              </button>
+            )}
           </div>
-        ))}
+          <div>
+            <p>{unit.lvl_damage} damage lvl</p>
+            <p>{unit.damage} damage</p>
+            {infoUser && (
+              <button
+                onClick={() => handleUpDamage(unit.id_warrior)}
+                disabled={unit.price_damage > infoUser?.money}
+              >
+                {unit.price_damage} coin
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
