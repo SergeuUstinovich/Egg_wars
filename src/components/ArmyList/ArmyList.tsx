@@ -1,6 +1,5 @@
 import style from "./ArmyList.module.scss";
 import { ArmyType } from "../../types/ArmyType";
-import upgradeIcon from "../../assets/img/upgradeTitle.png";
 import { Link, Outlet } from "react-router-dom";
 
 interface ArmyList {
@@ -10,10 +9,6 @@ interface ArmyList {
 function ArmyList({ army }: ArmyList) {
   return (
     <div className={style.upgradeBlock}>
-      <h2 className={style.upgradeTitle}>
-        <img src={upgradeIcon} alt="upgradeIcon" />
-        <span>Upgrades</span>
-      </h2>
       <ul className={style.upgradeList}>
         {army &&
           army.map((item) => (

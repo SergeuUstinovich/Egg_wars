@@ -72,32 +72,34 @@ export const ArmyItem = () => {
   return (
     <div className={style.upgradeItem}>
       {unit && (
-        <div>
+        <div className={style.itemBlock}>
           <p>{unit.name} warrior</p>
-          <div>
-            <p>{unit.lvl_speed} speed lvl</p>
-            <p>{unit.speed} sec</p>
-            {infoUser && (
-              <button
-                onClick={() => handleUpSpeed(unit.id_warrior)}
-                disabled={unit.price_speed > infoUser.money}
-              >
-                {unit.price_speed} coin
-              </button>
-            )}
-          </div>
-          <div>
-            <p>{unit.lvl_damage} damage lvl</p>
-            <p>{unit.damage} damage</p>
-            {infoUser && (
-              <button
-                onClick={() => handleUpDamage(unit.id_warrior)}
-                disabled={unit.price_damage > infoUser?.money}
-              >
-                {unit.price_damage} coin
-              </button>
-            )}
-          </div>
+          <ul className={style.itemList}>
+            <li>
+              <p>{unit.lvl_speed} speed lvl</p>
+              <p>{unit.speed} sec</p>
+              {infoUser && (
+                <button
+                  onClick={() => handleUpSpeed(unit.id_warrior)}
+                  disabled={unit.price_speed > infoUser.money}
+                >
+                  {unit.price_speed} coin
+                </button>
+              )}
+            </li>
+            <li>
+              <p>{unit.lvl_damage} damage lvl</p>
+              <p>{unit.damage} damage</p>
+              {infoUser && (
+                <button
+                  onClick={() => handleUpDamage(unit.id_warrior)}
+                  disabled={unit.price_damage > infoUser?.money}
+                >
+                  {unit.price_damage} coin
+                </button>
+              )}
+            </li>
+          </ul>
         </div>
       )}
     </div>
