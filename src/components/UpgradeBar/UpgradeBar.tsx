@@ -10,7 +10,7 @@ interface upgradeBarProp {
 const upgradeBarArr: upgradeBarProp[] = [
   {
     key: 1,
-    path: "/upgrades",
+    path: "/upgrades/army",
     label: "Army",
   },
   {

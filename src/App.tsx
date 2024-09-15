@@ -29,11 +29,12 @@ function App() {
             <Route path={"leaders"} element={<Leaders />} />
             <Route path={"airdrop"} element={<Airdrop />} />
             <Route path={"guilds"} element={<Guilds />} />
-            <Route path={"upgrades"} element={<Upgrade />}>
-              <Route index element={<Army />} />
+            <Route path={"/upgrades"} element={<Upgrade />}>
+              <Route path={"army"} element={<Army />}>
+                <Route path={"unit/:id"} element={<ArmyItem />} />
+              </Route>
               <Route path={"passive"} element={<Passive />} />
               <Route path={"special"} element={<Special />} />
-              <Route path={"unit/:id"} element={<ArmyItem />} />
             </Route>
             <Route path={"tasks"} element={<Tasks />} />
             <Route path={"boosters"} element={<Boosters />} />
