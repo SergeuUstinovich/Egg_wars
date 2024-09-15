@@ -3,13 +3,21 @@ import style from "./ModalRoute.module.scss";
 
 interface ModalProps {
   children: ReactNode;
+  classNameModal?: string;
+  classNameOverlay?: string;
+  classNameContent?: string;
 }
 
-function ModalRoute({ children }: ModalProps) {
+function ModalRoute({
+  children,
+  classNameModal,
+  classNameOverlay,
+  classNameContent,
+}: ModalProps) {
   return (
-    <div className={style.modal}>
-      <div className={style.overlay}>
-        <div className={style.content}>{children}</div>
+    <div className={`${style.modal} ${classNameModal}`}>
+      <div className={`${style.overlay} ${classNameOverlay}`}>
+        <div className={`${style.content} ${classNameContent}`}>{children}</div>
       </div>
     </div>
   );

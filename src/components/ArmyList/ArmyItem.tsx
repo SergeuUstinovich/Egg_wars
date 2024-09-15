@@ -8,6 +8,7 @@ import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
 import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 import { useParams } from "react-router-dom";
+import ModalRoute from "../../ui/ModalRoute/ModalRoute";
 
 export const ArmyItem = () => {
   // const [unitArr, setUnitArr] = useState<ArmyType[]>();
@@ -70,38 +71,43 @@ export const ArmyItem = () => {
   };
 
   return (
-    <div className={style.upgradeItem}>
-      {unit && (
-        <div className={style.itemBlock}>
-          <p>{unit.name} warrior</p>
-          <ul className={style.itemList}>
-            <li>
-              <p>{unit.lvl_speed} speed lvl</p>
-              <p>{unit.speed} sec</p>
-              {infoUser && (
-                <button
-                  onClick={() => handleUpSpeed(unit.id_warrior)}
-                  disabled={unit.price_speed > infoUser.money}
-                >
-                  {unit.price_speed} coin
-                </button>
-              )}
-            </li>
-            <li>
-              <p>{unit.lvl_damage} damage lvl</p>
-              <p>{unit.damage} damage</p>
-              {infoUser && (
-                <button
-                  onClick={() => handleUpDamage(unit.id_warrior)}
-                  disabled={unit.price_damage > infoUser?.money}
-                >
-                  {unit.price_damage} coin
-                </button>
-              )}
-            </li>
-          </ul>
-        </div>
-      )}
-    </div>
+    <ModalRoute
+      classNameModal={style.modalItem}
+      classNameOverlay={style.modalOverlay}
+    >
+      <div className={style.upgradeItem}>
+        {unit && (
+          <div className={style.itemBlock}>
+            <p>{unit.name} warrior</p>
+            <ul className={style.itemList}>
+              <li>
+                <p>{unit.lvl_speed} speed lvl</p>
+                <p>{unit.speed} sec</p>
+                {infoUser && (
+                  <button
+                    onClick={() => handleUpSpeed(unit.id_warrior)}
+                    disabled={unit.price_speed > infoUser.money}
+                  >
+                    {unit.price_speed} coin
+                  </button>
+                )}
+              </li>
+              <li>
+                <p>{unit.lvl_damage} damage lvl</p>
+                <p>{unit.damage} damage</p>
+                {infoUser && (
+                  <button
+                    onClick={() => handleUpDamage(unit.id_warrior)}
+                    disabled={unit.price_damage > infoUser?.money}
+                  >
+                    {unit.price_damage} coin
+                  </button>
+                )}
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+    </ModalRoute>
   );
 };
