@@ -32,17 +32,58 @@
     }
 }
 
+.upgradeListItem {
+    padding: 10px;
+    background-color: var(--bg-army-item);
+}
+
+.upgradeListImg {
+    width: 48px;
+    height: 60px;
+}
+
 .upgradeItem {
     padding: 8px;
     height: 210px;
+    position: relative;
     background-color: var(--bg-army-item);
 
     .itemBlock {
         display: flex;
-        flex-direction: column;
+        gap: 8px;
+
+        img {
+            width: 48px;
+            height: 60px;
+        }
+
+        .itemCharacter {
+            display: flex;
+            flex-direction: column;
+
+            h2 {
+                margin-bottom: 4px;
+                font-size: 18px;
+                font-weight: 400;
+                line-height: 10.1px;
+                color: var(--white);
+
+            }
+
+            .itemButton {
+                border-radius: 8px;
+                background-color: var();
+            }
+        }
     }
 
     .itemList {
         display: flex;
+    }
+
+    .closeItem {
+        position: absolute;
+        top: 8px;
+        right: 8px;
     }
 }
