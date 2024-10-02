@@ -1,5 +1,7 @@
-import { CoinType } from "../../../types/CoinType";
+import { ArmyScheme } from "../../../types/ArmyType";
+import { CoinScheme } from "../../../types/CoinType";
 
 export interface StateShema {
-    coins: CoinType;
+    coins: CoinScheme;
+    army: ArmyScheme;
 }

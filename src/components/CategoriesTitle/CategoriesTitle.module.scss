@@ -1,0 +1,24 @@
+.inviteBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 100%;
+    
+
+    .line {
+        height: 2px;
+        max-width: 97px;
+        width: 100%;
+        background: var(--bg-friend-category);
+    }
+    
+    
+    .category {
+        font-size: 16px;
+        line-height: 63%;
+        color: var(--white);
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+}

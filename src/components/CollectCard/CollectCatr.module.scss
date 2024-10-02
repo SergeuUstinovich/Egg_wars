@@ -1,0 +1,97 @@
+.CardBlock {
+    position: relative;
+    max-width: 309px;
+    width: 100%;
+    margin-bottom: 18px;
+
+    .info {
+        position: absolute;
+        top: 27px;
+        left: 6.5px;
+        background-image: url('../../assets/img/infoBtn.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 17px;
+        height: 17px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .infoName {
+        
+        margin-bottom: 8.5px;
+
+        
+
+        .nameUnit {
+            color: var(--white);
+            text-shadow: var(--text-stroke-shadow);
+        }
+    }
+
+    
+
+    .bgBar {
+        background-image: url('../../assets/img/progressBar.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 7px 7px 14px 7px;
+
+        .progressBar {
+            position: relative;
+            display: flex;
+            max-width: 271px;
+            width: 100%;
+
+            .value {
+                position: absolute;
+                bottom: -7px;
+                left: -15px;
+                z-index: 1;
+                
+            }
+
+            .king {
+                position: absolute;
+                bottom: -10px;
+                right: -10px;
+                z-index: 1;
+                width: 35px;
+                height: 43px;
+
+                .card {
+                    display: block;
+                    height: 100%;
+                    width: 100%;
+                    border-radius: 4px;
+                }
+
+                .cardLvl {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding-left: 1.5px;
+                    padding-top: 2.5px;
+                    font-size: 11px;
+                    line-height: 50%;
+                    color: var(--white);
+                    text-shadow: var(--text-stroke-shadow);
+                    position: absolute;
+                    top: -8px;
+                    left: -7px;
+                    background-image: url('../../assets//img/levelUnit.png');
+                    width: 13px;
+                    height: 14px;
+                    
+                }
+            }
+        }
+    }
+
+    
+}
+

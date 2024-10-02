@@ -1,0 +1,108 @@
+.friendInv {
+    max-width: 309px;
+    width: 100%;
+    margin-bottom: 18px;
+}
+
+.inviteBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    width: 100%;
+    
+
+    .line {
+        height: 2px;
+        max-width: 97px;
+        width: 100%;
+        background: var(--bg-friend-category);
+    }
+    
+    
+    .category {
+        font-size: 16px;
+        line-height: 63%;
+        color: var(--white);
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+}
+
+.invite {
+    display: flex;
+
+    .invitePrem {
+        background-image: url('../../assets/img/invitePrem.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        max-width: 150px;
+        width: 100%;
+        padding-top: 9px;
+        padding-bottom: 5px;
+        margin-right: 9px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .crown {
+            position: absolute;
+            top: -14px;
+            left: -7px;
+        }
+    }
+
+    .inviteFr {
+        background-image: url('../../assets/img/inviteFr.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        max-width: 150px;
+        width: 100%;
+        padding: 4px 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
+.descr {
+    color: var(--white);
+    font-size: 13px;
+    line-height: 80%;
+    text-shadow: var(--text-stroke-shadow);
+    margin-bottom: 5px;
+}
+
+.span {
+    padding-top: 3px;
+    font-size: 15px;
+}
+
+.card {
+    display: flex;
+}
+
+.card_unit {
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cardCoin {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card_value {
+    display: flex;
+    align-items: center;
+}
+
+.imgCard {
+    margin-bottom: 5px;
+}

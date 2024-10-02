@@ -1,0 +1,54 @@
+.BtnField {
+    position: absolute;
+    background-image: url('../../assets/img//bgFieldbtn.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 13px;
+    width: 50px;
+    height: 46px;
+    border: 1.04px solid #151527;
+
+    .link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 28px;
+
+        .img{
+            position: absolute;
+            display: block;
+            top: -12px;
+            left: 2.5px;
+        }
+
+        .text {
+            font-size: 12px;
+            line-height: 84%;
+            color: var(--color-text);
+        }
+    }
+ 
+}
+
+@media (min-width: 340px) {
+    .BtnField {
+        width: 55px;
+        height: 50px;
+
+        .link {
+            padding-top: 30px;
+    
+            .img{
+                position: absolute;
+                top: -12px;
+                left: 4.5px;
+            }
+    
+            .text {
+                font-size: 13px;
+            }
+        }
+    
+    }
+}

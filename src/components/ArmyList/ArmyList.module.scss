@@ -1,0 +1,48 @@
+.upgradeBlock {
+    margin: 0 auto;
+    margin-bottom: 9%;
+    max-width: 302px;
+    display: flex;
+    flex-direction: column;
+    color: var(--white);
+    background-color: var(--bg-upgrades);
+}
+
+.upgradeList {
+    padding: 11px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.upgradeLink {
+    width: 68px;
+    height: 98px;
+}
+
+.modalItem {
+    max-height: 210px;
+    align-self: flex-end;
+    display: flex;
+    background: none !important;
+    z-index: 25;
+
+    .modalOverlay {
+        padding: 0;
+    }
+}
+
+.upgradeItem {
+    padding: 8px;
+    height: 210px;
+    background-color: var(--bg-army-item);
+
+    .itemBlock {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .itemList {
+        display: flex;
+    }
+}

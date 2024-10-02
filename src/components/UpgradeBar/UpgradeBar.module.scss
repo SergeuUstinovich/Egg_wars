@@ -1,0 +1,23 @@
+.upgradeList {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+}
+
+.upgradeLink {
+    padding: 8px 30px;
+    display: inline-block;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: var(--white);
+    background: var(--bg-navbar);
+}
+
+.upgradeLinkActive {
+    padding: 8px 30px;
+    display: inline-block;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: var(--color-text);
+    background: var(--bg-upgrades-upper);
+}

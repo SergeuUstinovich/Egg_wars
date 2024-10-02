@@ -1,17 +1,28 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CoinType } from "../../../types/CoinType";
+import { CoinScheme, CoinType } from "../../../types/CoinType";
 
-const initialState: CoinType = {
-    coin: 0
-}
+const initialState: CoinScheme = {}
 
 export const coinSlice = createSlice({
     name: 'coin',
     initialState,
     reducers: {
-        addCoinStore: (state, action: PayloadAction<number>) => {
-            state.coin += action.payload;
+        addCoinStore: (state, action: PayloadAction<CoinType>) => {
+            state.infoUser = action.payload
         },
+        updateCoinStore: (state, action: PayloadAction<CoinType>) => {
+            state.infoUser = {...state.infoUser, ...action.payload}
+        },
+        updateCoinSumm: (state, action: PayloadAction<number>) => {
+            if(state.infoUser) {
+                state.infoUser.money += action.payload
+            }  
+        },
+        updateCoinMinus: (state, action: PayloadAction<number>) => {
+            if(state.infoUser) {
+                state.infoUser.money -= state.infoUser.money - action.payload
+            }
+        }
     }
 })
 
