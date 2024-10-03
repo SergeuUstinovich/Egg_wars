@@ -1,0 +1,89 @@
+.upgradeListItem {
+  position: relative;
+  width: 68px;
+  height: 98px;
+  padding: 10px;
+  background-color: var(--bg-army-item);
+  border: 1px solid #77789c;
+
+  border-radius: 6px;
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.upgradeLink {
+  width: 68px;
+  height: 98px;
+}
+
+.upgradeListImg {
+  width: 48px;
+  height: 60px;
+  border: 1.18px solid #000;
+  border-radius: 4px;
+}
+
+.box_lvl {
+  position: absolute;
+  top: 6%;
+  left: 6%;
+}
+
+.shield {
+  width: 17px;
+  height: 19px;
+}
+.title_lvl {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 50%;
+  text-align: center;
+  color: #fff;
+  -webkit-text-stroke: 1px black;
+  text-stroke: 1px black;
+}
+.box_progress_lvl {
+  position: relative;
+  border: 0.68px solid #000;
+  border-radius: 3px;
+  width: 48px;
+  height: 14px;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.progress_lvl {
+  position: relative;
+  border: 1.05px solid rgba(255, 255, 255, 0.6);
+  border-radius: 3px 0 0 3px;
+
+  height: 12px;
+  background: #f7a31a;
+}
+
+.imgCards {
+  position: absolute;
+  left: -14%;
+  width: 16px;
+  height: 18px;
+  z-index: 2;
+}
+.text_progress_lvl {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 69%;
+  text-align: center;
+  color: #fff;
+  -webkit-text-stroke: 0.8px black;
+  text-stroke: 0.8px black;
+}
