@@ -8,12 +8,23 @@ import imgTasks from "../../assets/img/tasks.png";
 import imgUpgrades from "../../assets/img/upgrades.png";
 import imgBoosters from "../../assets/img/boosters.png";
 import { Toaster } from "react-hot-toast";
+import { useState } from "react";
+import Awards from "../Awards/Awards";
 
 function Layout() {
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigate = (path: string) => {
     navigate(path);
+  };
+
+  const handleOpenModal = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -47,8 +58,10 @@ function Layout() {
           right={"3"}
         />
         <Outlet />
+        <Awards onClose={handleCloseModal} isOpen={isOpen} />
       </main>
       <footer className={style.footers}>
+        <button onClick={handleOpenModal}>Тест</button>
         <NavBar />
       </footer>
     </>

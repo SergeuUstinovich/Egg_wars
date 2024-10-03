@@ -12,12 +12,16 @@ function ArmyList({ army }: ArmyList) {
       <ul className={style.upgradeList}>
         {army &&
           army.map((item) => (
-            <li key={item.id_warrior}>
+            <li className={style.upgradeListItem} key={item.id_warrior}>
               <Link
                 to={`unit/${item.id_warrior}`}
                 className={style.upgradeLink}
               >
-                <img src={item.image} alt={item.name} />
+                <img
+                  className={style.upgradeListImg}
+                  src={item.image}
+                  alt={item.name}
+                />
               </Link>
             </li>
           ))}

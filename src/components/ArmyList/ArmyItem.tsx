@@ -7,8 +7,10 @@ import { upDamage, upSpeed } from "../../api/userInfo";
 import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
 import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ModalRoute from "../../ui/ModalRoute/ModalRoute";
+import { CloseArmyItemSvg } from "../../assets/svg/CloseArmyItemSvg";
+import { Button } from "../../ui/Button";
 
 export const ArmyItem = () => {
   // const [unitArr, setUnitArr] = useState<ArmyType[]>();
@@ -18,6 +20,11 @@ export const ArmyItem = () => {
   const dispatch = useDispatch();
   const armyUser = useSelector(getArmy);
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1);
+  };
 
   if (armyUser === undefined) {
     return null;
@@ -78,35 +85,42 @@ export const ArmyItem = () => {
       <div className={style.upgradeItem}>
         {unit && (
           <div className={style.itemBlock}>
-            <p>{unit.name} warrior</p>
-            <ul className={style.itemList}>
-              <li>
-                <p>{unit.lvl_speed} speed lvl</p>
-                <p>{unit.speed} sec</p>
-                {infoUser && (
-                  <button
-                    onClick={() => handleUpSpeed(unit.id_warrior)}
-                    disabled={unit.price_speed > infoUser.money}
-                  >
-                    {unit.price_speed} coin
-                  </button>
-                )}
-              </li>
-              <li>
-                <p>{unit.lvl_damage} damage lvl</p>
-                <p>{unit.damage} damage</p>
-                {infoUser && (
-                  <button
-                    onClick={() => handleUpDamage(unit.id_warrior)}
-                    disabled={unit.price_damage > infoUser?.money}
-                  >
-                    {unit.price_damage} coin
-                  </button>
-                )}
-              </li>
-            </ul>
+            <img src={unit.image} alt="" />
+            <div className={style.itemCharacter}>
+              <h2>{unit.name} warrior</h2>
+              <ul className={style.itemList}>
+                <li>
+                  <p>{unit.lvl_speed} speed lvl</p>
+                  <p>{unit.speed} sec</p>
+                  {infoUser && (
+                    <button
+                      onClick={() => handleUpSpeed(unit.id_warrior)}
+                      disabled={unit.price_speed > infoUser.money}
+                    >
+                      {unit.price_speed} coin
+                    </button>
+                  )}
+                </li>
+                <li>
+                  <p>{unit.lvl_damage} damage lvl</p>
+                  <p>{unit.damage} damage</p>
+                  {infoUser && (
+                    <button
+                      className={style.itemButton}
+                      onClick={() => handleUpDamage(unit.id_warrior)}
+                      disabled={unit.price_damage > infoUser?.money}
+                    >
+                      {unit.price_damage} coin
+                    </button>
+                  )}
+                </li>
+              </ul>
+            </div>
           </div>
         )}
+        <Button onClick={handleBack} className={style.closeItem}>
+          <CloseArmyItemSvg />
+        </Button>
       </div>
     </ModalRoute>
   );

@@ -15,6 +15,7 @@ const Boosters = lazy(() => import("./pages/Boosters/Boosters"));
 const Army = lazy(() => import("./pages/Army/Army"));
 const Passive = lazy(() => import("./pages/Passive/Passive"));
 const Special = lazy(() => import("./pages/Special/Special"));
+const Awards = lazy(() => import("./pages/Awards/Awards"));
 
 function App() {
   useTelegram().tg.expand();
@@ -25,6 +26,7 @@ function App() {
       <Suspense fallback={<div>Loading</div>}>
         <Routes>
           <Route path={"/"} element={<Layout />}>
+            <Route path={"awards"} element={<Awards />} />
             <Route path={"friends"} element={<Friends />} />
             <Route path={"leaders"} element={<Leaders />} />
             <Route path={"airdrop"} element={<Airdrop />} />
