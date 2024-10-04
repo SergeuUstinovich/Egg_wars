@@ -1,0 +1,67 @@
+.awardsJewel {
+    margin-bottom: 10px;
+    padding: 10px 6px;
+    padding-top: 48px;
+    height: 77px;
+    background-color: var(--primary-awards-title-bg);
+    border-radius: 12px;
+}
+
+.awardsProgress {
+    svg {
+        position: absolute;
+        top: 50%;
+        left: -3px;
+        transform: translateY(-50%);
+    }
+
+    span {
+        padding: 3.5px 7px;
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--primary-awards-text);
+        background-color: #FFECD0;
+        border: 1px solid var(--primary-awards-border-jewerly);
+        border-radius: 100%;
+    }
+
+    .progressChest {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        button {
+            position: relative;
+            width: 32px;
+            right: 0;
+
+            &:active img {
+                transform: scale(0.9);
+            }
+
+            img {
+                width: 32px;
+                height: 29px;
+                position: absolute;
+                top: -40px;
+                left: 0;
+            }  
+        }
+
+        &.one {
+            left: 15%;
+        }
+
+        &.two {
+            left: 36%;
+        }
+
+        &.three {
+            left: 60%;
+        }
+
+        &.four {
+            right: -3px;
+        }
+    }
+}

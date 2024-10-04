@@ -24,7 +24,6 @@ export default function CardArmy({ army }: ArmyCard) {
           alt={army.name}
         />
         <div className={style.box_lvl}>
-          {" "}
           <img className={style.shield} src={iconLevel} />
           <p className={style.title_lvl}>{army.lvl}</p>
         </div>

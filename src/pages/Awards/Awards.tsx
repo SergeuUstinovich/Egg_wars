@@ -2,7 +2,9 @@ import style from "./Awards.module.scss";
 import Modal from "../../ui/Modal/Modal";
 import awardsCalendar from "../../assets/img/awardsCalendar.png";
 import { Button } from "../../ui/Button";
-import { AwardsCheckbox } from "../../assets/svg/AwardsCheckbox";
+import { ProgressBarAwards } from "../../components/ProgressBarAwards/ProgressBarAwards";
+import coinMoney from "../../assets/img/coinMoney.png";
+import diamondMoney from "../../assets/img/diamondMoney.png";
 
 interface AwardsProps {
   isOpen?: boolean;
@@ -15,6 +17,7 @@ const awardsArr = [
     title: "day 1",
     money: "50.000",
     diamonds: "500",
+    disabled: true,
   },
   {
     id: 2,
@@ -56,30 +59,28 @@ const awardsArr = [
 
 const Awards = ({ isOpen, onClose }: AwardsProps) => {
   return (
-    <Modal onClose={onClose} hiddenClose isOpen={isOpen}>
+    <Modal lazy onClose={onClose} hiddenClose isOpen={isOpen}>
       <div className={style.awardsBlock}>
         <img
           className={style.awardsImg}
           src={awardsCalendar}
           alt="awardsCalendar"
         />
-        <div className={style.awardsJewel}>
-          <div className={style.awardsLine}>
-            <AwardsCheckbox />
-            <Button>8</Button>
-            <Button>12</Button>
-            <Button>22</Button>
-            <Button>30</Button>
-          </div>
-        </div>
+        <ProgressBarAwards value={0} max={100} />
         <ul className={style.awardsGrid}>
           {awardsArr.map((item) => (
             <li className={style.awardsElement} key={item.id}>
-              <Button className={style.awardsButton}>
+              <Button isDisabled={item.disabled} className={style.awardsButton}>
                 <h3 className={style.awardsTitle}>{item.title}</h3>
                 <div className={style.awardsDown}>
-                  <p>{item.money}</p>
-                  <p>{item.diamonds}</p>
+                  <p>
+                    <img src={coinMoney} alt="" />
+                    <span>{item.money}</span>
+                  </p>
+                  <p>
+                    <img src={diamondMoney} alt="" />
+                    <span>{item.diamonds}</span>
+                  </p>
                 </div>
               </Button>
             </li>
