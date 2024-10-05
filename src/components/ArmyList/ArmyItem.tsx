@@ -8,21 +8,13 @@ import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
 import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 import { useNavigate, useParams } from "react-router-dom";
-import ModalRoute from "../../ui/ModalRoute/ModalRoute";
-import { CloseArmyItemSvg } from "../../assets/svg/CloseArmyItemSvg";
 import { Button } from "../../ui/Button";
-import SlidingPanel from "../../ui/SlidingPanel/SlidingPanel";
-import { useState } from "react";
-import iconLevel from "../../assets/img/level.png";
-import imgCards from "../../assets/img/card icon.png";
+import ModalRoute from "../../ui/ModalRoute/ModalRoute";
 import ProgressBar from "../../ui/ProgressBar/ProgressBar";
+import level from "../../assets/img/level.png";
+import { ArmyCloseSvg } from "../../assets/svg/ArmyCloseSvg";
 
-interface ArmyItemProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export const ArmyItem = ({ isOpen, onClose }: ArmyItemProps) => {
+export const ArmyItem = () => {
   // const [unitArr, setUnitArr] = useState<ArmyType[]>();
   // const [unit, setUnit] = useState<ArmyType>();
   const infoUser = useSelector(getCoin);
@@ -31,7 +23,6 @@ export const ArmyItem = ({ isOpen, onClose }: ArmyItemProps) => {
   const armyUser = useSelector(getArmy);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(true);
 
   const handleBack = () => {
     navigate("/upgrades/army");
@@ -96,88 +87,48 @@ export const ArmyItem = ({ isOpen, onClose }: ArmyItemProps) => {
 
   return (
     <ModalRoute
-      classNameModal={style.modalItem}
+      classNameModal={style.modal}
+      classNameContent={style.modalContent}
       classNameOverlay={style.modalOverlay}
     >
-      <SlidingPanel
-        className={style.slidingPanel}
-        onClose={onClose}
-        isOpen={open}
-        initialHeight="40%"
-        fullHeight="100%"
-      >
-        <div className={style.upgradeItem}>
-          {unit && (
-            <div className={style.itemBlock}>
-              <div
-                className={style.itemElement}
-                style={{ padding: "10px", position: "relative" }}
+      <div className={style.upgradeItem}>
+        {unit && (
+          <div style={{ height: "100%", overflow: "hidden" }}>
+            <p className={style.upgradeCP}>CP 253</p>
+            <ProgressBar className={style.progressUnit} value={30} max={100} />
+            <div className={style.upgradeDown}>
+              <h1 className={style.upgradeTitle}>{unit.name}</h1>
+              <ProgressBar
+                className={style.upgradeProgressCards}
+                value={30}
+                max={1000}
               >
-                <img
-                  className={style.upgradeListImg}
-                  src={unit.image}
-                  alt={unit.name}
-                />
-                <div className={style.box_lvl}>
-                  <img className={style.shield} src={iconLevel} />
-                  <p className={style.title_lvl}>{unit.lvl}</p>
-                </div>
-                <div className={style.box_progress_lvl}>
-                  <img className={style.imgCards} src={imgCards} />
-                  <div
-                    className={style.progress_lvl}
-                    style={{ width: `${lvlInBar()}%` }}
-                  ></div>
-                  <span
-                    className={style.text_progress_lvl}
-                  >{`${unit.cards}/${unit.max_cards}`}</span>
-                </div>
-                <Button className={style.evolveButton}>Evolve</Button>
-              </div>
-              <div className={style.itemCharacter}>
-                <h2 className={style.unitTitle}>{unit.name} warrior</h2>
-                <p className={style.unitCP}>CP 234</p>
-                <ProgressBar className={style.progress} value={10} max={100} />
-                <ul className={style.itemList}>
-                  <li className={style.unitItem}>
-                    <p className={style.unitCharacter}>
-                      {unit.lvl_speed} speed lvl
-                    </p>
-                    <p className={style.unitUtil}>{unit.speed} sec</p>
-                    {infoUser && (
-                      <button
-                        className={style.itemButton}
-                        onClick={() => handleUpSpeed(unit.id_warrior)}
-                        disabled={unit.price_speed > infoUser.money}
-                      >
-                        {unit.price_speed} coin
-                      </button>
-                    )}
+                <img src={level} alt="" />
+              </ProgressBar>
+              <Button className={style.upgradeEvolve}>Evolve</Button>
+              <div>
+                <ul className={style.upgradeListEvolve}>
+                  <li className={style.upgradeListItem}>
+                    <strong>{unit.lvl_speed} speed lvl</strong>
+                    <Button onClick={() => handleUpSpeed(unit.id_warrior)}>
+                      {unit.price_speed}
+                    </Button>
                   </li>
-                  <li className={style.unitItem}>
-                    <p className={style.unitCharacter}>
-                      {unit.lvl_damage} damage lvl
-                    </p>
-                    <p className={style.unitUtil}>{unit.damage} damage</p>
-                    {infoUser && (
-                      <button
-                        className={style.itemButton}
-                        onClick={() => handleUpDamage(unit.id_warrior)}
-                        disabled={unit.price_damage > infoUser?.money}
-                      >
-                        {unit.price_damage} coin
-                      </button>
-                    )}
+                  <li className={style.upgradeListItem}>
+                    <strong>{unit.lvl_damage} damage lvl</strong>
+                    <Button onClick={() => handleUpDamage(unit.id_warrior)}>
+                      {unit.price_damage}
+                    </Button>
                   </li>
                 </ul>
               </div>
             </div>
-          )}
-          <Button onClick={handleBack} className={style.closeItem}>
-            <CloseArmyItemSvg />
-          </Button>
-        </div>
-      </SlidingPanel>
+          </div>
+        )}
+        <Button onClick={handleBack} className={style.closeItem}>
+          <ArmyCloseSvg />
+        </Button>
+      </div>
     </ModalRoute>
   );
 };

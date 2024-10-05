@@ -15,207 +15,101 @@
   gap: 10px;
 }
 
-.modalItem {
-  max-height: 210px;
-  align-self: flex-end;
-  display: flex;
-  background: none !important;
-  z-index: 25;
+.modal {
+  z-index: 40 !important;
+}
 
-  .modalOverlay {
-    padding: 0;
-  }
+.modalOverlay {
+  padding: 14% 0 0 !important;
+  height: 100vh;
+}
+
+.modalContent {
+  padding: 16px 4px 0;
+  height: 100%;
+  background: #74B1F9;
 }
 
 .upgradeItem {
-  padding: 8px;
+  padding: 4px 4px 0;
   padding-top: 0;
-  height: 210px;
+  height: 100%;
   position: relative;
+}
 
-  .itemBlock {
-    display: flex;
-    gap: 8px;
-    height: 71px;
+.upgradeCP {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 10.05px;
+  text-align: center;
+}
 
-    .upgradeListImg {
-      width: 48px;
-      height: 60px;
-    }
+.upgradeDown {
+  padding: 11px;
+  height: 100%;
+  position: relative;
+  border: 2px solid #FFFFFF;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  background: var(--bg-army-item);
 
-    .itemCharacter {
-      display: flex;
-      flex-direction: column;
-      flex-basis: 100%;
-      height: 100%;
-
-      .unitTitle {
-        margin-bottom: 4px;
-        font-size: 18px;
-        font-weight: 400;
-        line-height: 10.1px;
-        color: var(--white);
-      }
-
-      .unitCP {
-        margin-bottom: 4px;
-        font-size: 11.31px;
-        font-weight: 400;
-        line-height: 10.05px;
-        color: var(--white);
-      }
-
-      .itemButton {
-        margin-top: auto;
-        padding: 5px;
-        width: 100%;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 15.41px;
-        border-radius: 8px;
-        color: rgba(255, 255, 255, 1);
-        background: var(--primay-bg-button);
-        border: 1px solid rgba(0, 50, 2, 1) !important;
-        border-radius: 8px;
-      }
-    }
-  }
-
-  .itemList {
-    display: flex;
-    gap: 10px;
-    height: 100%;
-  }
-
-  .closeItem {
+  &::before {
+    content: "";
     position: absolute;
-    top: -10px;
-    right: 0;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border: 1px solid #77789C;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
   }
 }
 
-.slidingPanel {
-  background-color: rgba(116, 177, 249, 1) !important;
-}
-
-.box_lvl {
-  position: absolute;
-  top: 5%;
-  left: 6%;
-}
-
-.shield {
-  width: 17px;
-  height: 19px;
-}
-.title_lvl {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%);
-  margin: 0;
-  font-family: var(--font-family);
+.upgradeTitle {
+  margin-bottom: 3px;
+  font-size: 26px;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 50%;
   text-align: center;
-  color: #fff;
-  -webkit-text-stroke: 1px black;
-  text-stroke: 1px black;
 }
-.box_progress_lvl {
-  margin-bottom: 6px;
+
+.upgradeProgressCards {
+  margin-bottom: 5px;
   position: relative;
-  border: 0.68px solid #000;
-  border-radius: 3px;
-  width: 48px;
-  height: 14px;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: start;
 }
 
-.progress_lvl {
-  position: relative;
-  border: 1.05px solid rgba(255, 255, 255, 0.6);
-  border-radius: 3px 0 0 3px;
-
-  height: 12px;
-  background: #f7a31a;
-}
-
-.imgCards {
-  position: absolute;
-  left: -14%;
-  width: 16px;
-  height: 18px;
-  z-index: 2;
-}
-.text_progress_lvl {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 69%;
-  text-align: center;
-  color: #fff;
-  -webkit-text-stroke: 0.8px black;
-  text-stroke: 0.8px black;
-}
-
-.itemElement {
-  position: relative;
-  width: 68px;
-  height: 107px;
-  padding: 10px;
-  background-color: var(--bg-army-item);
-  border: 1px solid #77789c;
-
-  border-radius: 6px;
-  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.1);
-}
-
-.evolveButton {
-  padding: 14px 0 !important;
+.upgradeEvolve {
+  margin-bottom: 26px !important;
+  padding: 12px !important;
   width: 100%;
-  position: absolute;
-  left: 0;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 19.82px;
-  color: rgba(255, 255, 255, 1) !important;
-  background: var(--primay-bg-button);
-  border: 1px solid rgba(0, 50, 2, 1) !important;
   border-radius: 8px;
-  --webkit-text-stroke: 1px solid rgba(0, 50, 2, 1)
+  background: var(--primay-bg-button);
 }
 
-.unitItem {
-  padding: 8px;
+.upgradeListEvolve {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.upgradeListItem {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(255, 242, 195, 1);
-  border-radius: 6px;
+  justify-content: center;
+  position: relative;
+  border: 1px solid var(--primary-awards-border-jewerly);
+  border-radius: 8px;
+  background: var(--primary-awards-bg);
 }
 
-.progress {
-  margin-bottom: 6px;
-}
-
-.unitCharacter {
-  margin-bottom: 10px;
-  font-size: 10px;
-  font-weight: 400;
-  line-height: 8.17px;
-  color:rgba(143, 84, 80, 1);
-}
-
-.unitUtil {
-  font-size: 11px;
-  font-weight: 400;
-  line-height: 8.17px;
-  color:rgba(143, 84, 80, 1);
+.closeItem {
+  width: max-content;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
 }

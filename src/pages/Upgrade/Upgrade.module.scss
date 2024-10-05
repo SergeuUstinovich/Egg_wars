@@ -43,6 +43,7 @@
 
     .upgradeContent {
         height: inherit;
+        overflow: hidden;
     }
 }
 
@@ -52,7 +53,7 @@
     display: inline-block;
     position: absolute;
     left: 50%;
-    bottom: 0;
+    bottom: 3px;
     transform: translateX(-50%);
     z-index: 35;
 }
