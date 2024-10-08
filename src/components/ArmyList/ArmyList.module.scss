@@ -40,13 +40,17 @@
 .upgradeCP {
   font-size: 30px;
   font-weight: 400;
-  line-height: 10.05px;
   text-align: center;
+  -webkit-text-stroke: 1px #151527;
 }
 
 .upgradeDown {
-  padding: 11px;
+  margin-top: auto;
+  padding: 70px 11px 11px;
+  max-height: calc(100% - 14em);
   height: 100%;
+  display: flex;
+  flex-direction: column;
   position: relative;
   border: 2px solid #FFFFFF;
   border-top-left-radius: 18px;
@@ -66,24 +70,66 @@
   }
 }
 
+.unitPerson {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .upgradeTitle {
   margin-bottom: 3px;
   font-size: 26px;
   font-weight: 400;
   text-align: center;
+  color: #151527;
 }
 
 .upgradeProgressCards {
-  margin-bottom: 5px;
+  margin-bottom: 13px;
+  max-width: 174px;
+  height: 16px !important;
   position: relative;
+  align-self: center;
+}
+
+.upgradeProgressCardsBar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 9.42px;
+}
+
+.level {
+  max-width: 26px;
+  max-height: 29px;
+  position: absolute;
+  right: -2px;
+  top: -5px;
+}
+
+.icon {
+  max-width: 24px;
+  max-height: 27px;
+  position: absolute;
+  left: -2px;
+  top: -7px;
 }
 
 .upgradeEvolve {
   margin-bottom: 26px !important;
   padding: 12px !important;
   width: 100%;
+  font-size: 20px;
+  border: 1px solid #003202 !important;
   border-radius: 8px;
   background: var(--primay-bg-button);
+  -webkit-text-stroke: 1px #003202;
 }
 
 .upgradeListEvolve {
@@ -93,14 +139,23 @@
 }
 
 .upgradeListItem {
+  padding: 6px 7px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: relative;
   border: 1px solid var(--primary-awards-border-jewerly);
-  border-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   background: var(--primary-awards-bg);
+
+  strong {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--primary-awards-title)
+  }
 }
 
 .closeItem {
@@ -112,4 +167,22 @@
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
+}
+
+.upgradePrice {
+  padding: 5px 0 !important;
+  width: 102%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: -27px;
+  font-size: 18.19px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--white) !important;
+  border: 1px solid #003202 !important;
+  border-radius: 8px;
+  background: var(--primay-bg-button);
+  -webkit-text-stroke: 1px #003202;
 }
