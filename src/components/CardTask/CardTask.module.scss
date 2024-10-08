@@ -1,0 +1,57 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #77789c;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 308px;
+  height: 59px;
+  margin: 0;
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.1);
+  background: #ebecff;
+}
+
+.imgTask {
+  margin-left: 11px;
+  margin-right: 12px;
+  width: 38px;
+  height: 38px;
+}
+.box_info_task {
+  width: 194px;
+  display: flex;
+  flex-direction: column;
+}
+.title_task {
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 100%;
+  color: #151527;
+}
+.box_prize {
+  display: flex;
+  align-items: center;
+}
+.iconCoin {
+  margin-right: 5px;
+  width: 28px;
+  height: 28px;
+}
+.text_prize {
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 67%;
+  color: #fff;
+  -webkit-text-stroke: 1px #151527;
+}
+.iconArrow {
+  position: absolute;
+  right: 5%;
+  width: 12px;
+  height: 22px;
+}

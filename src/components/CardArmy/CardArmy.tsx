@@ -23,6 +23,7 @@ export default function CardArmy({ army }: ArmyCard) {
           <p className={style.title_lvl}>{army.lvl}</p>
         </div>
         <ProgressBar
+          colorFill="#F7A31A"
           value={army.cards}
           max={army.max_cards}
           className={style.box_progress_lvl}

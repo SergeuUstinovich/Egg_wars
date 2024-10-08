@@ -1,6 +1,7 @@
 import ModalRoute from "../../ui/ModalRoute/ModalRoute";
 import style from "./Tasks.module.scss";
 import tasksIcon from "../../assets/img/tasksTitle.png";
+import CardTask from "../../components/CardTask/CardTask";
 
 function Tasks() {
   return (
@@ -10,7 +11,9 @@ function Tasks() {
           <img src={tasksIcon} alt="tasksIcon" />
           <span>Tasks</span>
         </h2>
-        <div className="tasksInf"></div>
+      </div>
+      <div className={style.tasksInf}>
+        <CardTask />
       </div>
     </ModalRoute>
   );
