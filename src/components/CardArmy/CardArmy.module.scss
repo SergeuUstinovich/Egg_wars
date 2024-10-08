@@ -98,3 +98,8 @@
   color: #fff;
   -webkit-text-stroke: 0.8px black;
 }
+
+.disable {
+  opacity: 0.5;
+  pointer-events: none;
+}

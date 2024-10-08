@@ -1,18 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ArmyType } from "../../types/ArmyType";
 import iconLevel from "../../assets/img/level.png";
 import imgCards from "../../assets/img/card icon.png";
 import style from "./CardArmy.module.scss";
 import ProgressBar from "../../ui/ProgressBar/ProgressBar";
+import { useSelector } from "react-redux";
+import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 
 interface ArmyCard {
   army: ArmyType;
 }
 
 export default function CardArmy({ army }: ArmyCard) {
+  const armyUser = useSelector(getArmy);
+  const { id } = useParams();
+  if (armyUser === undefined) {
+    return null;
+  }
+  const unit = armyUser.find((item) => item.id_warrior === Number(id));
+
   return (
     <li className={style.upgradeListItem}>
-      <Link to={`unit/${army.id_warrior}`} className={style.upgradeLink}>
+      <Link
+        to={`unit/${army.id_warrior}`}
+        className={unit?.lvl === 0 ? style.disable : style.upgradeLink}
+      >
         <img
           className={style.upgradeListImg}
           src={army.image}

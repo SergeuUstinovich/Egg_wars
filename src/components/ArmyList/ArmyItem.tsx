@@ -12,7 +12,10 @@ import { Button } from "../../ui/Button";
 import ModalRoute from "../../ui/ModalRoute/ModalRoute";
 import ProgressBar from "../../ui/ProgressBar/ProgressBar";
 import level from "../../assets/img/level.png";
-import { ArmyCloseSvg } from "../../assets/svg/ArmyCloseSvg";
+import upgradeBack from "../../assets/img/upgradeBack.png";
+import damage from "../../assets/img/damageArmy.png";
+import coinMoney from "../../assets/img/coinMoney.png";
+import cardIcon from "../../assets/img/card icon.png";
 
 export const ArmyItem = () => {
   // const [unitArr, setUnitArr] = useState<ArmyType[]>();
@@ -29,6 +32,10 @@ export const ArmyItem = () => {
   };
 
   if (armyUser === undefined) {
+    return null;
+  }
+
+  if (infoUser === undefined) {
     return null;
   }
   const unit = armyUser.find((item) => item.id_warrior === Number(id));
@@ -93,31 +100,67 @@ export const ArmyItem = () => {
     >
       <div className={style.upgradeItem}>
         {unit && (
-          <div style={{ height: "100%", overflow: "hidden" }}>
+          <div
+            style={{
+              height: "100%",
+              overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <p className={style.upgradeCP}>CP 253</p>
-            <ProgressBar className={style.progressUnit} value={30} max={100} />
+            <ProgressBar className={style.progressUnit} value={30} max={1000} />
             <div className={style.upgradeDown}>
+              <img className={style.unitPerson} src={unit.image} alt="unit" />
               <h1 className={style.upgradeTitle}>{unit.name}</h1>
               <ProgressBar
                 className={style.upgradeProgressCards}
-                value={30}
-                max={1000}
+                value={unit.cards}
+                max={unit.max_cards}
               >
-                <img src={level} alt="" />
+                <img className={style.icon} src={cardIcon} alt="icon" />
+                <p className={style.upgradeProgressCardsBar}>
+                  <span>{unit.cards}</span>
+                  <span>/</span>
+                  <span>{unit.max_cards}</span>
+                </p>
+                <img className={style.level} src={level} alt="level" />
               </ProgressBar>
-              <Button className={style.upgradeEvolve}>Evolve</Button>
+              <Button
+                isDisabled={unit.cards < unit.max_cards}
+                className={style.upgradeEvolve}
+              >
+                Evolve
+              </Button>
               <div>
                 <ul className={style.upgradeListEvolve}>
                   <li className={style.upgradeListItem}>
-                    <strong>{unit.lvl_speed} speed lvl</strong>
-                    <Button onClick={() => handleUpSpeed(unit.id_warrior)}>
-                      {unit.price_speed}
+                    <strong>
+                      <span>Damage</span>
+                      <img src={damage} alt="damage" />
+                      {unit.lvl_damage}
+                    </strong>
+                    <Button
+                      className={style.upgradePrice}
+                      isDisabled={infoUser.money < unit.price_damage}
+                      onClick={() => handleUpDamage(unit.id_warrior)}
+                    >
+                      <img width={18} height={14} src={coinMoney} alt="" />
+                      {unit.price_damage}
                     </Button>
                   </li>
                   <li className={style.upgradeListItem}>
-                    <strong>{unit.lvl_damage} damage lvl</strong>
-                    <Button onClick={() => handleUpDamage(unit.id_warrior)}>
-                      {unit.price_damage}
+                    <strong>
+                      <span>Speed</span>
+                      {unit.lvl_speed}
+                    </strong>
+                    <Button
+                      className={style.upgradePrice}
+                      isDisabled={infoUser.money < unit.price_speed}
+                      onClick={() => handleUpSpeed(unit.id_warrior)}
+                    >
+                      <img width={18} height={14} src={coinMoney} alt="" />
+                      {unit.price_speed}
                     </Button>
                   </li>
                 </ul>
@@ -126,7 +169,7 @@ export const ArmyItem = () => {
           </div>
         )}
         <Button onClick={handleBack} className={style.closeItem}>
-          <ArmyCloseSvg />
+          <img src={upgradeBack} alt="домой" />
         </Button>
       </div>
     </ModalRoute>
