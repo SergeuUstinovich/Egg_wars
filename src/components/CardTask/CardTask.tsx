@@ -2,10 +2,21 @@ import style from "./CardTask.module.scss";
 import iconTask from "../../assets/img/iconYouTube.png";
 import iconCoin from "../../assets/img/iconCoin.png";
 import iconArrow from "../../assets/img/iconArrowTask.png";
+import Modal from "../../ui/Modal/Modal";
+import { useState } from "react";
+import ModalTasks from "./ModalTasks";
 
 export default function CardTask() {
+  const [isVision, setIsVision] = useState(false);
+  const onOpen = () => {
+    setIsVision(true);
+  };
+
+  const onClose = () => {
+    setIsVision(false);
+  };
   return (
-    <div className={style.container}>
+    <li className={style.container} onClick={onOpen}>
       <img className={style.imgTask} src={iconTask} />
       <div className={style.box_info_task}>
         <p className={style.title_task}>
@@ -17,6 +28,9 @@ export default function CardTask() {
         </div>
       </div>
       <img className={style.iconArrow} src={iconArrow} />
-    </div>
+      <Modal isOpen={isVision} onClose={onClose} hiddenClose>
+        <ModalTasks />
+      </Modal>
+    </li>
   );
 }
