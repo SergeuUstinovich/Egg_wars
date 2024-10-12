@@ -11,6 +11,7 @@ function Tasks() {
   const handleBack = () => {
     navigate("/tasks");
   };
+
   return (
     <ModalRoute>
       <div className={style.tasksBlock}>

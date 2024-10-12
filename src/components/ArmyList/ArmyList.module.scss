@@ -56,9 +56,10 @@
   border-top-left-radius: 18px;
   border-top-right-radius: 18px;
   background: var(--bg-army-item);
+  z-index: 2;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -3px;
     left: -3px;
@@ -70,11 +71,27 @@
   }
 }
 
+.unitPerson_box {
+  width: 276px;
+  height: 276px;
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff; /* Цвет фона */
+  border-radius: 50%; /* Закругление углов для создания круга */
+  filter: blur(69px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+}
+
 .unitPerson {
-  max-width: 142px;
+  max-width: 162px;
   max-height: 172px;
   position: absolute;
-  top: -100px;
+  top: -120px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -84,7 +101,9 @@
   font-size: 26px;
   font-weight: 400;
   text-align: center;
+  line-height: 39%;
   color: #151527;
+  margin-bottom: 13px;
 }
 
 .upgradeProgressCards {
@@ -124,19 +143,23 @@
 }
 
 .upgradeEvolve {
-  margin-bottom: 26px !important;
+  margin-bottom: 29px !important;
   padding: 12px !important;
   width: 100%;
   font-size: 20px;
   border: 1px solid #003202 !important;
   border-radius: 8px;
   background: var(--primay-bg-button);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
   -webkit-text-stroke: 1px #003202;
 }
-
+.upgradeListBox {
+  // display: flex;
+  // justify-content: center;
+}
 .upgradeListEvolve {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
@@ -169,6 +192,7 @@
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
+  z-index: 2;
 }
 
 .upgradePrice {
