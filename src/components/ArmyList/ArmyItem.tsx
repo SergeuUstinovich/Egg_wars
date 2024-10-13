@@ -11,7 +11,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../ui/Button";
 import ModalRoute from "../../ui/ModalRoute/ModalRoute";
 import ProgressBar from "../../ui/ProgressBar/ProgressBar";
-import level from "../../assets/img/level.png";
 import upgradeBack from "../../assets/img/upgradeBack.png";
 import damage from "../../assets/img/damageArmy.png";
 import coinMoney from "../../assets/img/coinMoney.png";
@@ -131,7 +130,7 @@ export const ArmyItem = () => {
                   <span>/</span>
                   <span>{unit.max_cards}</span>
                 </div>
-                <img className={style.level} src={level} alt="level" />
+                <span className={style.level}>{unit.lvl}</span>
               </ProgressBar>
               <Button
                 isDisabled={unit.cards < unit.max_cards}

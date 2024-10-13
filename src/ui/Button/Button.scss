@@ -8,8 +8,9 @@
   color: var(--primary-color);
   
   &:disabled {
-    background: var(--bg-btn-disabled);
-    border: 2px solid #717171;
+    background-color: var(--light-grey);
+    opacity: 0.5;
+    border-color: var(--grey);
   }
 
   &[data-kind="secondary"] {

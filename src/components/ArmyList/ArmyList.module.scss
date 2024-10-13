@@ -127,11 +127,14 @@
 }
 
 .level {
-  max-width: 26px;
-  max-height: 29px;
+  padding: 6px 10px;
   position: absolute;
   right: -2px;
-  top: -5px;
+  top: -7px;
+  background-image: url("../../assets/img/level.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .icon {
@@ -152,6 +155,12 @@
   background: var(--primay-bg-button);
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
   -webkit-text-stroke: 1px #003202;
+
+  &:disabled {
+    background: var(--bg-btn-disabled);
+    border: 2px solid #717171;
+    opacity: 1 !important;
+  }
 }
 .upgradeListBox {
   // display: flex;
@@ -211,4 +220,10 @@
   border-radius: 8px;
   background: var(--primay-bg-button);
   -webkit-text-stroke: 1px #003202;
+
+  &:disabled {
+    background: var(--bg-btn-disabled);
+    border: 2px solid #717171;
+    opacity: 1 !important;
+  }
 }
