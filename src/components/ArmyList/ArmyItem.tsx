@@ -126,11 +126,11 @@ export const ArmyItem = () => {
                 max={unit.max_cards}
               >
                 <img className={style.icon} src={cardIcon} alt="icon" />
-                <p className={style.upgradeProgressCardsBar}>
+                <div className={style.upgradeProgressCardsBar}>
                   <span>{unit.cards}</span>
                   <span>/</span>
                   <span>{unit.max_cards}</span>
-                </p>
+                </div>
                 <img className={style.level} src={level} alt="level" />
               </ProgressBar>
               <Button
