@@ -34,6 +34,7 @@ export function addUnitPerson(
     color: randomPerson.name, // Временно
     damage: randomPerson.damage,
     img: randomPerson.image,
+    idWarrior: randomPerson.id_warrior,
     id: v4()
   };
 }

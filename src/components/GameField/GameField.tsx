@@ -4,11 +4,11 @@ import style from "./GameField.module.scss";
 import Canvas from "../Canvas/Canvas";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { ElementRef, useEffect, useRef, useState } from "react";
-import useImage from "../../utils/useImage";
+
 import imageCasltes from "../../assets/img/casle-lvl-1.png";
 import useCanvas from "../../utils/useCanvas";
 import { variable } from "../../utils/variable";
-import { drawCircle, isCircleReachedSquare } from "../../utils/drawCanvas";
+import { isCircleReachedSquare } from "../../utils/drawCanvas";
 import { addUnitPerson } from "../../utils/hpcSpawn";
 import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 import { useMutation } from "@tanstack/react-query";
@@ -19,6 +19,8 @@ import { coinActions } from "../../provider/StoreProvider";
 import { ArmyType } from "../../types/ArmyType";
 import { coinUp } from "../../utils/drawImages";
 import { v4 } from "uuid";
+import useImage from "../../utils/useImage";
+import useImgUnit from "../../utils/useImgUnit";
 
 export interface circlePositionProps {
   x: number;
@@ -29,6 +31,7 @@ export interface circlePositionProps {
   color: string;
   img: string;
   id: string;
+  idWarrior: number
 }
 
 export interface coinJumpProps {
@@ -62,7 +65,16 @@ function GameField() {
   const [circlePosition, setCirclePosition] = useState<circlePositionProps[]>(
     []
   );
-
+  const [imgUnit, setImgUnit] = useState<Record<string, string>>({});
+  useEffect(() => {
+    if(army) {
+      army.forEach(warrior => {
+        setImgUnit(prevImages => ({ ...prevImages, [warrior.id_warrior]: warrior.image }));
+      });
+    }
+  }, [army])
+  
+  const imageUnit = useImgUnit(imgUnit);
   const imageCastle = useImage(imageCasltes);
   //отрисовка в канвасе
   const canvasRef = useRef<ElementRef<"canvas">>(null);
@@ -207,11 +219,11 @@ function GameField() {
     circlePosition.map((item) => {
       item.x += item.dx;
       item.y += item.dy;
-
+      // setImgUnit(item.img)
       // // Добавляем эффект прыжков
-      // const jumpHeight = 20; // высота прыжка
-      // const frequency = 0.005; // уменьшенная частота прыжков
-      // const offsetY = Math.sin(Date.now() * frequency + index) * jumpHeight;
+      const jumpHeight = 20; // высота прыжка
+      const frequency = 0.005; // уменьшенная частота прыжков
+      const offsetY = Math.sin(Date.now() * frequency) * jumpHeight;
       const newObjCoin = {
         x: item.x,
         y: item.y,
@@ -233,11 +245,14 @@ function GameField() {
       } else {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
         ctx.beginPath();
-        ctx.ellipse(item.x, item.y + 7, 7, 2, 0, 0, Math.PI * 2);
+        ctx.ellipse(item.x + 20, item.y + 7, 7, 2, 0, 0, Math.PI * 2);
         ctx.fill();
-
+        const image = imageUnit[item.idWarrior];
         // Рисуем кружок с учетом прыжка
-        drawCircle(ctx, item.x, item.y, 7, item.color);
+        if(image) {
+          ctx.drawImage(image, item.x, item.y + offsetY - 40, 40, 40)
+        }
+        
       }
     });
     //замок
