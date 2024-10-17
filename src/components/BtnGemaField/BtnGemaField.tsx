@@ -8,9 +8,18 @@ interface BtnGemaField {
   bottonP: string;
   left?: string;
   right?: string;
+  onClick?: () => void;
 }
 
-function BtnGemaField({ img, text, path, bottonP, left, right }: BtnGemaField) {
+function BtnGemaField({
+  img,
+  text,
+  path,
+  bottonP,
+  left,
+  right,
+  onClick,
+}: BtnGemaField) {
   let positionStyle: React.CSSProperties = { bottom: `${bottonP}%` };
 
   if (left) {

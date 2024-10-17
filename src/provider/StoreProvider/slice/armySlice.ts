@@ -1,17 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ArmyScheme, ArmyType } from "../../../types/ArmyType";
 
-const initialState: ArmyScheme = {}
+const initialState: ArmyScheme = {};
 
 export const armySlice = createSlice({
-    name: 'army',
-    initialState,
-    reducers: {
-        addArmyStore: (state, action: PayloadAction<ArmyType[]>) => {
-            state.armyUser = action.payload
-        }
-    }
-})
+  name: "army",
+  initialState,
+  reducers: {
+    addArmyStore: (state, action: PayloadAction<ArmyType[]>) => {
+      state.armyUser = action.payload;
+    },
+  },
+});
 
-export const {actions: armyActions} = armySlice
-export const {reducer: armyReducer} = armySlice
+export const { actions: armyActions } = armySlice;
+export const { reducer: armyReducer } = armySlice;

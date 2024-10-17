@@ -1,0 +1,133 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #77789c;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 308px;
+  height: 59px;
+  padding: 6px 0;
+  margin: 0;
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.1);
+  background: #ebecff;
+}
+
+.imgTask {
+  margin-left: 11px;
+  margin-right: 12px;
+  width: 38px;
+  height: 38px;
+}
+.box_info_task {
+  position: relative;
+  width: 194px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+.title_task {
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 100%;
+  color: #151527;
+}
+.box_prize {
+  // position: absolute;
+  // bottom: 0;
+  display: flex;
+  align-items: center;
+}
+.iconCoin {
+  margin-right: 5px;
+  width: 18px;
+  height: 18px;
+}
+.text_prize {
+  margin: 0;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 67%;
+  color: #fff;
+  -webkit-text-stroke: 1.2px #151527;
+}
+.iconArrow {
+  position: absolute;
+  right: 5%;
+  width: 12px;
+  height: 22px;
+}
+
+.modal_content {
+  margin: 0 auto;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #77789c;
+  border-radius: 18px;
+  width: 286px;
+  height: 400px;
+  box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.1);
+  background: #ebecff;
+}
+
+.imgTask_modal {
+  width: 77px;
+  height: 77px;
+  margin-top: 55px;
+}
+
+.task_title_modal {
+  margin: 0;
+  margin-top: 9px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 92%;
+  text-align: center;
+  color: #151527;
+}
+
+.btn_join {
+  width: 98px;
+  height: 33px;
+  margin: 9px 0;
+  // border: 3px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: 8px;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+  background: linear-gradient(180deg, #bce93a 0%, #7ac021 100%);
+  font-weight: 400;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+  -webkit-text-stroke: 1px #003202;
+}
+
+.text_prize_modal {
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 70%;
+  color: #fff;
+  -webkit-text-stroke: 1.3px #151527;
+}
+
+.btn_check {
+  width: 220px;
+  height: 51px;
+  margin-top: 10px;
+  font-size: 26px !important;
+  // border: 3px solid rgba(255, 255, 255, 0.6) !important;
+  border-radius: 8px;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+  background: linear-gradient(180deg, #bce93a 0%, #7ac021 100%);
+  font-weight: 400;
+  text-align: center;
+  color: #fff;
+  -webkit-text-stroke: 1.3px #003202;
+}

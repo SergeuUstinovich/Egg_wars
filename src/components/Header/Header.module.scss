@@ -1,0 +1,56 @@
+.top_bar {
+  min-width: 320px;
+  max-width: 509px;
+  height: 47px;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.content_box {
+  // max-width: 474px;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+.title_level {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.text_level {
+  font-size: 25px;
+  color: rgba(205, 205, 229, 1);
+}
+.text_level_value {
+  font-size: 25px;
+  color: rgba(222, 234, 237, 1);
+}
+
+.current_window {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.imageCoin {
+  position: absolute;
+  left: -2rem;
+}
+.imageBtnBuying {
+  position: absolute;
+  right: -1rem;
+}
+.current_coins_window_value {
+  height: 29px;
+  width: 8.5rem;
+  display: inline;
+  font-size: 22px;
+  color: rgba(21, 21, 39, 1);
+  text-align: center;
+  background-color: rgba(232, 239, 248, 1);
+}
+.imageDiamond {
+  position: absolute;
+  left: -2rem;
+}

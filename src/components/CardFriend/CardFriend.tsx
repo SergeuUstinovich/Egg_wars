@@ -1,7 +1,7 @@
 import { Button } from "../../ui/Button";
 import style from "./CardFriend.module.scss";
 import avatar from "../../assets/img/no_name_avatar.png";
-import ProgressBar from "../ProgressBar/ProgressBar";
+import ProgressBar from "../../ui/ProgressBar/ProgressBar";
 import coinFr from "../../assets/img/coin_friends.png";
 import { useEffect, useState } from "react";
 import { classNames } from "../../utils/classNames";
@@ -16,7 +16,7 @@ function CardFriend({ name, referral_system_id, flag }: FriendsType) {
   const { tg_id } = useTelegram();
   const [btnDisabled, setBtnDisabled] = useState(false);
   const [btnClassFr, setBtnClassFr] = useState(false);
-  const [nowMax, setNowMax] = useState('NOW');
+  const [nowMax, setNowMax] = useState("NOW");
   const value = 5;
   const max = 10;
 
@@ -29,8 +29,8 @@ function CardFriend({ name, referral_system_id, flag }: FriendsType) {
         queryClient.invalidateQueries({ queryKey: ["listFr"] });
       },
       onError: (data) => {
-        toast.error(data.message)
-      }
+        toast.error(data.message);
+      },
     },
     queryClient
   );
@@ -46,10 +46,10 @@ function CardFriend({ name, referral_system_id, flag }: FriendsType) {
       setBtnDisabled(false);
     }
     if (value >= max) {
-      setNowMax('MAX')
+      setNowMax("MAX");
       setBtnClassFr(true);
     } else {
-      setNowMax('NOW')
+      setNowMax("NOW");
       setBtnClassFr(false);
     }
   }, [value]);
