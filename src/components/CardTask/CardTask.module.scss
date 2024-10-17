@@ -20,10 +20,13 @@
   height: 38px;
 }
 .box_info_task {
+  position: relative;
   width: 194px;
   height: 48px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
 }
 .title_task {
   margin: 0;
@@ -34,13 +37,15 @@
   color: #151527;
 }
 .box_prize {
+  // position: absolute;
+  // bottom: 0;
   display: flex;
   align-items: center;
 }
 .iconCoin {
   margin-right: 5px;
-  width: 28px;
-  height: 28px;
+  width: 18px;
+  height: 18px;
 }
 .text_prize {
   margin: 0;

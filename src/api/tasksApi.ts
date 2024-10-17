@@ -7,7 +7,9 @@ const api_url =
 
 export function listTasks(tg_id: string) {
   return axios
-    .get(`${api_url}/task/${tg_id}/`)
+    .get(`${api_url}/main/tasks/${tg_id}/`, {
+      headers: { "Content-Type": "application/json" },
+    })
     .then((response) => {
       const data = response.data;
       return data;

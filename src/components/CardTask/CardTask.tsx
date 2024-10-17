@@ -5,8 +5,17 @@ import iconArrow from "../../assets/img/iconArrowTask.png";
 import Modal from "../../ui/Modal/Modal";
 import { useState } from "react";
 import ModalTasks from "./ModalTasks";
+import { TaskType } from "../../types/TaskType";
 
-export default function CardTask() {
+interface CardTaskProps {
+  task: TaskType;
+}
+
+export function formatNumberString(number: number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+export default function CardTask({ task }: CardTaskProps) {
   const [isVision, setIsVision] = useState(false);
   const onOpen = () => {
     setIsVision(true);
@@ -15,21 +24,25 @@ export default function CardTask() {
   const onClose = () => {
     setIsVision(false);
   };
+  // console.log(`https://eggswar.com/${task.task.picture.image}`);
   return (
     <li className={style.container} onClick={onOpen}>
-      <img className={style.imgTask} src={iconTask} />
+      <img
+        className={style.imgTask}
+        src={task.task.picture ? task.task.picture.image : iconTask}
+      />
       <div className={style.box_info_task}>
-        <p className={style.title_task}>
-          FTX’s $12.7 billions settelements. Billions to be paid!
-        </p>
+        <p className={style.title_task}>{task.task.name}</p>
         <div className={style.box_prize}>
           <img className={style.iconCoin} src={iconCoin} />
-          <p className={style.text_prize}>30 000</p>
+          <p className={style.text_prize}>
+            {formatNumberString(task.task.reward_currency)}
+          </p>
         </div>
       </div>
       <img className={style.iconArrow} src={iconArrow} />
       <Modal isOpen={isVision} onClose={onClose} hiddenClose>
-        <ModalTasks />
+        <ModalTasks task={task} />
       </Modal>
     </li>
   );

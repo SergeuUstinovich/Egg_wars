@@ -7,11 +7,11 @@ import ProgressBar from "../../ui/ProgressBar/ProgressBar";
 import { useSelector } from "react-redux";
 import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
 
-interface ArmyCard {
+interface ArmyCardProps {
   army: ArmyType;
 }
 
-export default function CardArmy({ army }: ArmyCard) {
+export default function CardArmy({ army }: ArmyCardProps) {
   const armyUser = useSelector(getArmy);
   const { id } = useParams();
   if (armyUser === undefined) {

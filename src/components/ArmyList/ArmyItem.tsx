@@ -15,6 +15,7 @@ import upgradeBack from "../../assets/img/upgradeBack.png";
 import damage from "../../assets/img/damageArmy.png";
 import coinMoney from "../../assets/img/coinMoney.png";
 import cardIcon from "../../assets/img/card icon.png";
+import iconArrowUp from "../../assets/img/arrowUp.png";
 
 export const ArmyItem = () => {
   // const [unitArr, setUnitArr] = useState<ArmyType[]>();
@@ -123,6 +124,7 @@ export const ArmyItem = () => {
                 className={style.upgradeProgressCards}
                 value={unit.cards}
                 max={unit.max_cards}
+                colorFill="#f7a31a"
               >
                 <img className={style.icon} src={cardIcon} alt="icon" />
                 <div className={style.upgradeProgressCardsBar}>
@@ -130,7 +132,8 @@ export const ArmyItem = () => {
                   <span>/</span>
                   <span>{unit.max_cards}</span>
                 </div>
-                <span className={style.level}>{unit.lvl}</span>
+                <img className={style.icon_arrow} src={iconArrowUp} />
+                <span className={style.level}> {unit.lvl}</span>
               </ProgressBar>
               <Button
                 isDisabled={unit.cards < unit.max_cards}
@@ -145,6 +148,10 @@ export const ArmyItem = () => {
                       <span>Damage</span>
                       <img src={damage} alt="damage" />
                       {unit.lvl_damage}
+                      <div className={style.upgradeListItem_title_up}>
+                        <img className={style.arrow_up} src={iconArrowUp} />
+                        {unit.damage}
+                      </div>
                     </strong>
                     <Button
                       className={style.upgradePrice}
@@ -160,6 +167,29 @@ export const ArmyItem = () => {
                       <span>Speed</span>
                       <img src={damage} alt="damage" />
                       {unit.lvl_speed}
+                      <div className={style.upgradeListItem_title_up}>
+                        <img className={style.arrow_up} src={iconArrowUp} />
+                        {unit.speed}
+                      </div>
+                    </strong>
+                    <Button
+                      className={style.upgradePrice}
+                      isDisabled={infoUser.money < unit.price_speed}
+                      onClick={() => handleUpSpeed(unit.id_warrior)}
+                    >
+                      <img width={18} height={14} src={coinMoney} alt="" />
+                      {unit.price_speed}
+                    </Button>
+                  </li>
+                  <li className={style.upgradeListItem}>
+                    <strong>
+                      <span>Сapacity</span>
+                      <img src={damage} alt="damage" />
+                      {unit.lvl_speed}
+                      <div className={style.upgradeListItem_title_up}>
+                        <img className={style.arrow_up} src={iconArrowUp} />
+                        {unit.speed}
+                      </div>
                     </strong>
                     <Button
                       className={style.upgradePrice}

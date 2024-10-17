@@ -124,10 +124,13 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 9.42px;
+  -webkit-text-stroke: 1.2px #151527;
 }
 
 .level {
-  padding: 6px 10px;
+  padding: 10px 10px;
+  width: 30px;
+  height: 32px;
   position: absolute;
   right: -2px;
   top: -7px;
@@ -135,6 +138,21 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 50%;
+  text-align: center;
+  color: #fff;
+  -webkit-text-stroke: 1.2px #151527;
+}
+
+.icon_arrow {
+  position: absolute;
+  top: -85%;
+  right: 10%;
+  width: 13px !important;
+  height: 15px;
+  z-index: 8;
 }
 
 .icon {
@@ -168,7 +186,7 @@
 }
 .upgradeListEvolve {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
 
@@ -190,6 +208,10 @@
     align-items: center;
     color: var(--primary-awards-title);
   }
+}
+
+.upgradeListItem_title_up {
+  color: #500;
 }
 
 .closeItem {
@@ -226,4 +248,9 @@
     border: 2px solid #717171;
     opacity: 1 !important;
   }
+}
+.arrow_up {
+  width: 9.09px;
+  height: 10.39px;
+  margin-right: 1.5px;
 }
