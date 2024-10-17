@@ -7,6 +7,10 @@ import coinMoney from "../../assets/img/coinMoney.png";
 import diamondMoney from "../../assets/img/diamondMoney.png";
 import {useState} from "react";
 import {AwardsItem} from "./AwardsItem.tsx";
+import {useQuery } from "@tanstack/react-query";
+import { awardsChestsGet } from "../../api/awardsApi.ts";
+import { useTelegram } from "../../provider/telegram/telegram.ts";
+import { queryClient } from "../../api/queryClient.ts";
 
 interface AwardsProps {
   isOpen?: boolean;
@@ -19,7 +23,6 @@ const awardsArr = [
     title: "day 1",
     money: "50.000",
     diamonds: "500",
-    disabled: true,
   },
   {
     id: 2,
@@ -60,14 +63,26 @@ const awardsArr = [
 ];
 
 const Awards = ({ isOpen, onClose }: AwardsProps) => {
-  const [isOpenModal, setIsOpenModal] = useState(false)
-  const [onCloseModal, setOnCloseModal] = useState(true)
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [receivedAwards, setReceivedAwards] = useState<boolean[]>(new Array(7).fill(false));
+  
   const handleOpenModal = () => {
-    setIsOpenModal(true)
+    setIsOpenModal(true);
   }
 
   const handleCloseModal = () => {
-    setOnCloseModal(false)
+    setIsOpenModal(false);
+  }
+
+  const { tg_id, tg } = useTelegram();
+
+  const queryAwards = useQuery({
+    queryFn: () => awardsChestsGet(tg_id),
+    queryKey: ['test'],
+  }, queryClient)
+
+  const test = () => {
+    console.log(queryAwards.data)
   }
 
   return (
@@ -82,7 +97,7 @@ const Awards = ({ isOpen, onClose }: AwardsProps) => {
         <ul className={style.awardsGrid}>
           {awardsArr.map((item) => (
             <li className={style.awardsElement} key={item.id}>
-              <Button onClick={handleOpenModal} isDisabled={item.disabled} className={style.awardsButton}>
+              <Button onClick={test} className={style.awardsButton}>
                 <h3 className={style.awardsTitle}>{item.title}</h3>
                 <div className={style.awardsDown}>
                   <p>
