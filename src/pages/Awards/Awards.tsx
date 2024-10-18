@@ -5,8 +5,13 @@ import { Button } from "../../ui/Button";
 import { ProgressBarAwards } from "../../components/ProgressBarAwards/ProgressBarAwards";
 import coinMoney from "../../assets/img/coinMoney.png";
 import diamondMoney from "../../assets/img/diamondMoney.png";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {AwardsItem} from "./AwardsItem.tsx";
+import { useTelegram } from "../../provider/telegram/telegram.ts";
+import { awardsChests } from "../../api/awardsApi.ts";
+import { useQuery } from "@tanstack/react-query";
+import { queryClient } from "../../api/queryClient.ts";
+import { getUrlParams } from "../../helpers/searchParthners.ts";
 
 interface AwardsProps {
   isOpen?: boolean;
@@ -19,7 +24,6 @@ const awardsArr = [
     title: "day 1",
     money: "50.000",
     diamonds: "500",
-    disabled: true,
   },
   {
     id: 2,
@@ -59,19 +63,46 @@ const awardsArr = [
   },
 ];
 
-const Awards = ({ isOpen, onClose }: AwardsProps) => {
-  const [isOpenModal, setIsOpenModal] = useState(false)
-  const [onCloseModal, setOnCloseModal] = useState(true)
-  const handleOpenModal = () => {
-    setIsOpenModal(true)
-  }
+const Awards = () => {
+  const [openModal, setOpenModal] = useState(false);
 
-  const handleCloseModal = () => {
-    setOnCloseModal(false)
-  }
+  useEffect(() => {
+    const awardsShown = localStorage.getItem("awardsShown");
+    const { u, v, p } = getUrlParams();
+    if (u && v && p) {
+      localStorage.setItem("awardsShown", "true");
+    } else {
+      if (!awardsShown) {
+        setOpenModal(true);
+      }
+    }
+  }, []);
+
+  const handleStartClick = () => {
+    localStorage.setItem("awardsShown", "true");
+    setOpenModal(false);
+  };
+
+  const { tg_id } = useTelegram();
+  
+  const awardsQuery = useQuery({
+    queryFn: () => awardsChests(tg_id),
+    queryKey: ["awardsChests"],
+    enabled: !!tg_id,
+  }, queryClient);
+
+  useEffect(() => {
+    if (awardsQuery.data) {
+      console.log(awardsQuery.data);
+    }
+  }, [awardsQuery]);
+
+  const handleTest = () => {
+    console.log(awardsQuery.data);
+  };
 
   return (
-    <Modal lazy onClose={onClose} hiddenClose isOpen={isOpen}>
+    <Modal lazy hiddenClose onClose={handleStartClick} isOpen={openModal}>
       <div className={style.awardsBlock}>
         <img
           className={style.awardsImg}
@@ -82,7 +113,7 @@ const Awards = ({ isOpen, onClose }: AwardsProps) => {
         <ul className={style.awardsGrid}>
           {awardsArr.map((item) => (
             <li className={style.awardsElement} key={item.id}>
-              <Button onClick={handleOpenModal} isDisabled={item.disabled} className={style.awardsButton}>
+              <Button onClick={handleTest} className={style.awardsButton}>
                 <h3 className={style.awardsTitle}>{item.title}</h3>
                 <div className={style.awardsDown}>
                   <p>
@@ -99,7 +130,7 @@ const Awards = ({ isOpen, onClose }: AwardsProps) => {
           ))}
         </ul>
       </div>
-      <AwardsItem isOpen={isOpenModal} onClose={handleCloseModal}/>
+      {/* <AwardsItem isOpen={isOpenModal} onClose={handleCloseModal}/> */}
     </Modal>
   );
 };

@@ -16,6 +16,7 @@ import damage from "../../assets/img/damageArmy.png";
 import coinMoney from "../../assets/img/coinMoney.png";
 import cardIcon from "../../assets/img/card icon.png";
 import iconArrowUp from "../../assets/img/arrowUp.png";
+import CurvedProgressBar from "../ArmyItemProgress/ArmyItemProgress";
 
 export const ArmyItem = () => {
   // const [unitArr, setUnitArr] = useState<ArmyType[]>();
@@ -109,14 +110,8 @@ export const ArmyItem = () => {
             }}
           >
             <p className={style.upgradeCP}>CP 253</p>
-            <ProgressBar
-              className={style.progressUnit}
-              value={253}
-              max={1000}
-            />
-
+            <CurvedProgressBar value={20} max={100} className={style.progressUnit} />
             <div className={style.upgradeDown}>
-              {/* <div className={style.unitPerson_box}></div> */}
               <img className={style.unitPerson} src={unit.image} alt="unit" />
 
               <h1 className={style.upgradeTitle}>{unit.name}</h1>

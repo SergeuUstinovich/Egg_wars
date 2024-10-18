@@ -10,13 +10,13 @@ import { listTasks } from "../../api/tasksApi";
 import { useTelegram } from "../../provider/telegram/telegram";
 import { queryClient } from "../../api/queryClient";
 import { useEffect, useState } from "react";
-import { TasksScheme, TaskType } from "../../types/TaskType";
+import { TaskType } from "../../types/TaskType";
 
 function Tasks() {
   const { tg_id } = useTelegram();
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate("/tasks");
+    navigate("/");
   };
 
   const [tasksOneTimeList, setTasksOneTimeList] = useState<TaskType[]>();
@@ -48,7 +48,7 @@ function Tasks() {
   }, [data]);
 
   return (
-    <ModalRoute>
+    <ModalRoute classNameModal={style.modalRoute} classNameOverlay={style.modalOverlay} classNameContent={style.modalContent}>
       <div className={style.tasksBlock}>
         <h2 className={style.tasksTitle}>
           <img src={tasksIcon} alt="tasksIcon" />
