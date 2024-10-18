@@ -16,3 +16,23 @@ export function listTasks(tg_id: string) {
     })
     .catch((error) => error.Error);
 }
+
+export function checkAccumTask(tg_id: string, dop_name: string) {
+  return axios
+    .post(`${api_url}/main/task/${tg_id}/${dop_name}/`)
+    .then((response) => {
+      const data = response.data;
+      return data;
+    })
+    .catch((error) => error.Error);
+}
+
+export function checkTask(tg_id: string, dop_name: string) {
+  return axios
+    .post(`${api_url}/main/task/${tg_id}/${dop_name}/`)
+    .then((response) => {
+      const data = response.data;
+      return data;
+    })
+    .catch((error) => error.Error);
+}

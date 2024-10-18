@@ -185,15 +185,16 @@ export const ArmyItem = () => {
                     <strong>
                       <span>Сapacity</span>
                       <img src={damage} alt="damage" />
-                      {unit.lvl_speed}
+                      {1}
                       <div className={style.upgradeListItem_title_up}>
                         <img className={style.arrow_up} src={iconArrowUp} />
-                        {unit.speed}
+                        {1}
                       </div>
                     </strong>
                     <Button
                       className={style.upgradePrice}
-                      isDisabled={infoUser.money < unit.price_speed}
+                      // isDisabled={infoUser.money < unit.price_speed}
+                      isDisabled
                       onClick={() => handleUpSpeed(unit.id_warrior)}
                     >
                       <img width={18} height={14} src={coinMoney} alt="" />

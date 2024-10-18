@@ -1,11 +1,13 @@
 import style from "./CardTask.module.scss";
-import iconTask from "../../assets/img/iconYouTube.png";
 import iconCoin from "../../assets/img/iconCoin.png";
 import iconArrow from "../../assets/img/iconArrowTask.png";
+import iconDone from "../../assets/img/iconDoneTask.png";
 import Modal from "../../ui/Modal/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalTasks from "./ModalTasks";
 import { TaskType } from "../../types/TaskType";
+import { getImgTask } from "../../helpers/returnImageTask";
+import ModalAccumTask from "./ModalAccumTask";
 
 interface CardTaskProps {
   task: TaskType;
@@ -17,6 +19,7 @@ export function formatNumberString(number: number) {
 
 export default function CardTask({ task }: CardTaskProps) {
   const [isVision, setIsVision] = useState(false);
+  const [icon, setIcon] = useState<string>();
   const onOpen = () => {
     setIsVision(true);
   };
@@ -24,13 +27,13 @@ export default function CardTask({ task }: CardTaskProps) {
   const onClose = () => {
     setIsVision(false);
   };
-  // console.log(`https://eggswar.com/${task.task.picture.image}`);
+
+  useEffect(() => {
+    getImgTask(task.task.dop_name, setIcon);
+  }, [task]);
   return (
     <li className={style.container} onClick={onOpen}>
-      <img
-        className={style.imgTask}
-        src={task.task.picture ? task.task.picture.image : iconTask}
-      />
+      <img className={style.imgTask} src={icon} />
       <div className={style.box_info_task}>
         <p className={style.title_task}>{task.task.name}</p>
         <div className={style.box_prize}>
@@ -40,9 +43,17 @@ export default function CardTask({ task }: CardTaskProps) {
           </p>
         </div>
       </div>
-      <img className={style.iconArrow} src={iconArrow} />
+      {task.completed ? (
+        <img className={style.iconDone} src={iconDone} />
+      ) : (
+        <img className={style.iconArrow} src={iconArrow} />
+      )}
+
       <Modal isOpen={isVision} onClose={onClose} hiddenClose>
-        <ModalTasks task={task} />
+        {task.task.task_type === "one_time" && <ModalTasks task={task} />}
+        {task.task.task_type === "accumulative" && (
+          <ModalAccumTask task={task} />
+        )}
       </Modal>
     </li>
   );
