@@ -26,7 +26,7 @@ function App() {
       <Suspense fallback={<div>Loading</div>}>
         <Routes>
           <Route path={"/"} element={<Layout />}>
-            <Route path={"awards"} element={<Awards />} />
+            {/* <Route path={"awards"} element={<Awards />} /> */}
             <Route path={"friends"} element={<Friends />} />
             <Route path={"leaders"} element={<Leaders />} />
             <Route path={"airdrop"} element={<Airdrop />} />

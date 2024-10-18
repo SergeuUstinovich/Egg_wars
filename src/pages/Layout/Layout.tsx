@@ -8,24 +8,29 @@ import imgTasks from "../../assets/img/tasks.png";
 import imgUpgrades from "../../assets/img/upgrades.png";
 import imgBoosters from "../../assets/img/boosters.png";
 import { Toaster } from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getUrlParams } from "../../helpers/searchParthners";
 import Awards from "../Awards/Awards";
 
 function Layout() {
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigate = (path: string) => {
     navigate(path);
   };
 
-  const handleOpenModal = () => {
-    setIsOpen(true);
-  };
+  const [u, setU] = useState<string>("");
+  const [v, setV] = useState<string>("");
+  const [p, setP] = useState<string>("");
 
-  const handleCloseModal = () => {
-    setIsOpen(false);
-  };
+  useEffect(() => {
+    const { u, v, p } = getUrlParams();
+    if (u && v && p) {
+      setU(u);
+      setV(v);
+      setP(p);
+    }
+  }, []);
 
   return (
     <>
@@ -58,10 +63,9 @@ function Layout() {
           right={"3"}
         />
         <Outlet />
-        <Awards onClose={handleCloseModal} isOpen={isOpen} />
+        <Awards />
       </main>
       <footer className={style.footers}>
-        <button onClick={handleOpenModal}>Тест</button>
         <NavBar />
       </footer>
     </>
