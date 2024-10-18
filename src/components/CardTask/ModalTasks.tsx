@@ -11,10 +11,11 @@ import { checkTask } from "../../api/tasksApi";
 import { queryClient } from "../../api/queryClient";
 
 export interface ModalTasksProps {
+  onClose: () => void;
   task: TaskType;
 }
 
-export default function ModalTasks({ task }: ModalTasksProps) {
+export default function ModalTasks({ task, onClose }: ModalTasksProps) {
   const { tg_id } = useTelegram();
   const [icon, setIcon] = useState<string>();
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function ModalTasks({ task }: ModalTasksProps) {
         checkTask(data.tg_id, data.dop_name),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["taskList"] });
+        onClose();
       },
     },
     queryClient

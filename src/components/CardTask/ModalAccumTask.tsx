@@ -10,7 +10,7 @@ import { checkAccumTask, checkTask } from "../../api/tasksApi";
 import { queryClient } from "../../api/queryClient";
 import { useTelegram } from "../../provider/telegram/telegram";
 
-export default function ModalAccumTask({ task }: ModalTasksProps) {
+export default function ModalAccumTask({ task, onClose }: ModalTasksProps) {
   const { tg_id } = useTelegram();
   const [icon, setIcon] = useState<string>();
   useEffect(() => {
@@ -23,6 +23,7 @@ export default function ModalAccumTask({ task }: ModalTasksProps) {
         checkAccumTask(data.tg_id, data.dop_name),
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["taskList"] });
+        onClose();
       },
     },
     queryClient

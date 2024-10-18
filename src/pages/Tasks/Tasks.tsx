@@ -48,7 +48,11 @@ function Tasks() {
   }, [data]);
 
   return (
-    <ModalRoute classNameModal={style.modalRoute} classNameOverlay={style.modalOverlay} classNameContent={style.modalContent}>
+    <ModalRoute
+      classNameModal={style.modalRoute}
+      classNameOverlay={style.modalOverlay}
+      classNameContent={style.modalContent}
+    >
       <div className={style.tasksBlock}>
         <h2 className={style.tasksTitle}>
           <img src={tasksIcon} alt="tasksIcon" />

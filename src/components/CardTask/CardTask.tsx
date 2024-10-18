@@ -50,9 +50,11 @@ export default function CardTask({ task }: CardTaskProps) {
       )}
 
       <Modal isOpen={isVision} onClose={onClose} hiddenClose>
-        {task.task.task_type === "one_time" && <ModalTasks task={task} />}
+        {task.task.task_type === "one_time" && (
+          <ModalTasks onClose={onClose} task={task} />
+        )}
         {task.task.task_type === "accumulative" && (
-          <ModalAccumTask task={task} />
+          <ModalAccumTask onClose={onClose} task={task} />
         )}
       </Modal>
     </li>

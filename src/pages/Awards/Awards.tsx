@@ -5,8 +5,8 @@ import { Button } from "../../ui/Button";
 import { ProgressBarAwards } from "../../components/ProgressBarAwards/ProgressBarAwards";
 import coinMoney from "../../assets/img/coinMoney.png";
 import diamondMoney from "../../assets/img/diamondMoney.png";
-import {useEffect, useState} from "react";
-import {AwardsItem} from "./AwardsItem.tsx";
+import { useEffect, useState } from "react";
+import { AwardsItem } from "./AwardsItem.tsx";
 import { useTelegram } from "../../provider/telegram/telegram.ts";
 import { awardsChests } from "../../api/awardsApi.ts";
 import { useQuery } from "@tanstack/react-query";
@@ -84,12 +84,15 @@ const Awards = () => {
   };
 
   const { tg_id } = useTelegram();
-  
-  const awardsQuery = useQuery({
-    queryFn: () => awardsChests(tg_id),
-    queryKey: ["awardsChests"],
-    enabled: !!tg_id,
-  }, queryClient);
+
+  const awardsQuery = useQuery(
+    {
+      queryFn: () => awardsChests(tg_id),
+      queryKey: ["awardsChests"],
+      enabled: !!tg_id,
+    },
+    queryClient
+  );
 
   useEffect(() => {
     if (awardsQuery.data) {
