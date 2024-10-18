@@ -101,7 +101,6 @@ const Awards = () => {
     console.log(awardsQuery.data);
   };
 
-
   return (
     <Modal lazy hiddenClose onClose={handleStartClick} isOpen={openModal}>
       <div className={style.awardsBlock}>
