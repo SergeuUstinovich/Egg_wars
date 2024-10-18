@@ -4,7 +4,9 @@ import style from "./GameField.module.scss";
 import Canvas from "../Canvas/Canvas";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { ElementRef, useEffect, useRef, useState } from "react";
-
+import iconCoin from "../../assets/img/coinMoney.png";
+import iconBoxSilver from "../../assets/img/ironChest.png";
+import iconBoxGold from "../../assets/img/goldChest.png";
 import imageCasltes from "../../assets/img/casle-lvl-1.png";
 import useCanvas from "../../utils/useCanvas";
 import { variable } from "../../utils/variable";
@@ -21,6 +23,7 @@ import { coinUp } from "../../utils/drawImages";
 import { v4 } from "uuid";
 import useImage from "../../utils/useImage";
 import useImgUnit from "../../utils/useImgUnit";
+import ProgressBar from "../../ui/ProgressBar/ProgressBar";
 
 export interface circlePositionProps {
   x: number;
@@ -31,7 +34,7 @@ export interface circlePositionProps {
   color: string;
   img: string;
   id: string;
-  idWarrior: number
+  idWarrior: number;
 }
 
 export interface coinJumpProps {
@@ -67,13 +70,16 @@ function GameField() {
   );
   const [imgUnit, setImgUnit] = useState<Record<string, string>>({});
   useEffect(() => {
-    if(army) {
-      army.forEach(warrior => {
-        setImgUnit(prevImages => ({ ...prevImages, [warrior.id_warrior]: warrior.image }));
+    if (army) {
+      army.forEach((warrior) => {
+        setImgUnit((prevImages) => ({
+          ...prevImages,
+          [warrior.id_warrior]: warrior.image,
+        }));
       });
     }
-  }, [army])
-  
+  }, [army]);
+
   const imageUnit = useImgUnit(imgUnit);
   const imageCastle = useImage(imageCasltes);
   //отрисовка в канвасе
@@ -146,7 +152,6 @@ function GameField() {
   }, [infoUser?.lvl]);
   //отправка после кликов
   useEffect(() => {
-    
     if (infoUser) {
       const newTimeoutId = setTimeout(() => {
         tapTapMutation.mutate({
@@ -229,7 +234,7 @@ function GameField() {
         y: item.y,
         value: item.damage,
         time: Date.now(),
-        id: v4()
+        id: v4(),
       };
 
       // Проверяем, достиг ли круг квадрата
@@ -243,16 +248,15 @@ function GameField() {
           prevPositions.filter((item) => item.id !== idToRemove)
         );
       } else {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
         ctx.beginPath();
         ctx.ellipse(item.x + 20, item.y + 7, 7, 2, 0, 0, Math.PI * 2);
         ctx.fill();
         const image = imageUnit[item.idWarrior];
         // Рисуем кружок с учетом прыжка
-        if(image) {
-          ctx.drawImage(image, item.x, item.y + offsetY - 40, 40, 40)
+        if (image) {
+          ctx.drawImage(image, item.x, item.y + offsetY - 40, 40, 40);
         }
-        
       }
     });
     //замок
@@ -263,10 +267,12 @@ function GameField() {
     coinJump.forEach((coin) => {
       const elapsedTime = Date.now() - coin.time;
       const rise = (50 * elapsedTime) / 500;
-      coinUp(ctx, coin, rise)
+      coinUp(ctx, coin, rise);
       if (elapsedTime > 500) {
         const idToRemove = coin.id;
-        setCoinJump((prevCoins) => prevCoins.filter((item) => item.id !== idToRemove));
+        setCoinJump((prevCoins) =>
+          prevCoins.filter((item) => item.id !== idToRemove)
+        );
       }
     });
   }
@@ -293,6 +299,20 @@ function GameField() {
           {scoreHp.toLocaleString("ru-RU")} / {hpMax?.toLocaleString("ru-RU")}
         </p>
       </div>
+
+      <ProgressBar
+        value={300}
+        max={1000}
+        colorFill="#FFCE1F"
+        classNamefill="#FFCE1F"
+        className={style.progress_box}
+      >
+        <img className={style.progress_coin} src={iconCoin} />
+        <img className={style.progress_box_silver1} src={iconBoxSilver} />
+        <img className={style.progress_box_silver2} src={iconBoxSilver} />
+        <img className={style.progress_box_gold} src={iconBoxGold} />
+      </ProgressBar>
+
       <Canvas ref={canvasRef} />
       <button onTouchStart={handleTouchStart} className={style.btnTap}>
         <CircularProgressbar
