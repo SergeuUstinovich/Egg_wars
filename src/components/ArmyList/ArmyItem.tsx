@@ -109,8 +109,12 @@ export const ArmyItem = () => {
               flexDirection: "column",
             }}
           >
-            <p className={style.upgradeCP}>CP 253</p>
-            <CurvedProgressBar value={20} max={100} className={style.progressUnit} />
+            <p className={style.upgradeCP}>{`CP ${unit.cp}`}</p>
+            <CurvedProgressBar
+              value={unit.cp}
+              max={unit.max_cp}
+              className={style.progressUnit}
+            />
             <div className={style.upgradeDown}>
               <img className={style.unitPerson} src={unit.image} alt="unit" />
 

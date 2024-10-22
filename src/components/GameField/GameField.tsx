@@ -4,9 +4,6 @@ import style from "./GameField.module.scss";
 import Canvas from "../Canvas/Canvas";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { ElementRef, useEffect, useRef, useState } from "react";
-import iconCoin from "../../assets/img/coinMoney.png";
-import iconBoxSilver from "../../assets/img/ironChest.png";
-import iconBoxGold from "../../assets/img/goldChest.png";
 import imageCasltes from "../../assets/img/casle-lvl-1.png";
 import useCanvas from "../../utils/useCanvas";
 import { variable } from "../../utils/variable";
@@ -24,6 +21,8 @@ import { v4 } from "uuid";
 import useImage from "../../utils/useImage";
 import useImgUnit from "../../utils/useImgUnit";
 import ProgressBar from "../../ui/ProgressBar/ProgressBar";
+import { openBox } from "../../api/awardsApi";
+import ProgressBox from "../ProgressBox/ProgressBox";
 
 export interface circlePositionProps {
   x: number;
@@ -300,18 +299,13 @@ function GameField() {
         </p>
       </div>
 
-      <ProgressBar
-        value={300}
-        max={1000}
-        colorFill="#FFCE1F"
-        classNamefill="#FFCE1F"
-        className={style.progress_box}
-      >
-        <img className={style.progress_coin} src={iconCoin} />
-        <img className={style.progress_box_silver1} src={iconBoxSilver} />
-        <img className={style.progress_box_silver2} src={iconBoxSilver} />
-        <img className={style.progress_box_gold} src={iconBoxGold} />
-      </ProgressBar>
+      {infoUser && (
+        <ProgressBox
+          currentCoins={scoreHp}
+          max_coins={hpMax}
+          lvl={infoUser.lvl}
+        />
+      )}
 
       <Canvas ref={canvasRef} />
       <button onTouchStart={handleTouchStart} className={style.btnTap}>

@@ -11,6 +11,8 @@ export interface ArmyType {
   max_cards: number;
   lvl: number;
   image: string;
+  cp: number;
+  max_cp: number;
 }
 
 export interface ArmyScheme {

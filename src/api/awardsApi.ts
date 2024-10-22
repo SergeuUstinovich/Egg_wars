@@ -11,8 +11,25 @@ export const awardsChests = (tg_id: string) => {
     .then((response) => {
       const data = response.data;
       return data;
-    })
-    .catch((error) => {
-      console.error("Error occurred:", error);
     });
+  // .catch((error) => {
+  //   console.error("Error occurred:", error);
+  // });
+};
+
+export function openBox(tg_id: string) {
+  return axios
+    .post(`${api_url}/box/open/${tg_id}/`)
+    .then((response) => {
+      const data = response.data;
+      return data;
+    })
+    .catch((error) => console.log(error));
+}
+
+export const getBoxes = () => {
+  return axios.get(`${api_url}/box/open/`).then((response) => {
+    const data = response.data;
+    return data;
+  });
 };

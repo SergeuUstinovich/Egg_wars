@@ -1,0 +1,31 @@
+.progress_box {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 244px;
+  height: 12px;
+}
+.progress_coin {
+  position: absolute;
+  top: -150%;
+  left: -10%;
+  width: 42px;
+}
+
+.progress_box_silver1 {
+  position: absolute;
+  top: -100%;
+  left: 30%;
+}
+
+.progress_box_silver2 {
+  position: absolute;
+  top: -100%;
+  left: 60%;
+}
+.progress_box_gold {
+  position: absolute;
+  top: -100%;
+  right: -5%;
+}
