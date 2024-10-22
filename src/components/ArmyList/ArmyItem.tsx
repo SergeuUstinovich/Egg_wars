@@ -17,6 +17,8 @@ import coinMoney from "../../assets/img/coinMoney.png";
 import cardIcon from "../../assets/img/card icon.png";
 import iconArrowUp from "../../assets/img/arrowUp.png";
 import CurvedProgressBar from "../ArmyItemProgress/ArmyItemProgress";
+import toast from "react-hot-toast/headless";
+import { Toaster } from "react-hot-toast";
 
 export const ArmyItem = () => {
   // const [unitArr, setUnitArr] = useState<ArmyType[]>();
@@ -62,6 +64,9 @@ export const ArmyItem = () => {
         dispatch(coinActions.updateCoinMinus(moneyCoin));
         queryClient.invalidateQueries({ queryKey: ["army", tg_id] });
       },
+      onError: (error) => {
+        toast.error(error.message);
+      },
     },
     queryClient
   );
@@ -75,6 +80,9 @@ export const ArmyItem = () => {
         dispatch(coinActions.updateCoinMinus(moneyCoin));
         queryClient.invalidateQueries({ queryKey: ["army", tg_id] });
       },
+      onError: (error) => {
+        toast.error(error.message);
+      },
     },
     queryClient
   );
@@ -87,11 +95,11 @@ export const ArmyItem = () => {
     upSpeedMutate.mutate({ tg_id, id_warrior });
   };
 
-  const lvlInBar = () => {
-    if (unit?.cards && unit.max_cards) {
-      return (unit.cards * 100) / unit.max_cards;
-    }
-  };
+  // const lvlInBar = () => {
+  //   if (unit?.cards && unit.max_cards) {
+  //     return (unit.cards * 100) / unit.max_cards;
+  //   }
+  // };
 
   return (
     <ModalRoute
@@ -99,6 +107,7 @@ export const ArmyItem = () => {
       classNameContent={style.modalContent}
       classNameOverlay={style.modalOverlay}
     >
+      <Toaster position="top-center" />
       <div className={style.upgradeItem}>
         {unit && (
           <div
@@ -109,10 +118,10 @@ export const ArmyItem = () => {
               flexDirection: "column",
             }}
           >
-            <p className={style.upgradeCP}>{`CP ${unit.cp}`}</p>
+            <p className={style.upgradeCP}>CP 253</p>
             <CurvedProgressBar
-              value={unit.cp}
-              max={unit.max_cp}
+              value={20}
+              max={100}
               className={style.progressUnit}
             />
             <div className={style.upgradeDown}>
