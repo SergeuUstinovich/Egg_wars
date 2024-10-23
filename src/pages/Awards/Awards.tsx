@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { AwardsItem } from './AwardsItem.tsx'
 import { useTelegram } from '../../provider/telegram/telegram.ts'
 import { awardsChests } from '../../api/awardsApi.ts'
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { queryClient } from '../../api/queryClient.ts'
 import { getUrlParams } from '../../helpers/searchParthners.ts'
 
@@ -17,51 +17,6 @@ interface AwardsProps {
   isOpen?: boolean
   onClose?: () => void
 }
-
-const awardsArr = [
-  {
-    id: 1,
-    title: 'day 1',
-    money: '50.000',
-    diamonds: '500',
-  },
-  {
-    id: 2,
-    title: 'day 2',
-    money: '50.000',
-    diamonds: '500',
-  },
-  {
-    id: 3,
-    title: 'day 3',
-    money: '50.000',
-    diamonds: '500',
-  },
-  {
-    id: 4,
-    title: 'day 4',
-    money: '50.000',
-    diamonds: '500',
-  },
-  {
-    id: 5,
-    title: 'day 5',
-    money: '50.000',
-    diamonds: '500',
-  },
-  {
-    id: 6,
-    title: 'day 6',
-    money: '50.000',
-    diamonds: '500',
-  },
-  {
-    id: 7,
-    title: 'day 7',
-    money: '50.000',
-    diamonds: '500',
-  },
-]
 
 const Awards = () => {
   const [openModal, setOpenModal] = useState(false)
@@ -85,20 +40,20 @@ const Awards = () => {
 
   const { tg_id } = useTelegram()
 
-  const { data: awards } = useQuery(
+  const { data } = useSuspenseQuery(
     {
       queryFn: () => awardsChests(tg_id),
       queryKey: ['awardsChests'],
-      enabled: !!tg_id,
     },
     queryClient
   )
 
   useEffect(() => {
-    if (awards) {
-      console.log(awards)
+    if (data) {
+      // setAwardsArray(Array.from(Object.entries(awards)))
+      console.log(data.daily_bonuses)
     }
-  }, [awards])
+  }, [data])
 
   return (
     <Modal lazy hiddenClose onClose={handleStartClick} isOpen={openModal}>
@@ -110,10 +65,10 @@ const Awards = () => {
         />
         <ProgressBarAwards value={0} max={100} />
         <ul className={style.awardsGrid}>
-          {awardsArr.map((item) => (
-            <li className={style.awardsElement} key={item.id}>
+          {data.daily_bonuses.map((item: any) => (
+            <li key={item.id} className={style.awardsElement}>
               <Button className={`${style.awardsButton} ${style.checked}`}>
-                <h3 className={style.awardsTitle}>{item.title}</h3>
+                <h3 className={style.awardsTitle}></h3>
                 <div className={style.awardsDown}>
                   <p>
                     <img src={coinMoney} alt="" />
@@ -121,7 +76,7 @@ const Awards = () => {
                   </p>
                   <p>
                     <img src={diamondMoney} alt="" />
-                    <span>{item.diamonds}</span>
+                    <span></span>
                   </p>
                 </div>
               </Button>
