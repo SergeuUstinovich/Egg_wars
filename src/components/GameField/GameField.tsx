@@ -20,8 +20,6 @@ import { coinUp } from "../../utils/drawImages";
 import { v4 } from "uuid";
 import useImage from "../../utils/useImage";
 import useImgUnit from "../../utils/useImgUnit";
-import ProgressBar from "../../ui/ProgressBar/ProgressBar";
-import { openBox } from "../../api/awardsApi";
 import ProgressBox from "../ProgressBox/ProgressBox";
 
 export interface circlePositionProps {
@@ -303,7 +301,7 @@ function GameField() {
         <ProgressBox
           currentCoins={scoreHp}
           max_coins={hpMax}
-          lvl={infoUser.lvl}
+          dataUser={infoUser}
         />
       )}
 

@@ -17,9 +17,12 @@ export const awardsChests = (tg_id: string) => {
   // });
 };
 
-export function openBox(tg_id: string) {
+export function openBox(tg_id: string, box_id: number) {
   return axios
-    .post(`${api_url}/box/open/${tg_id}/`)
+    .post(`${api_url}/box/open/`, {
+      tg_id,
+      box_id,
+    })
     .then((response) => {
       const data = response.data;
       return data;
@@ -28,8 +31,14 @@ export function openBox(tg_id: string) {
 }
 
 export const getBoxes = () => {
-  return axios.get(`${api_url}/box/open/`).then((response) => {
-    const data = response.data;
-    return data;
-  });
+  return axios
+    .get(`${api_url}/box/open/`, {
+      headers: {
+        "Cache-Control": "no-cache",
+      },
+    })
+    .then((response) => {
+      const data = response.data;
+      return data;
+    });
 };
