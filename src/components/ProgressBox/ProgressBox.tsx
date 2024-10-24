@@ -57,6 +57,7 @@ export default function ProgressBox({
       onSuccess: (data: BoxPrizeType) => {
         setIsModal(true);
         setPrize(data);
+        queryClient.invalidateQueries({ queryKey: ["army", tg_id] });
       },
     },
     queryClient

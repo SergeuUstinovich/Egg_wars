@@ -63,7 +63,7 @@ function Layout() {
           right={"3"}
         />
         <Outlet />
-        <Awards />
+        {/* <Awards /> */}
       </main>
       <footer className={style.footers}>
         <NavBar />
