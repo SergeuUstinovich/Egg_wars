@@ -4,13 +4,13 @@ import iconBoxSilver from "../../assets/img/ironChest.png";
 import iconBoxGold from "../../assets/img/goldChest.png";
 import style from "./ProgressBox.module.scss";
 import { useEffect, useState } from "react";
-import { AwardsItem } from "../../pages/Awards/AwardsItem";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getBoxes, openBox } from "../../api/awardsApi";
 import { queryClient } from "../../api/queryClient";
 import { useTelegram } from "../../provider/telegram/telegram";
-import { BoxType } from "../../types/BoxesType";
+import { BoxPrizeType, BoxType } from "../../types/BoxesType";
 import { CoinType } from "../../types/CoinType";
+import { ModalBoxes } from "../../ui/ModalBoxes/ModalBoxes";
 
 interface ProgressBoxProps {
   currentCoins: number;
@@ -26,8 +26,9 @@ export default function ProgressBox({
   const { tg_id } = useTelegram();
   const [s30, setS30] = useState<boolean>(false);
   const [s60, setS60] = useState<boolean>(false);
-  const [g100, setG100] = useState<boolean>(false);
+  // const [g100, setG100] = useState<boolean>(false);
   const [isModal, setIsModal] = useState<boolean>(false);
+  const [prize, setPrize] = useState<BoxPrizeType>();
 
   const onClose = () => {
     setIsModal(false);
@@ -53,7 +54,10 @@ export default function ProgressBox({
     {
       mutationFn: (data: { tg_id: string; tg_box: number }) =>
         openBox(data.tg_id, data.tg_box),
-      onSuccess: (data) => {},
+      onSuccess: (data: BoxPrizeType) => {
+        setIsModal(true);
+        setPrize(data);
+      },
     },
     queryClient
   );
@@ -62,24 +66,21 @@ export default function ProgressBox({
 
   useEffect(() => {
     if (boxesList) {
-      if (percentageBox >= 100 && !g100 && !dataUser.box_gold) {
-        setG100(true);
+      if (percentageBox >= 100) {
+        // setG100(true);
         openBoxLvl.mutate({ tg_id: tg_id, tg_box: boxesList[2].id });
-        setIsModal(true);
       } else if (percentageBox >= 60 && !s60 && !dataUser.box_silver) {
         setS60(true);
         openBoxLvl.mutate({ tg_id: tg_id, tg_box: boxesList[1].id });
-        setIsModal(true);
       } else if (percentageBox >= 30 && !s30 && !dataUser.box_bronze) {
         setS30(true);
-        openBoxLvl.mutate({ tg_id: tg_id, tg_box: boxesList[0].id });
-        setIsModal(true);
+        openBoxLvl.mutate({ tg_id: tg_id, tg_box: boxesList[1].id });
       }
     }
   }, [percentageBox, boxesList]);
 
   useEffect(() => {
-    setG100(false);
+    // setG100(false);
     setS60(false);
     setS30(false);
   }, [dataUser.lvl]);
@@ -96,7 +97,9 @@ export default function ProgressBox({
       <img className={style.progress_box_silver1} src={iconBoxSilver} />
       <img className={style.progress_box_silver2} src={iconBoxSilver} />
       <img className={style.progress_box_gold} src={iconBoxGold} />
-      <AwardsItem isOpen={isModal} onClose={onClose} />
+      {prize && (
+        <ModalBoxes box_prize={prize} isOpen={isModal} onClose={onClose} />
+      )}
     </ProgressBar>
   );
 }

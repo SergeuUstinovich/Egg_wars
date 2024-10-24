@@ -1,0 +1,103 @@
+.awardsItemBlock {
+  padding: 87px 32px 26px;
+  border: 2px solid #ffcc47;
+  border-radius: 12px;
+  background: linear-gradient(0deg, #74b1f9, #74b1f9),
+    linear-gradient(0deg, rgba(82, 83, 145, 0.5) 0%, rgba(82, 83, 145, 0) 100%);
+}
+
+.yourRewardBlock {
+  margin-bottom: 17px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.chestAwards {
+  width: 65px;
+  height: 59px;
+  position: absolute;
+  top: -55px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.rotateBlock {
+  max-width: 246px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.rotate {
+  width: 100%;
+  animation: rotation 5s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.awardsItems {
+  margin-bottom: 22px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  z-index: 5;
+}
+
+.awardsGridItem {
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff2c3;
+  border: 1px solid #511401;
+  border-radius: 12px;
+  box-shadow: 0 3px 20px white;
+
+  img {
+    max-width: 40px;
+    max-height: 40px;
+    background-image: url("../../assets/img/awardsItem.png");
+    background-repeat: no-repeat;
+    background-size: 90px;
+    background-position: center;
+  }
+
+  p {
+    font-size: 24px;
+    font-weight: 400;
+    color: #550000;
+  }
+}
+
+.awardsItemButton {
+  width: 100%;
+  height: 63px;
+  font-size: 26px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--white);
+  border: 1px solid #003202 !important;
+  border-radius: 14px;
+  background: var(--primay-bg-button);
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+  -webkit-text-stroke: 1.59px #003202;
+}

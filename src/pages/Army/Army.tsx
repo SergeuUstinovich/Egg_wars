@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import ArmyList from "../../components/ArmyList/ArmyList";
 import { useSelector } from "react-redux";
 import { ArmyType } from "../../types/ArmyType";
-import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
+import { getArmyAllList } from "../../provider/StoreProvider/selectors/getArmy";
 
 const Army = () => {
-  const armyUser = useSelector(getArmy);
+  const armyUser = useSelector(getArmyAllList);
   const [army, setArmy] = useState<ArmyType[]>();
 
   useEffect(() => {

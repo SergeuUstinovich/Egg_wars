@@ -14,7 +14,11 @@ export interface ArmyType {
   cp: number;
   max_cp: number;
 }
+export interface ArmyKey {
+  all_army: ArmyType[];
+  my_army: ArmyType[];
+}
 
 export interface ArmyScheme {
-  armyUser?: ArmyType[];
+  armyUser?: ArmyKey;
 }

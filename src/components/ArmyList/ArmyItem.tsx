@@ -3,10 +3,10 @@ import style from "./ArmyList.module.scss";
 import { getCoin } from "../../provider/StoreProvider/selectors/getCoin";
 import { useTelegram } from "../../provider/telegram/telegram";
 import { useMutation } from "@tanstack/react-query";
-import { upDamage, upSpeed } from "../../api/userInfo";
+import { evolveUnitCard, upDamage, upSpeed } from "../../api/userInfo";
 import { coinActions } from "../../provider/StoreProvider";
 import { queryClient } from "../../api/queryClient";
-import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
+import { getArmyAllList } from "../../provider/StoreProvider/selectors/getArmy";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "../../ui/Button";
 import ModalRoute from "../../ui/ModalRoute/ModalRoute";
@@ -26,7 +26,7 @@ export const ArmyItem = () => {
   const infoUser = useSelector(getCoin);
   const { tg_id } = useTelegram();
   const dispatch = useDispatch();
-  const armyUser = useSelector(getArmy);
+  const armyUser = useSelector(getArmyAllList);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -87,6 +87,17 @@ export const ArmyItem = () => {
     queryClient
   );
 
+  // const evolveMutate = useMutation(
+  //   {
+  //     mutationFn: (data: { tg_id: string; id_warrior: number }) =>
+  //       evolveUnitCard(data.tg_id, data.id_warrior),
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries({ queryKey: ["army", tg_id] });
+  //     },
+  //   },
+  //   queryClient
+  // );
+
   const handleUpDamage = (id_warrior: number) => {
     upDamageMutate.mutate({ tg_id, id_warrior });
   };
@@ -94,6 +105,10 @@ export const ArmyItem = () => {
   const handleUpSpeed = (id_warrior: number) => {
     upSpeedMutate.mutate({ tg_id, id_warrior });
   };
+
+  // const handleEvolveUnitCard = (id_warrior: number) => {
+  //   evolveMutate.mutate({ tg_id, id_warrior });
+  // };
 
   // const lvlInBar = () => {
   //   if (unit?.cards && unit.max_cards) {
@@ -118,10 +133,10 @@ export const ArmyItem = () => {
               flexDirection: "column",
             }}
           >
-            <p className={style.upgradeCP}>CP 253</p>
+            <p className={style.upgradeCP}>CP {unit.cp}</p>
             <CurvedProgressBar
-              value={20}
-              max={100}
+              value={unit.cp}
+              max={unit.max_cp}
               className={style.progressUnit}
             />
             <div className={style.upgradeDown}>
@@ -146,6 +161,7 @@ export const ArmyItem = () => {
               <Button
                 isDisabled={unit.cards < unit.max_cards}
                 className={style.upgradeEvolve}
+                // onClick={() => handleEvolveUnitCard(unit.id_warrior)}
               >
                 Evolve
               </Button>

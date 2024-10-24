@@ -5,14 +5,17 @@ import imgCards from "../../assets/img/card icon.png";
 import style from "./CardArmy.module.scss";
 import ProgressBar from "../../ui/ProgressBar/ProgressBar";
 import { useSelector } from "react-redux";
-import { getArmy } from "../../provider/StoreProvider/selectors/getArmy";
+import {
+  getArmy,
+  getArmyAllList,
+} from "../../provider/StoreProvider/selectors/getArmy";
 
 interface ArmyCardProps {
   army: ArmyType;
 }
 
 export default function CardArmy({ army }: ArmyCardProps) {
-  const armyUser = useSelector(getArmy);
+  const armyUser = useSelector(getArmyAllList);
   const { id } = useParams();
   if (armyUser === undefined) {
     return null;
