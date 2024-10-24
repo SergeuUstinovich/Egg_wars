@@ -87,16 +87,16 @@ export const ArmyItem = () => {
     queryClient
   );
 
-  // const evolveMutate = useMutation(
-  //   {
-  //     mutationFn: (data: { tg_id: string; id_warrior: number }) =>
-  //       evolveUnitCard(data.tg_id, data.id_warrior),
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries({ queryKey: ["army", tg_id] });
-  //     },
-  //   },
-  //   queryClient
-  // );
+  const evolveMutate = useMutation(
+    {
+      mutationFn: (data: { tg_id: string; id_warrior: number }) =>
+        evolveUnitCard(data.tg_id, data.id_warrior),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["army", tg_id] });
+      },
+    },
+    queryClient
+  );
 
   const handleUpDamage = (id_warrior: number) => {
     upDamageMutate.mutate({ tg_id, id_warrior });
@@ -106,9 +106,9 @@ export const ArmyItem = () => {
     upSpeedMutate.mutate({ tg_id, id_warrior });
   };
 
-  // const handleEvolveUnitCard = (id_warrior: number) => {
-  //   evolveMutate.mutate({ tg_id, id_warrior });
-  // };
+  const handleEvolveUnitCard = (id_warrior: number) => {
+    evolveMutate.mutate({ tg_id, id_warrior });
+  };
 
   // const lvlInBar = () => {
   //   if (unit?.cards && unit.max_cards) {
@@ -161,7 +161,7 @@ export const ArmyItem = () => {
               <Button
                 isDisabled={unit.cards < unit.max_cards}
                 className={style.upgradeEvolve}
-                // onClick={() => handleEvolveUnitCard(unit.id_warrior)}
+                onClick={() => handleEvolveUnitCard(unit.id_warrior)}
               >
                 Evolve
               </Button>

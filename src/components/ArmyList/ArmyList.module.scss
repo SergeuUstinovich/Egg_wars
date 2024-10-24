@@ -59,7 +59,7 @@
   z-index: 2;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: -3px;
     left: -2px;
@@ -141,7 +141,7 @@
   position: absolute;
   right: -2px;
   top: -7px;
-  background-image: url('../../assets/img/level.png');
+  background-image: url("../../assets/img/level.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -180,6 +180,7 @@
   background: var(--primay-bg-button);
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
   -webkit-text-stroke: 1px #003202;
+  z-index: 3;
 
   &:disabled {
     background: var(--bg-btn-disabled);

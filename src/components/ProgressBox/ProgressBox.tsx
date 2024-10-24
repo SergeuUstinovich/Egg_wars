@@ -74,7 +74,7 @@ export default function ProgressBox({
         openBoxLvl.mutate({ tg_id: tg_id, tg_box: boxesList[1].id });
       } else if (percentageBox >= 30 && !s30 && !dataUser.box_bronze) {
         setS30(true);
-        openBoxLvl.mutate({ tg_id: tg_id, tg_box: boxesList[1].id });
+        openBoxLvl.mutate({ tg_id: tg_id, tg_box: boxesList[0].id });
       }
     }
   }, [percentageBox, boxesList]);
