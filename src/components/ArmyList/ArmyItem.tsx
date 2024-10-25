@@ -133,12 +133,17 @@ export const ArmyItem = () => {
               flexDirection: "column",
             }}
           >
-            <p className={style.upgradeCP}>CP {unit.cp}</p>
-            <CurvedProgressBar
-              value={unit.cp}
-              max={unit.max_cp}
-              className={style.progressUnit}
-            />
+            {unit.lvl ? (
+              <>
+                {" "}
+                <p className={style.upgradeCP}>CP {unit.cp}</p>
+                <CurvedProgressBar
+                  value={unit.cp}
+                  max={unit.max_cp}
+                  className={style.progressUnit}
+                />
+              </>
+            ) : null}
             <div className={style.upgradeDown}>
               <img className={style.unitPerson} src={unit.image} alt="unit" />
 
@@ -163,7 +168,7 @@ export const ArmyItem = () => {
                 className={style.upgradeEvolve}
                 onClick={() => handleEvolveUnitCard(unit.id_warrior)}
               >
-                Evolve
+                {unit.lvl ? "Evolve" : "Summon"}
               </Button>
               <div className={style.upgradeListBox}>
                 <ul className={style.upgradeListEvolve}>

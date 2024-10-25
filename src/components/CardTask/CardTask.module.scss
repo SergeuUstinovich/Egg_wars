@@ -35,6 +35,11 @@
   font-size: 13px;
   line-height: 100%;
   color: #151527;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .box_prize {
   // position: absolute;
@@ -55,6 +60,11 @@
   line-height: 67%;
   color: #fff;
   -webkit-text-stroke: 1.2px #151527;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .iconArrow {
   position: absolute;
@@ -97,6 +107,11 @@
   line-height: 92%;
   text-align: center;
   color: #151527;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .btn_join {
@@ -112,6 +127,11 @@
   text-align: center;
   color: #fff;
   -webkit-text-stroke: 1px #003202;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .text_prize_modal {
@@ -120,6 +140,11 @@
   line-height: 70%;
   color: #fff;
   -webkit-text-stroke: 1.3px #151527;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .btn_check {
@@ -135,4 +160,9 @@
   text-align: center;
   color: #fff;
   -webkit-text-stroke: 1.3px #003202;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

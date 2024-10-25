@@ -85,6 +85,11 @@
     font-size: 24px;
     font-weight: 400;
     color: #550000;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
 
@@ -100,4 +105,9 @@
   background: var(--primay-bg-button);
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
   -webkit-text-stroke: 1.59px #003202;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

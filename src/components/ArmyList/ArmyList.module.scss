@@ -42,6 +42,11 @@
   font-weight: 400;
   text-align: center;
   -webkit-text-stroke: 1px #151527;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .upgradeDown {
@@ -104,6 +109,11 @@
   line-height: 39%;
   color: #151527;
   margin-bottom: 13px;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .progressUnit {
@@ -119,6 +129,11 @@
   height: 16px !important;
   position: relative;
   align-self: center;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .upgradeProgressCardsBar {
@@ -132,6 +147,11 @@
   font-weight: 400;
   line-height: 9.42px;
   -webkit-text-stroke: 1.2px #151527;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .level {
@@ -151,6 +171,11 @@
   text-align: center;
   color: #fff;
   -webkit-text-stroke: 1.2px #151527;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .icon_arrow {
@@ -181,6 +206,11 @@
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
   -webkit-text-stroke: 1px #003202;
   z-index: 3;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   &:disabled {
     background: var(--bg-btn-disabled);
@@ -215,11 +245,21 @@
     flex-direction: column;
     align-items: center;
     color: var(--primary-awards-title);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
 
 .upgradeListItem_title_up {
   color: #500;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .closeItem {
@@ -232,6 +272,11 @@
   bottom: 0;
   transform: translateX(-50%);
   z-index: 2;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .upgradePrice {
@@ -250,6 +295,11 @@
   border-radius: 8px;
   background: var(--primay-bg-button);
   -webkit-text-stroke: 1px #003202;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   &:disabled {
     background: var(--bg-btn-disabled);
