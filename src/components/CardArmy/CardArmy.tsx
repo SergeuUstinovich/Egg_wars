@@ -23,7 +23,10 @@ export default function CardArmy({ army }: ArmyCardProps) {
   const unit = armyUser.find((item) => item.id_warrior === Number(id));
 
   return (
-    <li className={style.upgradeListItem}>
+    <li
+      className={style.upgradeListItem}
+      style={army.lvl === 0 ? { opacity: "50%" } : {}}
+    >
       <Link
         to={`unit/${army.id_warrior}`}
         className={unit?.lvl === 0 ? style.disable : style.upgradeLink}
