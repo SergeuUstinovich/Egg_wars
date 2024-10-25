@@ -26,6 +26,7 @@
   width: 100%;
   height: 100%;
   border-radius: 12px;
+  position: relative;
 
   &:disabled {
     .awardsDown {
@@ -33,6 +34,19 @@
       opacity: 0.6 !important;
       border-bottom-left-radius: 12px;
       border-bottom-right-radius: 12px;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: -5px;
+      background-image: url('../../assets/img/awardsDone.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 25px;
+      height: 25px;
+      opacity: 1;
     }
   }
 
