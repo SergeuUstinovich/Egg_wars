@@ -1,14 +1,14 @@
-import style from "./ProgressBarAwards.module.scss";
-import { AwardsCheckbox } from "../../assets/svg/AwardsCheckbox";
-import { Button } from "../../ui/Button";
-import ProgressBar from "../../ui/ProgressBar/ProgressBar";
-import treeChest from "../../assets/img/treeChest.png";
-import ironChest from "../../assets/img/ironChest.png";
-import goldChest from "../../assets/img/goldChest.png";
+import style from './ProgressBarAwards.module.scss'
+import { AwardsCheckbox } from '../../assets/svg/AwardsCheckbox'
+import { Button } from '../../ui/Button'
+import ProgressBar from '../../ui/ProgressBar/ProgressBar'
+import treeChest from '../../assets/img/treeChest.png'
+import ironChest from '../../assets/img/ironChest.png'
+import goldChest from '../../assets/img/goldChest.png'
 
 interface ProgressBarProps {
-  value: number;
-  max: number;
+  value: number
+  max: number
 }
 
 export const ProgressBarAwards = ({ value, max }: ProgressBarProps) => {
@@ -42,5 +42,5 @@ export const ProgressBarAwards = ({ value, max }: ProgressBarProps) => {
         </div>
       </ProgressBar>
     </div>
-  );
-};
+  )
+}
