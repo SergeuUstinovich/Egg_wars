@@ -135,8 +135,8 @@ export const ArmyItem = () => {
           >
             <p className={style.upgradeCP}>CP {unit.cp}</p>
             <CurvedProgressBar
-              value={unit.cp}
-              max={unit.max_cp}
+              value={90}
+              max={100}
               className={style.progressUnit}
             />
             <div className={style.upgradeDown}>

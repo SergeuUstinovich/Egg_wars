@@ -16,6 +16,7 @@ import { coinActions } from '../../provider/StoreProvider/index.ts'
 import toast, { Toaster } from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import { classNames } from '../../utils/classNames.ts'
+import { formatNumberString } from '../../components/CardTask/CardTask.tsx'
 
 const Awards = () => {
   const [openModal, setOpenModal] = useState(false)
@@ -23,7 +24,7 @@ const Awards = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if(isOpen === true){
+    if(isOpen === false){
       setOpenModal(true)
     }
   }, [])
@@ -92,7 +93,7 @@ const Awards = () => {
                 <div className={style.awardsDown}>
                   <p>
                     <img src={coinMoney} alt="" />
-                    <span>{item.money}</span>
+                    <span>{formatNumberString(item.money)}</span>
                   </p>
                   {
                     item.crystal && <p>
