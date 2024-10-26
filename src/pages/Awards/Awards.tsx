@@ -92,7 +92,7 @@ const Awards = () => {
                 <div className={style.awardsDown}>
                   <p>
                     <img src={coinMoney} alt="" />
-                    <span>{item.money}</span>
+                    <span>{formatNumberString(item.money)}</span>
                   </p>
                   {item.crystal && (
                     <p>
