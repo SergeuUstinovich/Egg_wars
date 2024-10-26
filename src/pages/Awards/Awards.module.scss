@@ -16,9 +16,27 @@
 .awardsElement {
   border-radius: 12px;
   background-color: var(--primary-awards-bg);
+  min-height: 90px;
 
   &:last-child {
     grid-column: 1 / span 3;
+    
+    .awardsDown {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      p {
+        display: flex;
+        flex-direction: column;
+
+        img {
+          width: 43px;
+          height: 43px;
+        }
+      }
+    }
   }
 }
 
@@ -27,6 +45,8 @@
   height: 100%;
   border-radius: 12px;
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   &:disabled {
     .awardsDown {
@@ -76,10 +96,13 @@
   border-bottom: 1px solid #511401;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+  width: 100%;
 }
 
 .awardsDown {
   padding: 4px;
+  width: 100%;
+  flex: 1;
 
   p {
     display: flex;
