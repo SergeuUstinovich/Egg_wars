@@ -19,7 +19,7 @@ export const ProgressBarAwards = ({ value, max, boxBonuses }: ProgressBarProps) 
         <div className={classNames(style.progressChest, {}, [style.one])}>
           {
             boxBonuses.map((item: any) => (
-              <Button>
+              <Button key={item.day}>
                 <img src={treeChest} alt="" />
                 <span>{item.day}</span>
               </Button>

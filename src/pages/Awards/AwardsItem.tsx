@@ -17,7 +17,7 @@ export const AwardsItem = ({ boxBonus, isOpen, onClose }: AwardsProps) => {
   return (
     <Modal hiddenClose lazy isOpen={isOpen} onClose={onClose}>
       {boxBonus.map((item: any) => (
-        <div className={style.awardsItemBlock}>
+        <div key={item.day} className={style.awardsItemBlock}>
           <div className={style.yourRewardBlock}>
             <img className={style.chestAwards} src={treeChest} alt="" />
             <div className={style.rotateBlock}>
