@@ -16,6 +16,7 @@ import { coinActions } from "../../provider/StoreProvider/index.ts";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { classNames } from "../../utils/classNames.ts";
+import { formatNumberString } from "../../components/CardTask/CardTask.tsx";
 
 const Awards = () => {
   const [openModal, setOpenModal] = useState(false);
