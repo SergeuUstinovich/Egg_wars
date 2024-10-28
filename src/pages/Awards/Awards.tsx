@@ -19,7 +19,7 @@ import { classNames } from "../../utils/classNames.ts";
 import { formatNumberString } from "../../components/CardTask/CardTask.tsx";
 
 const Awards = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(true);
   const [openItemModal, setOpenItemModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -86,7 +86,7 @@ const Awards = () => {
                 isDisabled={lastDay > item.day}
                 onClick={() => handleOpenDay()}
                 className={classNames(style.awardsButton, {}, [
-                  isOpen === false && lastDay >= item.day ? style.active : "",
+                  isOpen === false && lastDay === item.day ? style.active : "",
                 ])}
               >
                 <h3 className={style.awardsTitle}>day {item.day}</h3>
