@@ -4,7 +4,7 @@ import Modal from "../Modal/Modal";
 import coinMoney from "../../assets/img/coinMoney.png";
 import iconCard from "../../assets/img/card icon.png";
 import yourReward from "../../assets/img/yourReward.png";
-import treeChest from "../../assets/img/bigChest.png";
+import silverChest from "../../assets/img/ironChest.png";
 import rotateLuis from "../../assets/img/rotateLuis.png";
 import { Button } from "../Button";
 import { BoxPrizeType } from "../../types/BoxesType";
@@ -20,7 +20,7 @@ export const ModalBoxes = ({ isOpen, onClose, box_prize }: ModalBoxesProps) => {
     <Modal lazy isOpen={isOpen} onClose={onClose}>
       <div className={style.awardsItemBlock}>
         <div className={style.yourRewardBlock}>
-          <img className={style.chestAwards} src={treeChest} alt="" />
+          <img className={style.chestAwards} src={silverChest} alt="" />
           <div className={style.rotateBlock}>
             <img className={style.rotate} src={rotateLuis} alt="" />
           </div>

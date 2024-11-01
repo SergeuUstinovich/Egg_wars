@@ -94,6 +94,9 @@ export const ArmyItem = () => {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["army", tg_id] });
       },
+      onError: (error) => {
+        toast.error(error.message);
+      },
     },
     queryClient
   );
