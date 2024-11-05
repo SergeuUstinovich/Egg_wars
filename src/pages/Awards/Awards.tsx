@@ -47,11 +47,10 @@ const Awards = () => {
     {
       mutationFn: (data: { tg_id: string }) => awardsDay(data.tg_id),
       onSuccess: (data) => {
-        const moneyCoin: number = data.money;
+        const moneyCoin: number = data.daily_bonuses.find(
+          (element: any) => element.money && element?.crystal
+        );
         dispatch(coinActions.updateCoinMinus(moneyCoin));
-      },
-      onError: (error) => {
-        toast.error(error.message);
       },
     },
     queryClient
@@ -84,7 +83,7 @@ const Awards = () => {
             <li key={item.day} className={style.awardsElement}>
               <Button
                 isDisabled={lastDay > item.day}
-                onClick={() => handleOpenDay()}
+                onClick={handleOpenDay}
                 className={classNames(style.awardsButton, {}, [
                   isOpen === false && lastDay === item.day ? style.active : "",
                 ])}
