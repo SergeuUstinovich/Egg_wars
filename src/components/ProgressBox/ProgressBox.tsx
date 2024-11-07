@@ -29,7 +29,7 @@ export default function ProgressBox({
   // const [g100, setG100] = useState<boolean>(false);
   const [isModal, setIsModal] = useState<boolean>(false);
   const [prize, setPrize] = useState<BoxPrizeType>();
-
+  const [imgChest, setImgChest] = useState<string>(iconBoxSilver);
   const onClose = () => {
     setIsModal(false);
   };
@@ -70,11 +70,14 @@ export default function ProgressBox({
       if (percentageBox >= 100) {
         // setG100(true);
         openBoxLvl.mutate({ tg_id: tg_id, tg_box: boxesList[2].id });
+        setImgChest(iconBoxGold);
       } else if (percentageBox >= 60 && !s60 && !dataUser.box_silver) {
         setS60(true);
+        setImgChest(iconBoxSilver);
         openBoxLvl.mutate({ tg_id: tg_id, tg_box: boxesList[1].id });
       } else if (percentageBox >= 30 && !s30 && !dataUser.box_bronze) {
         setS30(true);
+        setImgChest(iconBoxSilver);
         openBoxLvl.mutate({ tg_id: tg_id, tg_box: boxesList[0].id });
       }
     }
@@ -99,7 +102,12 @@ export default function ProgressBox({
       <img className={style.progress_box_silver2} src={iconBoxSilver} />
       <img className={style.progress_box_gold} src={iconBoxGold} />
       {prize && (
-        <ModalBoxes box_prize={prize} isOpen={isModal} onClose={onClose} />
+        <ModalBoxes
+          imgChest={imgChest}
+          box_prize={prize}
+          isOpen={isModal}
+          onClose={onClose}
+        />
       )}
     </ProgressBar>
   );
