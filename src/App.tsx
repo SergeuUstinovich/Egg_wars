@@ -8,10 +8,8 @@ import GameField from "./components/GameField/GameField";
 function App() {
   const {tg} = useTelegram()
   useTelegram().tg.disableVerticalSwipes()
-  // useTelegram().tg.setHeaderColor("#330C89", "#ACFF00");
+  useTelegram().tg.setHeaderColor("#fff", "#000");
   // useTelegram().tg.requestFullscreen();
-  useTelegram().tg.headerColor("#ACFF00"); // цвет заголовка в хедере
-  useTelegram().tg.backgroundColor("#330C89");
   useEffect(() => {
     tg.ready();
     tg.expand();
