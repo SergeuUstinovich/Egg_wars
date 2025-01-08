@@ -2,7 +2,7 @@ import { Suspense, useEffect } from "react";
 import Layout from "./components/Layout/Layout";
 import { useTelegram } from "./provider/telegram/telegram";
 import "./styles/global/App.scss";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import GameField from "./components/GameField/GameField";
 
 function App() {
@@ -12,6 +12,18 @@ function App() {
     tg.ready();
     tg.expand();
   }, [])
+  const location = useLocation()
+  const navigate = useNavigate()
+  useEffect(() => {
+    if(location.pathname === '/') {
+      tg.BackButton.hide()
+    } else {
+      tg.BackButton.show()
+      tg.BackButton.onClick(() => {
+        navigate(-1)
+      })
+    }
+  }, [location.pathname])
 
   return (
     <>
