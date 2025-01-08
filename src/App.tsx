@@ -8,6 +8,7 @@ import GameField from "./components/GameField/GameField";
 function App() {
   const {tg} = useTelegram()
   useTelegram().tg.disableVerticalSwipes()
+  useTelegram().tg.requestFullscreen();
   useEffect(() => {
     tg.ready();
     tg.expand();
